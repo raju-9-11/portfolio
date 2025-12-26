@@ -33,6 +33,40 @@ A modern, responsive portfolio website built with React and Vite, featuring a "C
     npm run build
     ```
 
+## Deployment (Firebase Hosting)
+
+This project is configured for Firebase Hosting.
+
+### 1. Prerequisite
+Install the Firebase CLI globally:
+```bash
+npm install -g firebase-tools
+```
+
+### 2. Login & Connect
+Login to your Google account and connect the project:
+```bash
+firebase login
+```
+
+Update the `.firebaserc` file with your actual Firebase Project ID, or run:
+```bash
+firebase use --add
+```
+
+### 3. Deploy Manually
+Build and deploy in one step:
+```bash
+npm run build && firebase deploy
+```
+
+### 4. Automated Deployment (Optional)
+This repository includes a GitHub Action (`.github/workflows/firebase-hosting-merge.yml`) for continuous deployment.
+To enable it:
+1.  Go to your Firebase Project settings and generate a Service Account JSON.
+2.  Add it as a secret named `FIREBASE_SERVICE_ACCOUNT` in your GitHub Repository settings.
+3.  Update the `projectId` in the workflow file.
+
 ## Customization
 
 -   **Data**: Edit `src/data/portfolio.js` to update your bio, skills, experience, and projects.

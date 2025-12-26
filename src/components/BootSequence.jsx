@@ -118,7 +118,7 @@ const BootSequence = ({ onComplete }) => {
       {!complete ? (
         <LogContainer>
           {logs.map((log, i) => (
-            <LogLine key={i}>> {log}</LogLine>
+            <LogLine key={i}>{'>'} {log}</LogLine>
           ))}
           <ProgressBar progress={progress} />
         </LogContainer>
