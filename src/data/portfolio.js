@@ -4,10 +4,10 @@ export const profileData = {
   name: "Raj Kumar S",
   headline: "iOS Developer | Full-Cycle Development",
   location: "Chennai, India",
+  profileImage: "/profile.jpg",
   summary: `Passionate iOS Developer with 2+ years of experience building sleek, scalable mobile applications. My expertise lies in full-cycle development, bridging the gap between complex logic and user-centric design. I thrive on solving architectural challenges and am constantly expanding my toolkit.`,
   socialLinks: {
     linkedin: "https://www.linkedin.com/in/raj-kumar-s",
-    github: "https://github.com/rajkumars", // Placeholder
     email: "raju9112000@gmail.com"
   }
 };

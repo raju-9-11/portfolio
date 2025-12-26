@@ -36,6 +36,7 @@ const Avatar = styled.img`
   border: 4px solid var(--neon-cyan);
   margin-bottom: 20px;
   filter: grayscale(100%) contrast(1.2);
+  object-fit: cover;
 
   &:hover {
     filter: grayscale(0%) contrast(1);
@@ -65,14 +66,13 @@ const Profile = () => {
   return (
     <PixelCard>
       <ProfileWrapper>
-        <Avatar src="https://ui-avatars.com/api/?name=Raj+Kumar+S&background=0a0a1a&color=00f3ff&size=150" alt="Profile" />
+        <Avatar src={profileData.profileImage || "https://ui-avatars.com/api/?name=Raj+Kumar+S&background=0a0a1a&color=00f3ff&size=150"} alt="Profile" />
         <GlitchText>{profileData.name}</GlitchText>
         <Role>{profileData.headline}</Role>
         <p style={{color: 'var(--text-dim)'}}>{profileData.location}</p>
 
         <Socials>
           <SocialIcon href={profileData.socialLinks.linkedin} target="_blank">LI</SocialIcon>
-          <SocialIcon href={profileData.socialLinks.github} target="_blank">GH</SocialIcon>
           <SocialIcon href={`mailto:${profileData.socialLinks.email}`}>@</SocialIcon>
         </Socials>
       </ProfileWrapper>
