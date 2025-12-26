@@ -18,6 +18,17 @@ const BentoGrid = styled.div`
   margin: 0 auto;
   min-height: 100vh;
 
+  /* Mobile Layout - Explicitly define order */
+  grid-template-areas:
+    "P"
+    "B"
+    "S"
+    "A"
+    "E"
+    "J"
+    "I"
+    "C";
+
   /* Desktop Layout */
   @media (min-width: 900px) {
     grid-template-columns: repeat(4, 1fr);
