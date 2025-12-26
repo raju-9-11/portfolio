@@ -1,64 +1,71 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import WindowFrame from './common/WindowFrame';
+import PixelCard from './common/PixelCard';
 import { sendEmail } from '../services/emailService';
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  font-size: 0.9rem;
-  margin-bottom: 2px;
+  gap: 15px;
+  height: 100%;
 `;
 
 const Input = styled.input`
-  border: 2px inset var(--win-white);
-  padding: 5px;
-  background: var(--win-white);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--text-dim);
+  color: var(--text-main);
+  padding: 10px;
   font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 5px var(--neon-cyan);
+  }
 `;
 
 const TextArea = styled.textarea`
-  border: 2px inset var(--win-white);
-  padding: 5px;
-  background: var(--win-white);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--text-dim);
+  color: var(--text-main);
+  padding: 10px;
   font-family: inherit;
-  min-height: 100px;
-  resize: vertical;
+  flex: 1;
+  resize: none;
+
+  &:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 5px var(--neon-cyan);
+  }
 `;
 
 const Button = styled.button`
-  align-self: flex-start;
-  background: var(--win-gray);
-  border: 2px solid;
-  border-color: var(--win-white) var(--win-black) var(--win-black) var(--win-white);
-  padding: 5px 20px;
-  font-weight: bold;
+  background: var(--neon-pink);
+  color: #fff;
+  border: none;
+  padding: 10px;
   cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 
-  &:active {
-    border-color: var(--win-black) var(--win-white) var(--win-white) var(--win-black);
-    transform: translateY(1px);
+  &:hover {
+    background: #d946ef;
+    transform: translateY(-2px);
   }
 
   &:disabled {
-    color: var(--win-gray-dark);
+    background: var(--text-dim);
     cursor: not-allowed;
   }
 `;
 
-const StatusMessage = styled.p`
+const Status = styled.div`
+  color: ${props => props.error ? '#ff5555' : 'var(--neon-green)'};
   font-size: 0.9rem;
-  color: ${props => props.error ? 'red' : 'green'};
-  margin: 5px 0 0;
+  text-align: center;
 `;
 
 const Contact = () => {
@@ -66,68 +73,49 @@ const Contact = () => {
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setStatus(null);
 
     try {
       await sendEmail(formData);
-      setStatus({ type: 'success', text: 'Message sent successfully!' });
+      setStatus({ type: 'success', text: 'TRANSMISSION SENT SUCCESSFULLY' });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) { // eslint-disable-line no-unused-vars
-      setStatus({ type: 'error', text: 'Failed to send message.' });
+      setStatus({ type: 'error', text: 'TRANSMISSION FAILED' });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <WindowFrame title="OUTLOOK_EXPRESS / CONTACT">
+    <PixelCard title="COMMS_UPLINK">
       <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label>Name:</Label>
-          <Input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Email:</Label>
-          <Input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>Message:</Label>
-          <TextArea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          />
-        </FormGroup>
+        <Input
+          placeholder="CODENAME (Name)"
+          value={formData.name}
+          onChange={e => setFormData({...formData, name: e.target.value})}
+          required
+        />
+        <Input
+          type="email"
+          placeholder="FREQUENCY (Email)"
+          value={formData.email}
+          onChange={e => setFormData({...formData, email: e.target.value})}
+          required
+        />
+        <TextArea
+          placeholder="PAYLOAD (Message)"
+          value={formData.message}
+          onChange={e => setFormData({...formData, message: e.target.value})}
+          required
+        />
         <Button type="submit" disabled={loading}>
-          {loading ? 'SENDING...' : 'SEND'}
+          {loading ? 'UPLOADING...' : 'INITIATE UPLOAD'}
         </Button>
-        {status && (
-          <StatusMessage error={status.type === 'error'}>
-            {status.text}
-          </StatusMessage>
-        )}
+        {status && <Status error={status.type === 'error'}>{status.text}</Status>}
       </Form>
-    </WindowFrame>
+    </PixelCard>
   );
 };
 

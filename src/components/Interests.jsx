@@ -1,33 +1,37 @@
 import styled from 'styled-components';
-import WindowFrame from './common/WindowFrame';
+import PixelCard from './common/PixelCard';
 import { interestsData } from '../data/portfolio';
 
-const List = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+const Tags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 `;
 
-const ListItem = styled.li`
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
+const Tag = styled.span`
+  background: transparent;
+  border: 1px solid var(--neon-yellow);
+  color: var(--neon-yellow);
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: default;
 
-  &:before {
-    content: '💿';
-    margin-right: 10px;
+  &:hover {
+    background: var(--neon-yellow);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px var(--neon-yellow);
   }
 `;
 
 const Interests = () => {
   return (
-    <WindowFrame title="MEDIA_PLAYER / INTERESTS">
-      <List>
+    <PixelCard title="SIDE_QUESTS">
+      <Tags>
         {interestsData.map((interest, idx) => (
-          <ListItem key={idx}>{interest}</ListItem>
+          <Tag key={idx}>{interest}</Tag>
         ))}
-      </List>
-    </WindowFrame>
+      </Tags>
+    </PixelCard>
   );
 };
 

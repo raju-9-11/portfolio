@@ -1,38 +1,45 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import WindowFrame from './common/WindowFrame';
-import Terminal from './common/Terminal';
+import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
 
-const CodeText = styled.p`
-  margin: 0 0 10px;
-  line-height: 1.5;
-  white-space: pre-wrap;
+const TerminalText = styled.div`
+  font-family: 'Courier New', monospace;
+  color: var(--neon-green);
+  line-height: 1.6;
+  font-size: 0.9rem;
+
+  &::after {
+    content: '_';
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
 `;
 
 const Bio = () => {
-  const [displayedText, setDisplayedText] = useState('');
+  const [text, setText] = useState('');
   const fullText = profileData.summary;
 
   useEffect(() => {
-    let index = 0;
-    const intervalId = setInterval(() => {
-      setDisplayedText((prev) => prev + fullText.charAt(index));
-      index++;
-      if (index === fullText.length) {
-        clearInterval(intervalId);
-      }
-    }, 15); // Typing speed
-
-    return () => clearInterval(intervalId);
+    let idx = 0;
+    const interval = setInterval(() => {
+      setText((prev) => prev + fullText.charAt(idx));
+      idx++;
+      if (idx === fullText.length) clearInterval(interval);
+    }, 20);
+    return () => clearInterval(interval);
   }, [fullText]);
 
   return (
-    <WindowFrame title="BIO_LOG.TXT" font="'Courier New', monospace">
-      <Terminal>
-        <CodeText>{displayedText}</CodeText>
-      </Terminal>
-    </WindowFrame>
+    <PixelCard title="BIO_DATA">
+      <TerminalText>
+        <span style={{color: 'var(--neon-pink)'}}>guest@portfolio:~$</span> cat bio.txt<br/>
+        {text}
+      </TerminalText>
+    </PixelCard>
   );
 };
 
