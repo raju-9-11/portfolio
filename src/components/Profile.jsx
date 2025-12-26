@@ -1,89 +1,82 @@
 import styled from 'styled-components';
-import WindowFrame from './common/WindowFrame';
+import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
 
 const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  text-align: center;
+  height: 100%;
+  justify-content: center;
+`;
 
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-start;
+const GlitchText = styled.h1`
+  font-size: 2.5rem;
+  color: var(--neon-pink);
+  text-shadow: 2px 2px var(--neon-cyan);
+  position: relative;
+  margin-bottom: 5px;
+
+  /* Simple glitch animation placeholder */
+  &:hover {
+    text-shadow: -2px -2px var(--neon-yellow);
   }
-`;
-
-const ImageContainer = styled.div`
-  width: 150px;
-  height: 150px;
-  border: 2px solid;
-  border-color: var(--win-gray-dark) var(--win-white) var(--win-white) var(--win-gray-dark);
-  background: var(--win-white);
-  padding: 2px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%) contrast(1.2); /* Retro feel */
-  }
-`;
-
-const Info = styled.div`
-  flex: 1;
-`;
-
-const Name = styled.h1`
-  margin: 0;
-  font-size: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
 `;
 
 const Role = styled.h2`
-  margin: 5px 0 15px;
   font-size: 1rem;
-  font-weight: normal;
-  color: var(--win-blue-dark);
+  color: var(--neon-green);
+  margin-bottom: 20px;
 `;
 
-const SocialLink = styled.a`
-  display: inline-block;
-  margin-right: 15px;
-  padding: 5px 10px;
-  background: var(--win-gray);
-  border: 1px solid;
-  border-color: var(--win-white) var(--win-black) var(--win-black) var(--win-white);
-  text-decoration: none;
-  color: var(--win-black);
-  font-size: 0.9rem;
+const Avatar = styled.img`
+  width: 120px;
+  height: 120px;
+  border: 4px solid var(--neon-cyan);
+  margin-bottom: 20px;
+  filter: grayscale(100%) contrast(1.2);
 
-  &:active {
-    border-color: var(--win-black) var(--win-white) var(--win-white) var(--win-black);
-    transform: translateY(1px);
+  &:hover {
+    filter: grayscale(0%) contrast(1);
+    border-color: var(--neon-pink);
+  }
+`;
+
+const Socials = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+`;
+
+const SocialIcon = styled.a`
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border: 1px solid var(--neon-cyan);
+  background: rgba(0, 243, 255, 0.1);
+
+  &:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-color);
   }
 `;
 
 const Profile = () => {
   return (
-    <WindowFrame title="PROFILE.EXE">
+    <PixelCard>
       <ProfileWrapper>
-        <ImageContainer>
-           {/* Placeholder for now since we don't have a real URL yet */}
-           <img src="https://ui-avatars.com/api/?name=Raj+Kumar+S&background=0D8ABC&color=fff&size=150" alt="Profile" />
-        </ImageContainer>
-        <Info>
-          <Name>{profileData.name}</Name>
-          <Role>{profileData.headline}</Role>
+        <Avatar src="https://ui-avatars.com/api/?name=Raj+Kumar+S&background=0a0a1a&color=00f3ff&size=150" alt="Profile" />
+        <GlitchText>{profileData.name}</GlitchText>
+        <Role>{profileData.headline}</Role>
+        <p style={{color: 'var(--text-dim)'}}>{profileData.location}</p>
 
-          <div>
-            <SocialLink href={profileData.socialLinks.linkedin} target="_blank">LinkedIn</SocialLink>
-            <SocialLink href={`mailto:${profileData.socialLinks.email}`}>Email Me</SocialLink>
-          </div>
-        </Info>
+        <Socials>
+          <SocialIcon href={profileData.socialLinks.linkedin} target="_blank">LI</SocialIcon>
+          <SocialIcon href={profileData.socialLinks.github} target="_blank">GH</SocialIcon>
+          <SocialIcon href={`mailto:${profileData.socialLinks.email}`}>@</SocialIcon>
+        </Socials>
       </ProfileWrapper>
-    </WindowFrame>
+    </PixelCard>
   );
 };
 

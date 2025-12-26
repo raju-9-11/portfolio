@@ -1,63 +1,65 @@
 import styled from 'styled-components';
-import WindowFrame from './common/WindowFrame';
+import PixelCard from './common/PixelCard';
 import { skillsData } from '../data/portfolio';
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 15px;
-  text-align: center;
 `;
 
-const SkillIcon = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
+const SkillBar = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border: 1px solid var(--text-dim);
 
   &:hover {
-    filter: brightness(0.8);
+    border-color: var(--neon-cyan);
+    background: rgba(0, 243, 255, 0.05);
   }
 `;
 
-const IconBox = styled.div`
-  width: 48px;
-  height: 48px;
-  background-color: var(--win-white);
-  border: 1px solid var(--win-black);
+const SkillName = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 5px;
-  font-size: 24px;
-  font-weight: bold;
-  box-shadow: 2px 2px 0 var(--win-gray-dark);
-`;
-
-const SkillName = styled.span`
   font-size: 0.8rem;
+  color: var(--neon-cyan);
 `;
 
-// Simple icon mapping based on first letter or type
-const getIcon = (skill) => {
-  if (skill.category === 'Mobile') return '📱';
-  if (skill.category === 'Frontend') return '🌐';
-  if (skill.category === 'Backend') return '💾';
-  return '⚙️';
-};
+const ProgressBar = styled.div`
+  height: 6px;
+  background: #333;
+  width: 100%;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: ${props => props.level}%;
+    background: var(--neon-green);
+    box-shadow: 0 0 5px var(--neon-green);
+  }
+`;
 
 const Skills = () => {
   return (
-    <WindowFrame title="SKILLS_MANAGER">
+    <PixelCard title="SKILL_MATRIX">
       <SkillsGrid>
         {skillsData.map((skill) => (
-          <SkillIcon key={skill.name}>
-            <IconBox>{getIcon(skill)}</IconBox>
-            <SkillName>{skill.name}</SkillName>
-          </SkillIcon>
+          <SkillBar key={skill.name}>
+            <SkillName>
+              <span>{skill.name}</span>
+              <span>{skill.level}%</span>
+            </SkillName>
+            <ProgressBar level={skill.level} />
+          </SkillBar>
         ))}
       </SkillsGrid>
-    </WindowFrame>
+    </PixelCard>
   );
 };
 
