@@ -1,27 +1,45 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/GlobalStyle';
-import Profile from './components/Profile';
-import Bio from './components/Bio';
+import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Interests from './components/Interests';
 import Contact from './components/Contact';
+import BootSequence from './components/BootSequence';
+
+const MainWrapper = styled.div`
+  min-height: 100vh;
+  position: relative;
+  /* Ultra-wide screen handling: Center the grid and add a subtle border effect */
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle at center, transparent 80%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 50;
+  }
+`;
 
 const BentoGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--grid-gap);
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px; /* Increased for "width to width" feel */
   margin: 0 auto;
   min-height: 100vh;
+  padding-bottom: 50px;
 
-  /* Mobile Layout - Explicitly define order */
+  /* Mobile Layout */
   grid-template-areas:
-    "P"
-    "B"
+    "H"
     "S"
     "A"
     "E"
@@ -29,18 +47,24 @@ const BentoGrid = styled.div`
     "I"
     "C";
 
+  /* Tablet Layout (Dynamic UI) */
+  @media (min-width: 700px) and (max-width: 1100px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "H H"
+      "S A"
+      "E E"
+      "J J"
+      "I C";
+  }
+
   /* Desktop Layout */
-  @media (min-width: 900px) {
+  @media (min-width: 1101px) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto auto auto;
 
-    /*
-      Grid Area Map (4 columns)
-      P = Profile, B = Bio, S = Skills, E = Experience
-      J = Projects, A = Achievements, I = Interests, C = Contact
-    */
     grid-template-areas:
-      "P P B B"
+      "H H H H"
       "S A E E"
       "J J J J"
       "I C C C";
@@ -48,8 +72,7 @@ const BentoGrid = styled.div`
 `;
 
 // Wrappers to assign grid areas
-const ProfileArea = styled.div` grid-area: P; @media(min-width: 900px) { height: 100%; } `;
-const BioArea = styled.div` grid-area: B; @media(min-width: 900px) { height: 100%; } `;
+const HeroArea = styled.div` grid-area: H; `;
 const SkillsArea = styled.div` grid-area: S; `;
 const ExperienceArea = styled.div` grid-area: E; `;
 const ProjectsArea = styled.div` grid-area: J; `;
@@ -58,22 +81,29 @@ const InterestsArea = styled.div` grid-area: I; `;
 const ContactArea = styled.div` grid-area: C; `;
 
 function App() {
+  const [bootComplete, setBootComplete] = useState(false);
+
   return (
     <>
       <GlobalStyle />
-      <BentoGrid>
-        <ProfileArea><Profile /></ProfileArea>
-        <BioArea><Bio /></BioArea>
-        <SkillsArea><Skills /></SkillsArea>
-        <AchievementsArea><Achievements /></AchievementsArea>
-        <ExperienceArea><Experience /></ExperienceArea>
-        <ProjectsArea><Projects /></ProjectsArea>
-        <InterestsArea><Interests /></InterestsArea>
-        <ContactArea><Contact /></ContactArea>
-      </BentoGrid>
-      <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem'}}>
-        SYSTEM STATUS: ONLINE | © {new Date().getFullYear()} RAJ KUMAR S
-      </div>
+      {!bootComplete && <BootSequence onComplete={() => setBootComplete(true)} />}
+
+      {bootComplete && (
+        <MainWrapper>
+          <BentoGrid>
+            <HeroArea><Hero /></HeroArea>
+            <SkillsArea><Skills /></SkillsArea>
+            <AchievementsArea><Achievements /></AchievementsArea>
+            <ExperienceArea><Experience /></ExperienceArea>
+            <ProjectsArea><Projects /></ProjectsArea>
+            <InterestsArea><Interests /></InterestsArea>
+            <ContactArea><Contact /></ContactArea>
+          </BentoGrid>
+          <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10}}>
+            SYSTEM STATUS: ONLINE | © {new Date().getFullYear()} RAJ KUMAR S
+          </div>
+        </MainWrapper>
+      )}
     </>
   )
 }
