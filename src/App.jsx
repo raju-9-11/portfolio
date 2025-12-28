@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/GlobalStyle';
+import { useTheme } from './context/ThemeContext';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
@@ -15,24 +16,16 @@ import Testimonials from './components/Testimonials';
 import SystemAlert from './components/SystemAlert';
 import { logSystemLogin } from './firebase';
 import BackToTop from './components/common/BackToTop';
+import CyberpunkOverlay from './components/effects/CyberpunkOverlay';
+import ThemeSwitcher from './components/common/ThemeSwitcher';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
   position: relative;
-  /* Ultra-wide screen handling: Center the grid and add a subtle border effect */
-  /*
-  &::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: radial-gradient(circle at center, transparent 80%, rgba(0, 0, 0, 0.8) 100%);
-    z-index: 50;
-  }
-  */
+  /* Ensure centering on ultra-wide screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const BentoGrid = styled.div`
@@ -40,8 +33,9 @@ const BentoGrid = styled.div`
   grid-template-columns: 1fr;
   gap: var(--grid-gap);
   padding: 20px;
-  width: 100%; /* Added */
+  width: 100%;
   max-width: 1400px;
+  /* Margin auto is good, but flex center on parent is safer for some browsers */
   margin: 0 auto;
   min-height: 100vh;
   padding-bottom: 50px;
@@ -59,7 +53,7 @@ const BentoGrid = styled.div`
     "I"
     "C";
 
-  /* Tablet Layout (Dynamic UI) */
+  /* Tablet Layout */
   @media (min-width: 700px) and (max-width: 1100px) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -103,12 +97,18 @@ const TestimonialsArea = styled.div` grid-area: T; `;
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (bootComplete) {
       logSystemLogin();
     }
   }, [bootComplete]);
+
+  // Apply theme to body via data-attribute
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
 
   return (
     <>
@@ -117,6 +117,7 @@ function App() {
 
       {bootComplete && (
         <MainWrapper>
+          <CyberpunkOverlay />
           <SystemAlert />
           <BentoGrid>
             <HeroArea><Hero /></HeroArea>
@@ -131,7 +132,9 @@ function App() {
             <ContactArea><Contact /></ContactArea>
           </BentoGrid>
           <BackToTop />
-          <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10}}>
+          <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10, width: '100%'}}>
+            <ThemeSwitcher />
+            <br/>
             SYSTEM STATUS: ONLINE | © {new Date().getFullYear()} RAJ KUMAR S
           </div>
         </MainWrapper>

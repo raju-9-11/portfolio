@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { experienceData } from '../data/portfolio';
+import { FaChevronRight } from 'react-icons/fa';
+import ThemedIcon from './common/ThemedIcon';
 
 const Timeline = styled.div`
   display: flex;
@@ -22,6 +24,15 @@ const JobItem = styled.div`
     height: 10px;
     background: var(--neon-pink);
     box-shadow: 0 0 5px var(--neon-pink);
+  }
+
+  [data-theme='professional'] & {
+    border-left: 2px solid var(--border-color);
+    &::before {
+      background: var(--neon-cyan);
+      box-shadow: none;
+      border-radius: 50%;
+    }
   }
 `;
 
@@ -53,7 +64,7 @@ const Role = styled.div`
 const Description = styled.p`
   font-size: 0.85rem;
   line-height: 1.4;
-  color: #ccc;
+  color: var(--text-main);
   margin-bottom: 10px;
 `;
 
@@ -67,14 +78,11 @@ const ProjectItem = styled.li`
   font-size: 0.85rem;
   margin-bottom: 5px;
   color: var(--text-dim);
+  display: flex;
+  gap: 8px;
 
   strong {
     color: var(--text-main);
-  }
-
-  &::before {
-    content: ">> ";
-    color: var(--neon-green);
   }
 `;
 
@@ -94,7 +102,8 @@ const Experience = () => {
               <ProjectList>
                 {exp.projects.map((proj, pIndex) => (
                   <ProjectItem key={pIndex}>
-                    <strong>{proj.name}:</strong> {proj.desc}
+                    <ThemedIcon ascii=">> " icon={<FaChevronRight size={12} style={{marginTop: '3px'}} />} />
+                    <span><strong>{proj.name}:</strong> {proj.desc}</span>
                   </ProjectItem>
                 ))}
               </ProjectList>

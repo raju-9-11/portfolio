@@ -12,18 +12,34 @@ const AwardCard = styled.div`
   background: rgba(0,0,0,0.2);
   border: 1px solid var(--text-dim);
   padding: 15px;
+
+  [data-theme='professional'] & {
+    background: var(--bg-color); /* Slate-50 */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
 `;
 
 const AwardName = styled.h4`
   color: var(--neon-cyan);
   font-size: 1rem;
   margin-bottom: 5px;
+
+  [data-theme='professional'] & {
+    color: var(--text-main);
+    font-weight: 600;
+  }
 `;
 
 const Issuer = styled.p`
   font-size: 0.9rem;
   color: var(--text-main);
   margin: 0;
+
+  [data-theme='professional'] & {
+    color: var(--text-dim);
+  }
 `;
 
 const Date = styled.p`
