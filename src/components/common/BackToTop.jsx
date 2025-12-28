@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaChevronUp } from 'react-icons/fa';
 import { useTheme } from '../../context/ThemeContext';
 
 const Button = styled.button`
@@ -90,7 +89,9 @@ const BackToTop = () => {
       aria-label="Back to Top"
       title="Back to Top"
     >
-      <FaChevronUp size={20} />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
     </Button>
   );
 };
