@@ -134,7 +134,9 @@ const Contact = () => {
           {loading && <Spinner aria-hidden="true" />}
           {loading ? 'UPLOADING...' : 'INITIATE UPLOAD'}
         </Button>
-        {status && <Status $error={status.type === 'error'}>{status.text}</Status>}
+        <div role="alert" aria-live="polite">
+          {status && <Status $error={status.type === 'error'}>{status.text}</Status>}
+        </div>
       </Form>
     </PixelCard>
   );
