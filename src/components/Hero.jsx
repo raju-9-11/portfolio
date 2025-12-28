@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
+import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import ThemedIcon from './common/ThemedIcon';
 
 const HeroContent = styled.div`
   display: flex;
@@ -28,6 +30,10 @@ const ProfileSection = styled.div`
     border-right: 1px solid rgba(0, 243, 255, 0.2);
     padding-right: 30px;
   }
+
+  [data-theme='professional'] & {
+    border-right-color: var(--border-color);
+  }
 `;
 
 const InfoSection = styled.div`
@@ -51,6 +57,18 @@ const Avatar = styled.img`
     transform: translate(-5px, -5px);
     box-shadow: 15px 15px 0 var(--neon-pink);
   }
+
+  [data-theme='professional'] & {
+    border: none;
+    border-radius: 50%;
+    filter: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: none;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  }
 `;
 
 const GlitchName = styled.h1`
@@ -63,6 +81,13 @@ const GlitchName = styled.h1`
   @media (max-width: 768px) {
     font-size: 2rem;
   }
+
+  [data-theme='professional'] & {
+    color: var(--text-main);
+    text-shadow: none;
+    text-transform: none;
+    font-weight: 700;
+  }
 `;
 
 const Role = styled.h2`
@@ -71,6 +96,14 @@ const Role = styled.h2`
   background: rgba(80, 250, 123, 0.1);
   padding: 5px 10px;
   border-left: 3px solid var(--neon-green);
+
+  [data-theme='professional'] & {
+    color: var(--text-dim);
+    background: transparent;
+    border-left: none;
+    padding: 0;
+    font-weight: 500;
+  }
 `;
 
 const TerminalBox = styled.div`
@@ -90,6 +123,18 @@ const TerminalBox = styled.div`
     margin-bottom: 10px;
     font-size: 0.9rem;
   }
+
+  [data-theme='professional'] & {
+    background: transparent;
+    border: none;
+    font-family: var(--font-main);
+    padding: 0;
+    min-height: auto;
+
+    &::before {
+      display: none;
+    }
+  }
 `;
 
 const TypingText = styled.p`
@@ -97,7 +142,7 @@ const TypingText = styled.p`
   line-height: 1.6;
   margin: 0;
 
-  &::after {
+  [data-theme='cyberpunk'] &::after {
     content: '_';
     animation: blink 1s infinite;
     color: var(--neon-cyan);
@@ -134,6 +179,20 @@ const SocialBtn = styled.a`
     background: var(--neon-cyan);
     color: #000;
     box-shadow: 0 0 10px var(--neon-cyan);
+  }
+
+  [data-theme='professional'] & {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 6px;
+
+    &:hover {
+      background: var(--neon-cyan); /* Accent color */
+      color: white;
+      border-color: var(--neon-cyan);
+      box-shadow: none;
+    }
   }
 `;
 
@@ -174,9 +233,11 @@ const Hero = () => {
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn Profile"
             >
+              <ThemedIcon ascii="" icon={<FaLinkedin size={16} />} />
               LINKEDIN
             </SocialBtn>
             <SocialBtn href={`mailto:${profileData.socialLinks.email}`} aria-label="Send Email">
+              <ThemedIcon ascii="" icon={<FaEnvelope size={16} />} />
               EMAIL_UPLINK
             </SocialBtn>
           </Socials>
