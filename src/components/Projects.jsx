@@ -4,12 +4,12 @@ import PixelCard from './common/PixelCard';
 import { projectsData } from '../data/portfolio';
 
 const glitchAnim = keyframes`
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% { transform: scale(1); clip-path: inset(0 0 0 0); }
+  20% { clip-path: inset(10% 0 0 0); }
+  40% { clip-path: inset(0 0 0 0); }
+  60% { transform: scale(1.02); clip-path: inset(0 0 10% 0); }
+  80% { clip-path: inset(0 0 0 0); }
+  100% { transform: scale(1); clip-path: inset(0 0 0 0); }
 `;
 
 const pulseAnim = keyframes`
@@ -24,6 +24,7 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled.div`
+  /* Default Cyberpunk Style */
   background: rgba(0,0,0,0.3);
   border: 1px solid var(--text-dim);
   padding: 15px;
@@ -34,7 +35,21 @@ const ProjectCard = styled.div`
   position: relative;
   overflow: hidden;
 
-  &:hover {
+  /* Professional Theme Override */
+  [data-theme='professional'] & {
+    background: var(--bg-color); /* Lightest Slate */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-radius: 8px;
+
+    &:hover {
+      border-color: var(--neon-pink); /* Blue-500 */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+  }
+
+  [data-theme='cyberpunk'] &:hover {
     border-color: var(--neon-pink);
     box-shadow: 3px 3px 0 var(--neon-cyan);
     transform: translate(-2px, -2px);
@@ -68,7 +83,18 @@ const ProjectTitle = styled.h4`
   font-size: 1.1rem;
 
   ${ProjectCard}:hover & {
-    animation: ${glitchAnim} 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    animation: ${glitchAnim} 0.5s cubic-bezier(.25, .46, .45, .94) both;
+  }
+
+  /* Simplify for professional theme */
+  [data-theme='professional'] & {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  [data-theme='professional'] ${ProjectCard}:hover & {
+    animation: none;
+    color: var(--neon-pink);
   }
 `;
 
@@ -87,6 +113,12 @@ const TechTag = styled.span`
   color: var(--bg-color);
   padding: 2px 5px;
   font-weight: bold;
+
+  [data-theme='professional'] & {
+    background: var(--border-color); /* Slate-200 */
+    color: var(--text-dim); /* Slate-600 */
+    border-radius: 4px;
+  }
 `;
 
 const Description = styled.p`
@@ -96,6 +128,10 @@ const Description = styled.p`
   flex-grow: 1;
   position: relative;
   z-index: 1;
+
+  [data-theme='professional'] & {
+    color: var(--text-main);
+  }
 `;
 
 const Status = styled.span`
@@ -105,6 +141,14 @@ const Status = styled.span`
   padding: 2px 5px;
   white-space: nowrap;
   animation: ${pulseAnim} 2s infinite;
+
+  [data-theme='professional'] & {
+    border: none;
+    background: rgba(5, 150, 105, 0.1);
+    border-radius: 4px;
+    animation: none;
+    font-weight: 600;
+  }
 `;
 
 const ProjectLinks = styled.div`
@@ -126,6 +170,17 @@ const ProjectLink = styled.a`
   &:hover {
     color: var(--neon-yellow);
     text-shadow: 0 0 5px var(--neon-yellow);
+  }
+
+  [data-theme='professional'] & {
+    color: var(--text-dim);
+    font-weight: 500;
+
+    &:hover {
+      color: var(--neon-pink); /* Blue-500 */
+      text-shadow: none;
+      text-decoration: none;
+    }
   }
 `;
 
