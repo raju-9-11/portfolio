@@ -95,16 +95,6 @@ export const projectsData = [
 
 export const achievementsData = [
   {
-    title: "Best UI Design",
-    event: "Zoho Hackathon 2023",
-    description: "Awarded for creating the most intuitive mobile interface."
-  },
-  {
-    title: "Open Source Contributor",
-    event: "GitHub",
-    description: "Active contributor to several Swift open-source libraries."
-  },
-  {
     title: "Spartan Racer",
     event: "Obstacle Course",
     description: "Completed the 10km obstacle race in top 10%."
