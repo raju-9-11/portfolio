@@ -4,6 +4,7 @@ import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import ThemedIcon from './common/ThemedIcon';
+import GlitchText from './effects/GlitchText';
 
 const HeroContent = styled.div`
   display: flex;
@@ -234,11 +235,11 @@ const Hero = () => {
               aria-label="Visit LinkedIn Profile"
             >
               <ThemedIcon ascii="" icon={<FaLinkedin size={16} />} />
-              LINKEDIN
+              <GlitchText text="LinkedIn" />
             </SocialBtn>
             <SocialBtn href={`mailto:${profileData.socialLinks.email}`} aria-label="Send Email">
               <ThemedIcon ascii="" icon={<FaEnvelope size={16} />} />
-              EMAIL_UPLINK
+              <GlitchText text="Email" />
             </SocialBtn>
           </Socials>
         </InfoSection>

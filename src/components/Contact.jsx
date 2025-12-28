@@ -109,7 +109,7 @@ const Contact = () => {
   };
 
   return (
-    <PixelCard title="COMMS_UPLINK">
+    <PixelCard title="Contact">
       <Form onSubmit={handleSubmit}>
         <Input
           placeholder="CODENAME (Name)"

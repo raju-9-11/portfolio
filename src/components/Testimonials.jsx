@@ -98,7 +98,7 @@ const Testimonials = () => {
   }
 
   return (
-    <PixelCard title="TESTIMONIALS">
+    <PixelCard title="Testimonials">
       <SliderContainer>
         <NavButton onClick={prevSlide} direction="prev">&lt;</NavButton>
         {testimonialsData.map((testimonial, index) => (
