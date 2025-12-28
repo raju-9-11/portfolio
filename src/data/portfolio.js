@@ -31,6 +31,7 @@ export const experienceData = [
     dates: "May 2022 - Present",
     duration: "3 yrs 8 mos",
     type: "Full-time",
+    description: "As a Member of Technical Staff at Zoho since May 2022, I have focused on engineering and maintaining a modular UI architecture, creating reusable components in Swift, ensuring design consistency across the Zoho mobile ecosystem and reducing frontend development time for new features by 30%. My role has included leading the design and development of critical modules, from initial UI/UX wireframing to core logic implementation and API integration using Swift and UIKit/SwiftUI. I have also optimized app performance by refactoring legacy code and optimizing data-handling patterns, resulting in a 20% improvement in app launch speed and a significant reduction in memory overhead.",
     projects: [
       {
         name: "Zoho Mobile UI Kit",
