@@ -89,9 +89,7 @@ const BackToTop = () => {
       aria-label="Back to Top"
       title="Back to Top"
     >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-      </svg>
+      <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>&#9650;</span>
     </Button>
   );
 };
