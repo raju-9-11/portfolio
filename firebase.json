@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "pac-dbe",
     "public": "dist",
     "ignore": [
       "firebase.json",

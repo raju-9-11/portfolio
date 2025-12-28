@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "portfolio-pac"
-  }
+  },
+  "targets": {
+    "portfolio-pac": {
+      "hosting": {
+        "pac-dbe": [
+          "dist"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
