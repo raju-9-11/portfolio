@@ -247,7 +247,7 @@ const Hero = () => {
               aria-label="Contact for Fun"
             >
               <ThemedIcon ascii="" icon={<FaGamepad size={16} />} />
-              <GlitchText text="Playful" />
+              <GlitchText text="Say Hello" />
             </SocialBtn>
           </Socials>
         </InfoSection>

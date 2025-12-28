@@ -62,7 +62,7 @@ const CYBERPUNK_DICTIONARY = {
   "Testimonials": "USER REVIEWS",
   "Professional": "NETWORK_LINK",
   "Informal": "EMAIL_UPLINK",
-  "Playful": "GAME_START"
+  "Say Hello": "GAME_START"
 };
 
 const GlitchText = ({ text }) => {
