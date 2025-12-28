@@ -49,6 +49,15 @@ const ModalContent = styled.div`
       background: #94a3b8;
     }
   }
+
+  /* Fix overlap of title with close button in Cyberpunk mode */
+  /* Target the h3 (CardTitle) inside PixelCard inside ModalContent */
+  /* Since PixelCard renders StyledContainer -> CardTitle(h3) */
+  & h3 {
+     [data-theme='cyberpunk'] & {
+        padding-right: 60px; /* Increased to 60px to ensure no overlap (Button is ~47px from right) */
+     }
+  }
 `;
 
 const CloseButton = styled.button`
