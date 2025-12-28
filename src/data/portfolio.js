@@ -3,9 +3,9 @@
 export const profileData = {
   name: "Raj Kumar S",
   headline: "iOS Developer | Full-Cycle Development",
-  location: "Chennai, India",
+  location: "India",
   profileImage: "/profile.jpg",
-  summary: `Passionate iOS Developer with 2+ years of experience building sleek, scalable mobile applications. My expertise lies in full-cycle development, bridging the gap between complex logic and user-centric design. I thrive on solving architectural challenges and am constantly expanding my toolkit.`,
+  summary: `Passionate iOS Developer with 2+ years of experience building sleek, scalable mobile applications. My expertise lies in full-cycle development, bridging the gap between complex logic and user-centric design. I thrive on solving architectural challenges and am constantly expanding my toolkit. Actively seeking new challenges and opportunities to leverage my skills in a dynamic environment.`,
   socialLinks: {
     linkedin: "https://www.linkedin.com/in/raj-kumar-s",
     email: "raju9112000@gmail.com"
