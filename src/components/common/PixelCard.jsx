@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useTheme } from '../../context/ThemeContext';
+import GlitchText from '../effects/GlitchText';
 
 const StyledContainer = styled.div`
   background-color: var(--card-bg);
@@ -98,10 +99,10 @@ export const CardContent = styled.div`
   }
 `;
 
-const PixelCard = ({ title, children, className }) => {
+const PixelCard = ({ title, children, className, ...props }) => {
   return (
-    <StyledContainer className={className}>
-      {title && <CardTitle>{title}</CardTitle>}
+    <StyledContainer className={className} {...props}>
+      {title && <CardTitle><GlitchText text={title} /></CardTitle>}
       <CardContent>{children}</CardContent>
     </StyledContainer>
   );

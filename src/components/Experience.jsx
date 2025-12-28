@@ -88,7 +88,7 @@ const ProjectItem = styled.li`
 
 const Experience = () => {
   return (
-    <PixelCard title="EXPERIENCE_LOG">
+    <PixelCard title="Experience">
       <Timeline>
         {experienceData.map((exp, index) => (
           <JobItem key={index}>

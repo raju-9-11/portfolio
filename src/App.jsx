@@ -26,6 +26,7 @@ const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const BentoGrid = styled.div`
@@ -37,6 +38,7 @@ const BentoGrid = styled.div`
   max-width: 1400px;
   /* Margin auto is good, but flex center on parent is safer for some browsers */
   margin: 0 auto;
+  justify-content: center;
   min-height: 100vh;
   padding-bottom: 50px;
 

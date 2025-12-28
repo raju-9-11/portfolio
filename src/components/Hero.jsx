@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
-import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope, FaGamepad } from 'react-icons/fa';
 import ThemedIcon from './common/ThemedIcon';
+import GlitchText from './effects/GlitchText';
 
 const HeroContent = styled.div`
   display: flex;
@@ -234,11 +235,19 @@ const Hero = () => {
               aria-label="Visit LinkedIn Profile"
             >
               <ThemedIcon ascii="" icon={<FaLinkedin size={16} />} />
-              LINKEDIN
+              <GlitchText text="Professional" />
             </SocialBtn>
             <SocialBtn href={`mailto:${profileData.socialLinks.email}`} aria-label="Send Email">
               <ThemedIcon ascii="" icon={<FaEnvelope size={16} />} />
-              EMAIL_UPLINK
+              <GlitchText text="Informal" />
+            </SocialBtn>
+            <SocialBtn
+              onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{ cursor: 'pointer' }}
+              aria-label="Contact for Fun"
+            >
+              <ThemedIcon ascii="" icon={<FaGamepad size={16} />} />
+              <GlitchText text="Say Hello" />
             </SocialBtn>
           </Socials>
         </InfoSection>

@@ -43,7 +43,7 @@ const Desc = styled.div`
 
 const Achievements = () => {
   return (
-    <PixelCard title="TROPHIES">
+    <PixelCard title="Achievements">
       <List>
         {achievementsData.map((item, idx) => (
           <Item key={idx}>

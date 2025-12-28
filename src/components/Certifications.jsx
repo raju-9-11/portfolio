@@ -158,7 +158,7 @@ const Certifications = () => {
 
   return (
     <>
-      <PixelCard title="LICENSES_&_CERTIFICATIONS">
+      <PixelCard title="Certifications">
         <PreviewList>
             {certificationsData.slice(0, certificationsToShow).map((cert, idx) => (
                 <PreviewItem key={idx}>
@@ -173,7 +173,7 @@ const Certifications = () => {
             </OpenModalButton>
         </ButtonContainer>
       </PixelCard>
-      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="LICENSES_&_CERTIFICATIONS">
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Certifications">
         <CertificationsGrid>
           {certificationsData.map((cert, idx) => (
             <CertificationCard key={idx}>

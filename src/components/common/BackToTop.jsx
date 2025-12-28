@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaChevronUp } from 'react-icons/fa';
 import { useTheme } from '../../context/ThemeContext';
 
 const Button = styled.button`
@@ -90,7 +89,7 @@ const BackToTop = () => {
       aria-label="Back to Top"
       title="Back to Top"
     >
-      <FaChevronUp size={20} />
+      <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>&#9650;</span>
     </Button>
   );
 };

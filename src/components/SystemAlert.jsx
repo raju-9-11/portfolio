@@ -1,6 +1,12 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
+import { FaTerminal, FaBell } from 'react-icons/fa';
+
+const slideIn = keyframes`
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+`;
 
 const BannerWrapper = styled.div`
   position: fixed;
@@ -11,6 +17,7 @@ const BannerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  animation: ${slideIn} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   /* Cyberpunk Theme */
   [data-theme='cyberpunk'] & {
@@ -33,87 +40,87 @@ const BannerWrapper = styled.div`
     }
   }
 
-  /* Professional Theme (Hidden per plan) */
+  /* Professional Theme */
   [data-theme='professional'] & {
-    display: none;
+    background: #ffffff;
+    color: var(--text-main);
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--neon-pink); /* Blue accent */
+    font-family: var(--font-main);
+    font-size: 0.9rem;
   }
 `;
 
-const ButtonGroup = styled.div`
+const Content = styled.div`
   display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 5px;
+  gap: 12px;
+  align-items: flex-start;
 `;
 
-const ActionButton = styled.button`
+const Message = styled.div`
+  flex: 1;
+  line-height: 1.4;
+`;
+
+const IconWrapper = styled.div`
+  margin-top: 2px;
+  font-size: 1.1rem;
+`;
+
+const CloseButton = styled.button`
   background: transparent;
-  padding: 5px 10px;
+  border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-weight: bold;
-  transition: all 0.2s ease;
+  padding: 0;
+  margin-left: 10px;
+  color: inherit;
+  opacity: 0.7;
+  font-size: 1.2rem;
 
-  /* Cyberpunk Styles */
-  [data-theme='cyberpunk'] & {
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-
-    &:hover {
-      background: var(--neon-cyan);
-      color: #000;
-      box-shadow: 0 0 8px var(--neon-cyan);
-    }
-
-    &.abort {
-      border-color: var(--neon-pink);
-      color: var(--neon-pink);
-
-      &:hover {
-        background: var(--neon-pink);
-        color: #000;
-        box-shadow: 0 0 8px var(--neon-pink);
-      }
-    }
+  &:hover {
+    opacity: 1;
   }
 `;
 
 const SystemAlert = () => {
   const { theme } = useTheme();
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Initialize state lazily
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window !== 'undefined') {
-        const consent = localStorage.getItem('data_uplink_consent');
-        return consent === null;
-    }
-    return false;
-  });
+  useEffect(() => {
+    // Show alert after a short delay
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const handleAuthorize = () => {
-    localStorage.setItem('data_uplink_consent', 'true');
-    setIsVisible(false);
-  };
-
-  const handleAbort = () => {
-    localStorage.setItem('data_uplink_consent', 'false');
+  const handleDismiss = () => {
     setIsVisible(false);
   };
 
   if (!isVisible) return null;
-  // If theme is professional, we decided to hide it completely as "cookies" logic might not be critical for this portfolio demo,
-  // or the "Neural telemetry" text is inappropriate.
-  if (theme === 'professional') return null;
 
   return (
-    <BannerWrapper>
-      <div>
-        <strong>SYSTEM ALERT:</strong> Neural telemetry protocols detected. Authorize data uplink for optimized experience?
-      </div>
-      <ButtonGroup>
-        <ActionButton onClick={handleAuthorize}>[ AUTHORIZE ]</ActionButton>
-        <ActionButton className="abort" onClick={handleAbort}>[ ABORT ]</ActionButton>
-      </ButtonGroup>
+    <BannerWrapper role="status" aria-live="polite">
+      <Content>
+        <IconWrapper>
+            {theme === 'cyberpunk' ? <FaTerminal /> : <FaBell />}
+        </IconWrapper>
+        <Message>
+          {theme === 'cyberpunk' ? (
+             <>
+               <strong>SYSTEM_MSG:</strong> WELCOME, USER. NEURAL INTERFACE ONLINE. SCROLL TO NAVIGATE MEMORY BANKS.
+             </>
+          ) : (
+            <>
+              <strong>Welcome!</strong> Feel free to explore my portfolio. Use the form below if you'd like to get in touch.
+            </>
+          )}
+        </Message>
+        <CloseButton onClick={handleDismiss} aria-label="Dismiss">×</CloseButton>
+      </Content>
     </BannerWrapper>
   );
 };
