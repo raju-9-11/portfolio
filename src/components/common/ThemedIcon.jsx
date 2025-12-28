@@ -14,7 +14,7 @@ const IconWrapper = styled.span`
   }
 
   [data-theme='professional'] & {
-    color: var(--neon-cyan); /* Using the mapped accent color */
+    color: inherit; /* Allow parent to control color (e.g. on hover) */
   }
 `;
 
