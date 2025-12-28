@@ -51,7 +51,7 @@ const Date = styled.p`
 
 const Awards = () => {
   return (
-    <PixelCard title="HONORS_&_AWARDS">
+    <PixelCard title="Awards">
       <AwardsList>
         {awardsData.map((award, idx) => (
           <AwardCard key={idx}>

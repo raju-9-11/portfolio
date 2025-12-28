@@ -25,7 +25,7 @@ const Tag = styled.span`
 
 const Interests = () => {
   return (
-    <PixelCard title="SIDE_QUESTS">
+    <PixelCard title="Interests">
       <Tags>
         {interestsData.map((interest, idx) => (
           <Tag key={idx}>{interest}</Tag>

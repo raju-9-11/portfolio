@@ -200,7 +200,7 @@ const ProjectLink = styled.a`
 
 const Projects = () => {
   return (
-    <PixelCard title="PROJECT_DATABASE">
+    <PixelCard title="Projects">
       <ProjectsGrid>
         {projectsData.map((project, idx) => (
           <ProjectCard key={idx}>

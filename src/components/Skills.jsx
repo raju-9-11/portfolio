@@ -47,7 +47,7 @@ const ProgressBar = styled.div`
 
 const Skills = () => {
   return (
-    <PixelCard title="SKILL_MATRIX">
+    <PixelCard title="Skills">
       <SkillsGrid>
         {skillsData.map((skill) => (
           <SkillBar key={skill.name}>
