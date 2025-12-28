@@ -139,22 +139,18 @@ const SocialBtn = styled.a`
 
 const Hero = () => {
   const [bioText, setBioText] = useState('');
+  const [idx, setIdx] = useState(0);
   const fullText = profileData.summary;
 
   useEffect(() => {
-    let idx = 0;
-    // Delay start slightly
-    const timeout = setTimeout(() => {
-      const interval = setInterval(() => {
+    if (idx < fullText.length) {
+      const timeout = setTimeout(() => {
         setBioText((prev) => prev + fullText.charAt(idx));
-        idx++;
-        if (idx === fullText.length) clearInterval(interval);
-      }, 30); // Typing speed
-      return () => clearInterval(interval);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [fullText]);
+        setIdx(idx + 1);
+      }, 30);
+      return () => clearTimeout(timeout);
+    }
+  }, [idx, fullText]);
 
   return (
     <PixelCard>
