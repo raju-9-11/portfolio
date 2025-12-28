@@ -12,9 +12,9 @@ import BootSequence from './components/BootSequence';
 import Certifications from './components/Certifications';
 import Awards from './components/Awards';
 import Testimonials from './components/Testimonials';
-import BackToTop from './components/common/BackToTop';
-import CookieBanner from './components/CookieBanner';
+import SystemAlert from './components/SystemAlert';
 import { logSystemLogin } from './firebase';
+import BackToTop from './components/common/BackToTop';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
@@ -117,7 +117,7 @@ function App() {
 
       {bootComplete && (
         <MainWrapper>
-          <CookieBanner />
+          <SystemAlert />
           <BentoGrid>
             <HeroArea><Hero /></HeroArea>
             <ProjectsArea><Projects /></ProjectsArea>

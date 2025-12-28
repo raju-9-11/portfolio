@@ -147,7 +147,7 @@ const Hero = () => {
       const timeout = setTimeout(() => {
         setBioText((prev) => prev + fullText.charAt(idx));
         setIdx(idx + 1);
-      }, 30);
+      }, 10);
       return () => clearTimeout(timeout);
     }
   }, [idx, fullText]);

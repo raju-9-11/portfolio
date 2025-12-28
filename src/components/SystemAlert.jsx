@@ -65,7 +65,7 @@ const ActionButton = styled.button`
   }
 `;
 
-const CookieBanner = () => {
+const SystemAlert = () => {
   // Initialize state lazily to avoid setting state in useEffect for initial render
   const [isVisible, setIsVisible] = useState(() => {
     // Check localStorage during initialization
@@ -102,4 +102,4 @@ const CookieBanner = () => {
   );
 };
 
-export default CookieBanner;
+export default SystemAlert;
