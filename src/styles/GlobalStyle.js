@@ -30,20 +30,28 @@ export const GlobalStyle = createGlobalStyle`
 
   /* PROFESSIONAL THEME OVERRIDES */
   [data-theme='professional'] {
-    --bg-color: #f3f4f6; /* Light gray */
+    /* Cleaner, lighter palette requested by user */
+    --bg-color: #f8fafc; /* Slate-50 - Very light cool gray */
     --card-bg: #ffffff;
-    --text-main: #1f2937; /* Gray-900 */
-    --text-dim: #4b5563; /* Gray-600 */
-    --border-color: #e5e7eb; /* Gray-200 */
+    --text-main: #334155; /* Slate-700 - Softer than pure black */
+    --text-dim: #64748b; /* Slate-500 */
+    --border-color: #e2e8f0; /* Slate-200 */
 
-    /* Map neon variables to professional accents for compatibility */
-    --neon-cyan: #2563eb; /* Blue-600 */
-    --neon-pink: #7c3aed; /* Violet-600 */
+    /* Re-mapped accents to be more harmonious/professional */
+    /* Blue for primary actions/links (replaces neon-cyan) */
+    --neon-cyan: #0f172a; /* Slate-900 (High contrast dark for primary elements) */
+
+    /* Soft Blue/Indigo for secondary accents (replaces neon-pink) */
+    --neon-pink: #3b82f6; /* Blue-500 */
+
+    /* Amber/Orange for warnings/highlights (replaces neon-yellow) */
     --neon-yellow: #d97706; /* Amber-600 */
+
+    /* Emerald for success (replaces neon-green) */
     --neon-green: #059669; /* Emerald-600 */
 
     --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --border-radius: 16px;
+    --border-radius: 12px; /* Slightly tighter radius */
     --letter-spacing: normal;
     --text-transform: none;
 
@@ -80,17 +88,19 @@ export const GlobalStyle = createGlobalStyle`
 
     &:hover {
       color: var(--neon-pink);
-      /* Only add glow in cyberpunk mode, logic handled via css var if needed or specific classes.
-         For now, keeping the shadow but it might look odd in pro mode.
-         Let's override the shadow in Pro mode.
-      */
+      /* Only add glow in cyberpunk mode */
       text-shadow: 0 0 5px var(--neon-pink);
     }
   }
 
+  [data-theme='professional'] a {
+    color: var(--neon-pink); /* Blue-500 for links */
+  }
+
   [data-theme='professional'] a:hover {
+    color: var(--neon-cyan); /* Dark slate on hover */
     text-shadow: none;
-    opacity: 0.8;
+    text-decoration: underline;
   }
 
   /* Custom Scrollbar */
@@ -103,5 +113,9 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-thumb {
     background: var(--neon-cyan);
     border-radius: 4px;
+  }
+
+  [data-theme='professional'] ::-webkit-scrollbar-thumb {
+     background: #cbd5e1; /* Slate-300 for subtler scrollbar */
   }
 `;
