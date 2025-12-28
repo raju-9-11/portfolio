@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const turnOn = keyframes`
@@ -78,10 +78,27 @@ const AccessText = styled.h1`
   animation: ${textGlow} 1.5s infinite;
 `;
 
+const SkipHint = styled.div`
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: var(--text-dim);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  animation: pulse 2s infinite;
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+`;
+
 const BootSequence = ({ onComplete }) => {
   const [logs, setLogs] = useState([]);
   const [progress, setProgress] = useState(0);
   const [complete, setComplete] = useState(false);
+  const [skipped, setSkipped] = useState(false);
 
   const bootLogs = [
     "INITIALIZING KERNEL...",
@@ -95,7 +112,26 @@ const BootSequence = ({ onComplete }) => {
     "DONE."
   ];
 
+  const handleSkip = useCallback(() => {
+    if (skipped) return;
+    setSkipped(true);
+    setComplete(true);
+    onComplete();
+  }, [onComplete, skipped]);
+
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        handleSkip();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleSkip]);
+
+  useEffect(() => {
+    if (skipped) return;
+
     let currentLog = 0;
 
     const logInterval = setInterval(() => {
@@ -111,17 +147,20 @@ const BootSequence = ({ onComplete }) => {
     }, 150); // Speed of logs
 
     return () => clearInterval(logInterval);
-  }, [onComplete]);
+  }, [onComplete, skipped]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container>
       {!complete ? (
-        <LogContainer>
-          {logs.map((log, i) => (
-            <LogLine key={i}>{'>'} {log}</LogLine>
-          ))}
-          <ProgressBar progress={progress} />
-        </LogContainer>
+        <>
+          <LogContainer>
+            {logs.map((log, i) => (
+              <LogLine key={i}>{'>'} {log}</LogLine>
+            ))}
+            <ProgressBar progress={progress} />
+          </LogContainer>
+          <SkipHint>[ESC] TO SKIP</SkipHint>
+        </>
       ) : (
         <AccessText>SYSTEM ONLINE</AccessText>
       )}

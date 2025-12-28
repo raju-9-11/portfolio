@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { sendEmail } from '../services/emailService';
 
@@ -50,6 +50,10 @@ const Button = styled.button`
   text-transform: uppercase;
   letter-spacing: 2px;
   clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
   &:hover {
     background: #d946ef;
@@ -59,7 +63,22 @@ const Button = styled.button`
   &:disabled {
     background: var(--text-dim);
     cursor: not-allowed;
+    transform: none;
   }
+`;
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: ${spin} 1s linear infinite;
 `;
 
 const Status = styled.div`
@@ -81,7 +100,7 @@ const Contact = () => {
       await sendEmail(formData);
       setStatus({ type: 'success', text: 'TRANSMISSION SENT SUCCESSFULLY' });
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) { // eslint-disable-line no-unused-vars
+    } catch (error) {
       console.log(error);
       setStatus({ type: 'error', text: 'TRANSMISSION FAILED' });
     } finally {
@@ -111,10 +130,13 @@ const Contact = () => {
           onChange={e => setFormData({...formData, message: e.target.value})}
           required
         />
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading} aria-busy={loading}>
+          {loading && <Spinner aria-hidden="true" />}
           {loading ? 'UPLOADING...' : 'INITIATE UPLOAD'}
         </Button>
-        {status && <Status $error={status.type === 'error'}>{status.text}</Status>}
+        <div role="alert" aria-live="polite">
+          {status && <Status $error={status.type === 'error'}>{status.text}</Status>}
+        </div>
       </Form>
     </PixelCard>
   );
