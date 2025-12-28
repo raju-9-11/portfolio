@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: 'Courier New', Courier, monospace; /* Fallback to monospace */
-    overflow-x: hidden;
+    /* overflow-x: hidden; Removed for debugging */
 
     /* Cyberpunk Grid Background */
     background-image:

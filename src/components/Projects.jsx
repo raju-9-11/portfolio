@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import PixelCard from './common/PixelCard';
 import { projectsData } from '../data/portfolio';
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 `;
 
@@ -13,6 +14,9 @@ const ProjectCard = styled.div`
   border: 1px solid var(--text-dim);
   padding: 15px;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &:hover {
     border-color: var(--neon-pink);
@@ -20,10 +24,17 @@ const ProjectCard = styled.div`
   }
 `;
 
+const ProjectHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+`;
+
 const ProjectTitle = styled.h4`
   color: var(--neon-yellow);
-  margin-bottom: 5px;
-  font-size: 1rem;
+  margin: 0;
+  font-size: 1.1rem;
 `;
 
 const TechStack = styled.div`
@@ -42,9 +53,10 @@ const TechTag = styled.span`
 `;
 
 const Description = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #ccc;
   line-height: 1.4;
+  flex-grow: 1;
 `;
 
 const Status = styled.span`
@@ -52,8 +64,26 @@ const Status = styled.span`
   color: var(--neon-green);
   border: 1px solid var(--neon-green);
   padding: 2px 5px;
-  float: right;
-  margin-top: -35px; /* Hacky align with title */
+  white-space: nowrap;
+`;
+
+const ProjectLinks = styled.div`
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+`;
+
+const ProjectLink = styled.a`
+  color: var(--neon-pink);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--neon-yellow);
+  }
 `;
 
 const Projects = () => {
@@ -62,12 +92,28 @@ const Projects = () => {
       <ProjectsGrid>
         {projectsData.map((project, idx) => (
           <ProjectCard key={idx}>
-            <ProjectTitle>{project.title}</ProjectTitle>
-            <Status>{project.status}</Status>
-            <TechStack>
-              {project.tech.map(t => <TechTag key={t}>{t}</TechTag>)}
-            </TechStack>
-            <Description>{project.description}</Description>
+            <div>
+                <ProjectHeader>
+                    <ProjectTitle>{project.title}</ProjectTitle>
+                    <Status>{project.status}</Status>
+                </ProjectHeader>
+                <TechStack>
+                {project.tech.map(t => <TechTag key={t}>{t}</TechTag>)}
+                </TechStack>
+                <Description>{project.description}</Description>
+            </div>
+            <ProjectLinks>
+              {project.liveUrl && (
+                <ProjectLink href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt /> Live
+                </ProjectLink>
+              )}
+              {project.sourceUrl && (
+                <ProjectLink href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
+                  <FaGithub /> Source
+                </ProjectLink>
+              )}
+            </ProjectLinks>
           </ProjectCard>
         ))}
       </ProjectsGrid>

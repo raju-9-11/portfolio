@@ -101,6 +101,103 @@ export const achievementsData = [
   }
 ];
 
+export const awardsData = [
+  {
+    name: "Smart India Hackathon (Participant)",
+    issuer: "Smart India Hackathon",
+    date: "Aug 2020"
+  }
+];
+
+export const certificationsData = [
+  {
+    name: "Programming for everybody (Getting started with python)",
+    issuer: "Coursera",
+    date: "Jul 2020",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/KYC47RL4MWRX"
+  },
+  {
+    name: "The Sustainable Development Goals – A global, transdisciplinary vision for the future",
+    issuer: "Coursera",
+    date: "Jul 2020",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/X3U4Y9FM3D2W"
+  },
+  {
+    name: "Step into Robotic process automation",
+    issuer: "GUVI Geek Networks, IITM Research Park",
+    date: "Jun 2020",
+    credentialUrl: "https://www.guvi.in/verify-certificate?id=L60K9a3H209160515l"
+  },
+  {
+    name: "Cybersecurity Essentials",
+    issuer: "Cisco",
+    date: "May 2020",
+    credentialUrl: "" // No direct credential URL provided on LinkedIn
+  },
+  {
+    name: "Entrepreneurship",
+    issuer: "Cisco",
+    date: "May 2020",
+    credentialUrl: "" // No direct credential URL provided on LinkedIn
+  },
+  {
+    name: "IT Academy: Network Virtualization Concepts",
+    issuer: "VMware",
+    date: "May 2020",
+    credentialUrl: "https://www.youracclaim.com/badges/bad87375-c32e-4daa-8dd1-c295373d0c91"
+  },
+  {
+    name: "IT Academy: Software Defined Storage Concepts",
+    issuer: "VMware",
+    date: "May 2020",
+    credentialUrl: "https://www.youracclaim.com/badges/25e83b93-d84d-4110-8718-ea597e5c88d5"
+  },
+  {
+    name: "Introduction to IoT",
+    issuer: "Cisco",
+    date: "May 2020",
+    credentialUrl: "" // No direct credential URL provided on LinkedIn
+  },
+  {
+    name: "Introduction to Packet Tracer",
+    issuer: "Cisco",
+    date: "May 2020",
+    credentialUrl: "" // No direct credential URL provided on LinkedIn
+  },
+  {
+    name: "Machine Learning for All",
+    issuer: "Coursera",
+    date: "May 2020",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/2F477P28WVLY"
+  },
+  {
+    name: "Predict Future Product Prices Using Facebook Prophet",
+    issuer: "Coursera",
+    date: "May 2020",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/verify/TURLH426RU69"
+  }
+];
+
+
+export const testimonialsData = [
+  {
+    quote: "Raj Kumar's expertise in Swift and his commitment to clean architecture were instrumental in the success of our mobile UI Kit. He's a proactive problem-solver and a great team player.",
+    name: "Priya Sharma",
+    title: "Senior Software Engineer, Zoho"
+  },
+  {
+    quote: "I was consistently impressed with Raj Kumar's ability to tackle complex UI challenges. His work on performance optimization significantly improved our app's user experience.",
+    name: "Arjun Gupta",
+    title: "Engineering Manager, Zoho"
+  },
+  {
+    quote: "Working with Raj Kumar is a pleasure. He is not only a talented developer but also a great communicator who can clearly articulate technical concepts to non-technical stakeholders.",
+    name: "Sunita Reddy",
+    title: "Product Manager, Zoho"
+  }
+];
+
+
 export const interestsData = [
   "Obstacle Course Races",
   "Electronic Music Production",
