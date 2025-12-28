@@ -9,11 +9,15 @@ import Achievements from './components/Achievements';
 import Interests from './components/Interests';
 import Contact from './components/Contact';
 import BootSequence from './components/BootSequence';
+import Certifications from './components/Certifications';
+import Awards from './components/Awards';
+import Testimonials from './components/Testimonials';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
   position: relative;
   /* Ultra-wide screen handling: Center the grid and add a subtle border effect */
+  /*
   &::before {
     content: "";
     position: fixed;
@@ -25,6 +29,7 @@ const MainWrapper = styled.div`
     background: radial-gradient(circle at center, transparent 80%, rgba(0, 0, 0, 0.8) 100%);
     z-index: 50;
   }
+  */
 `;
 
 const BentoGrid = styled.div`
@@ -32,7 +37,8 @@ const BentoGrid = styled.div`
   grid-template-columns: 1fr;
   gap: var(--grid-gap);
   padding: 20px;
-  max-width: 1400px; /* Increased for "width to width" feel */
+  width: 100%; /* Added */
+  max-width: 1400px;
   margin: 0 auto;
   min-height: 100vh;
   padding-bottom: 50px;
@@ -40,10 +46,13 @@ const BentoGrid = styled.div`
   /* Mobile Layout */
   grid-template-areas:
     "H"
-    "S"
-    "A"
-    "E"
     "J"
+    "E"
+    "S"
+    "L"
+    "T"
+    "A"
+    "W"
     "I"
     "C";
 
@@ -52,22 +61,27 @@ const BentoGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "H H"
-      "S A"
-      "E E"
       "J J"
-      "I C";
+      "E E"
+      "S S"
+      "L A"
+      "W I"
+      "T T"
+      "C C";
   }
 
   /* Desktop Layout */
   @media (min-width: 1101px) {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto auto auto;
+    grid-auto-rows: min-content;
 
     grid-template-areas:
       "H H H H"
-      "S A E E"
-      "J J J J"
-      "I C C C";
+      "J J E E"
+      "S S S S"
+      "L A W I"
+      "T T T T"
+      "C C C C";
   }
 `;
 
@@ -79,6 +93,10 @@ const ProjectsArea = styled.div` grid-area: J; `;
 const AchievementsArea = styled.div` grid-area: A; `;
 const InterestsArea = styled.div` grid-area: I; `;
 const ContactArea = styled.div` grid-area: C; `;
+const CertificationsArea = styled.div` grid-area: L; `;
+const AwardsArea = styled.div` grid-area: W; `;
+const TestimonialsArea = styled.div` grid-area: T; `;
+
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
@@ -92,10 +110,13 @@ function App() {
         <MainWrapper>
           <BentoGrid>
             <HeroArea><Hero /></HeroArea>
-            <SkillsArea><Skills /></SkillsArea>
-            <AchievementsArea><Achievements /></AchievementsArea>
-            <ExperienceArea><Experience /></ExperienceArea>
             <ProjectsArea><Projects /></ProjectsArea>
+            <ExperienceArea><Experience /></ExperienceArea>
+            <SkillsArea><Skills /></SkillsArea>
+            <CertificationsArea><Certifications /></CertificationsArea>
+            <TestimonialsArea><Testimonials /></TestimonialsArea>
+            <AchievementsArea><Achievements /></AchievementsArea>
+            <AwardsArea><Awards /></AwardsArea>
             <InterestsArea><Interests /></InterestsArea>
             <ContactArea><Contact /></ContactArea>
           </BentoGrid>
