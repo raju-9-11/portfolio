@@ -30,6 +30,10 @@ const Quote = styled.blockquote`
 const Author = styled.div`
   font-size: 0.9rem;
   color: var(--neon-cyan);
+
+  [data-theme='professional'] & {
+    font-weight: 600;
+  }
 `;
 
 const Title = styled.div`
@@ -54,6 +58,27 @@ const NavButton = styled.button`
   }
 
   ${props => props.direction === 'prev' ? 'left: 10px;' : 'right: 10px;'}
+
+  /* Professional Theme Overrides */
+  [data-theme='professional'] & {
+    background: white;
+    border: 1px solid var(--border-color);
+    color: var(--text-dim); /* Was neon-yellow/red, now slate */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    &:hover {
+      background: var(--neon-pink); /* Blue-500 accent */
+      color: white;
+      border-color: var(--neon-pink);
+    }
+  }
 `;
 
 const Testimonials = () => {

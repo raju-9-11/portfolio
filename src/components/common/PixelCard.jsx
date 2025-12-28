@@ -1,65 +1,89 @@
 import styled from 'styled-components';
+import { useTheme } from '../../context/ThemeContext';
 
-export const CardContainer = styled.div`
+const StyledContainer = styled.div`
   background-color: var(--card-bg);
-  border: 2px solid var(--neon-cyan);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-    z-index: 10;
-  }
+  /* Professional Theme Base */
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  border: 1px solid var(--border-color);
 
-  /* Pixel corners */
-  clip-path: polygon(
-    0 10px,
-    10px 0,
-    100% 0,
-    100% calc(100% - 10px),
-    calc(100% - 10px) 100%,
-    0 100%
-  );
+  /* Cyberpunk Theme Overrides */
+  [data-theme='cyberpunk'] & {
+    padding: 20px;
+    border: 2px solid var(--neon-cyan);
+    box-shadow: none;
+    border-radius: 0;
 
-  /* Scanline effect overlay */
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      transparent 50%,
-      rgba(0, 0, 0, 0.2) 50%
+    /* Pixel/Chamfered corners */
+    clip-path: polygon(
+      0 20px,
+      20px 0,
+      100% 0,
+      100% calc(100% - 20px),
+      calc(100% - 20px) 100%,
+      0 100%
     );
-    background-size: 100% 4px;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.3;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+      z-index: 10;
+    }
+
+    /* Scanline effect overlay */
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.2) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.3;
+    }
   }
 `;
 
 export const CardTitle = styled.h3`
   color: var(--neon-cyan);
-  border-bottom: 2px solid var(--neon-pink);
   padding-bottom: 10px;
   margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
 
-  &::before {
-    content: ">";
-    margin-right: 10px;
-    color: var(--neon-pink);
+  /* Cyberpunk specific */
+  [data-theme='cyberpunk'] & {
+    border-bottom: 2px solid var(--neon-pink);
+    &::before {
+      content: ">";
+      margin-right: 10px;
+      color: var(--neon-pink);
+    }
+  }
+
+  /* Professional specific */
+  [data-theme='professional'] & {
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
   }
 `;
 
@@ -76,10 +100,10 @@ export const CardContent = styled.div`
 
 const PixelCard = ({ title, children, className }) => {
   return (
-    <CardContainer className={className}>
+    <StyledContainer className={className}>
       {title && <CardTitle>{title}</CardTitle>}
       <CardContent>{children}</CardContent>
-    </CardContainer>
+    </StyledContainer>
   );
 };
 

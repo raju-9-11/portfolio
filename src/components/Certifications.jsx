@@ -19,18 +19,34 @@ const CertificationCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  [data-theme='professional'] & {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
 `;
 
 const CertificationName = styled.h4`
   color: var(--neon-cyan);
   font-size: 0.9rem;
   margin-bottom: 5px;
+
+  [data-theme='professional'] & {
+    color: var(--text-main);
+    font-weight: 600;
+  }
 `;
 
 const Issuer = styled.p`
   font-size: 0.8rem;
   color: var(--text-main);
   margin-bottom: 10px;
+
+  [data-theme='professional'] & {
+    color: var(--text-dim);
+  }
 `;
 
 const Meta = styled.div`
@@ -53,6 +69,14 @@ const CredentialLink = styled.a`
   &:hover {
     color: var(--neon-yellow);
   }
+
+  [data-theme='professional'] & {
+    color: var(--neon-pink); /* Blue-500 */
+    &:hover {
+       text-decoration: underline;
+       color: var(--neon-cyan);
+    }
+  }
 `;
 
 // Styles for the main card display
@@ -74,10 +98,18 @@ const PreviewItem = styled.li`
         color: var(--text-dim);
         display: block;
     }
+
+    [data-theme='professional'] & {
+        border-left: 2px solid var(--border-color); /* Subtle accent */
+        /* Or use accent color? Let's use accent for consistency */
+        border-left-color: var(--neon-pink);
+    }
 `;
 
 const ButtonContainer = styled.div`
     text-align: center;
+    /* Add padding to container to prevent border clipping of child button on selection/hover */
+    padding: 5px;
 `;
 
 const OpenModalButton = styled.button`
@@ -94,6 +126,29 @@ const OpenModalButton = styled.button`
     &:hover {
         background: var(--neon-yellow);
         box-shadow: 0 0 10px var(--neon-yellow);
+    }
+
+    [data-theme='professional'] & {
+        background: var(--bg-color);
+        color: var(--neon-pink); /* Blue text */
+        border: 1px solid var(--neon-pink);
+        font-family: var(--font-main);
+        text-transform: none;
+        border-radius: 6px;
+        font-weight: 500;
+
+        /* Ensure outline doesn't clip */
+        outline-offset: 2px;
+
+        &:hover {
+            background: var(--neon-pink);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 2px var(--neon-pink);
+        }
     }
 `;
 

@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaChevronUp } from 'react-icons/fa';
+import { useTheme } from '../../context/ThemeContext';
 
 const Button = styled.button`
   position: fixed;
-  bottom: 20px;
+  bottom: 80px; /* Moved up to not overlap with SystemAlert/ThemeSwitcher */
   right: 20px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid var(--neon-cyan);
-  color: var(--neon-cyan);
   width: 40px;
   height: 40px;
   display: flex;
@@ -19,23 +17,50 @@ const Button = styled.button`
   opacity: ${props => props.$visible ? 0.8 : 0};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
   transition: all 0.3s ease;
-  clip-path: polygon(
-    0 5px, 5px 0,
-    100% 0, 100% calc(100% - 5px),
-    calc(100% - 5px) 100%, 0 100%
-  );
 
-  &:hover {
-    background: var(--neon-cyan);
-    color: #000;
-    transform: translateY(-3px);
-    box-shadow: 0 0 10px var(--neon-cyan);
-    opacity: 1;
+  /* Cyberpunk Styles */
+  [data-theme='cyberpunk'] & {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    clip-path: polygon(
+      0 5px, 5px 0,
+      100% 0, 100% calc(100% - 5px),
+      calc(100% - 5px) 100%, 0 100%
+    );
+
+    &:hover {
+      background: var(--neon-cyan);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 0 10px var(--neon-cyan);
+      opacity: 1;
+    }
+  }
+
+  /* Professional Styles */
+  [data-theme='professional'] & {
+    background: white;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    &:hover {
+      background: var(--neon-cyan); /* Accent color */
+      color: white;
+      border-color: var(--neon-cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      opacity: 1;
+    }
   }
 `;
 
 const BackToTop = () => {
   const [visible, setVisible] = useState(false);
+  // useTheme hook is available but strictly not needed if we rely on css selectors,
+  // but good to keep consistency if we needed logic.
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
@@ -63,9 +88,9 @@ const BackToTop = () => {
       onClick={scrollToTop}
       $visible={visible}
       aria-label="Back to Top"
-      title="Return to Source"
+      title="Back to Top"
     >
-      <FaChevronUp />
+      <FaChevronUp size={20} />
     </Button>
   );
 };
