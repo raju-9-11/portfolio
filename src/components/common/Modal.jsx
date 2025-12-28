@@ -16,7 +16,7 @@ const ModalOverlay = styled.div`
   padding: 20px;
 
   [data-theme='professional'] & {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5); /* Slightly darker for contrast with white button */
     backdrop-filter: blur(2px);
   }
 `;
@@ -25,28 +25,28 @@ const ModalContent = styled.div`
   width: 100%;
   max-width: 800px;
   max-height: 90vh;
-  /* PixelCard handles internal overflow, but ModalContent constrains size */
   display: flex;
   flex-direction: column;
+  position: relative; /* Context for CloseButton absolute positioning */
 
-  /* Adjust scrollbar for modal context if needed, though PixelCard also has one */
-  /* The comment mentions "scroll bar in modal of all certifications is not matching" */
+  /* Allow button to hang outside in professional mode */
+  overflow: visible;
 
-  /* This targets any scrollable containers inside */
+  /* Scrollbar styles for children */
   & ::-webkit-scrollbar {
     width: 8px;
   }
 
   [data-theme='professional'] & ::-webkit-scrollbar-track {
-    background: #f1f5f9; /* Slate-100 */
+    background: #f1f5f9;
   }
 
   [data-theme='professional'] & ::-webkit-scrollbar-thumb {
-    background: #cbd5e1; /* Slate-300 */
+    background: #cbd5e1;
     border-radius: 4px;
 
     &:hover {
-      background: #94a3b8; /* Slate-400 */
+      background: #94a3b8;
     }
   }
 `;
@@ -60,7 +60,7 @@ const CloseButton = styled.button`
     position: absolute;
     top: 15px;
     right: 15px;
-    z-index: 100; /* Ensure it's above content */
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,18 +74,20 @@ const CloseButton = styled.button`
     }
 
     [data-theme='professional'] & {
-        top: 12px;
-        right: 12px;
-        font-size: 1rem;
-        color: var(--text-dim);
+        top: -40px; /* Position OUTSIDE the card */
+        right: 0;
+        font-size: 1.2rem;
+        color: white; /* White text on dark overlay */
         background: transparent;
         border-radius: 50%;
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
+        opacity: 0.8;
 
         &:hover {
-            background: rgba(0,0,0,0.05);
-            color: var(--text-main);
+            opacity: 1;
+            background: rgba(255,255,255,0.1);
+            color: white;
             text-shadow: none;
         }
     }
@@ -97,8 +99,8 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={e => e.stopPropagation()}>
+        <CloseButton onClick={onClose} aria-label="Close Modal"><FaTimes /></CloseButton>
         <PixelCard title={title}>
-            <CloseButton onClick={onClose} aria-label="Close Modal"><FaTimes /></CloseButton>
             {children}
         </PixelCard>
       </ModalContent>
