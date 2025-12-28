@@ -60,8 +60,9 @@ const CYBERPUNK_DICTIONARY = {
   "Certifications": "AUTH KEYS",
   "Interests": "BACKGROUND PROCESSES",
   "Testimonials": "USER REVIEWS",
-  "LinkedIn": "NETWORK_LINK",
-  "Email": "EMAIL_UPLINK"
+  "Professional": "NETWORK_LINK",
+  "Informal": "EMAIL_UPLINK",
+  "Playful": "GAME_START"
 };
 
 const GlitchText = ({ text }) => {

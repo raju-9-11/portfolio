@@ -5,7 +5,7 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('cyberpunk');
+  const [theme, setTheme] = useState('professional');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');

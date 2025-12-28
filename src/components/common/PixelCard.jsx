@@ -99,9 +99,9 @@ export const CardContent = styled.div`
   }
 `;
 
-const PixelCard = ({ title, children, className }) => {
+const PixelCard = ({ title, children, className, ...props }) => {
   return (
-    <StyledContainer className={className}>
+    <StyledContainer className={className} {...props}>
       {title && <CardTitle><GlitchText text={title} /></CardTitle>}
       <CardContent>{children}</CardContent>
     </StyledContainer>
