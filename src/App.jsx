@@ -12,6 +12,7 @@ import BootSequence from './components/BootSequence';
 import Certifications from './components/Certifications';
 import Awards from './components/Awards';
 import Testimonials from './components/Testimonials';
+import BackToTop from './components/common/BackToTop';
 import CookieBanner from './components/CookieBanner';
 import { logSystemLogin } from './firebase';
 
@@ -129,6 +130,7 @@ function App() {
             <InterestsArea><Interests /></InterestsArea>
             <ContactArea><Contact /></ContactArea>
           </BentoGrid>
+          <BackToTop />
           <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10}}>
             SYSTEM STATUS: ONLINE | © {new Date().getFullYear()} RAJ KUMAR S
           </div>

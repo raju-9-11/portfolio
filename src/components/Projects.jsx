@@ -1,7 +1,21 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import PixelCard from './common/PixelCard';
 import { projectsData } from '../data/portfolio';
+
+const glitchAnim = keyframes`
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+`;
+
+const pulseAnim = keyframes`
+  0%, 100% { opacity: 1; text-shadow: 0 0 5px var(--neon-green); }
+  50% { opacity: 0.7; text-shadow: 0 0 2px var(--neon-green); }
+`;
 
 const ProjectsGrid = styled.div`
   display: grid;
@@ -17,10 +31,25 @@ const ProjectCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     border-color: var(--neon-pink);
-    transform: scale(1.02);
+    box-shadow: 3px 3px 0 var(--neon-cyan);
+    transform: translate(-2px, -2px);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 0, 255, 0.05);
+      pointer-events: none;
+      z-index: 0;
+    }
   }
 `;
 
@@ -29,12 +58,18 @@ const ProjectHeader = styled.div`
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
 `;
 
 const ProjectTitle = styled.h4`
   color: var(--neon-yellow);
   margin: 0;
   font-size: 1.1rem;
+
+  ${ProjectCard}:hover & {
+    animation: ${glitchAnim} 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
 `;
 
 const TechStack = styled.div`
@@ -42,6 +77,8 @@ const TechStack = styled.div`
   gap: 5px;
   flex-wrap: wrap;
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
 `;
 
 const TechTag = styled.span`
@@ -57,6 +94,8 @@ const Description = styled.p`
   color: #ccc;
   line-height: 1.4;
   flex-grow: 1;
+  position: relative;
+  z-index: 1;
 `;
 
 const Status = styled.span`
@@ -65,12 +104,15 @@ const Status = styled.span`
   border: 1px solid var(--neon-green);
   padding: 2px 5px;
   white-space: nowrap;
+  animation: ${pulseAnim} 2s infinite;
 `;
 
 const ProjectLinks = styled.div`
   margin-top: 15px;
   display: flex;
   gap: 15px;
+  position: relative;
+  z-index: 1;
 `;
 
 const ProjectLink = styled.a`
@@ -83,6 +125,7 @@ const ProjectLink = styled.a`
 
   &:hover {
     color: var(--neon-yellow);
+    text-shadow: 0 0 5px var(--neon-yellow);
   }
 `;
 
