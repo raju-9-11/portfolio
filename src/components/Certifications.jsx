@@ -108,6 +108,8 @@ const PreviewItem = styled.li`
 
 const ButtonContainer = styled.div`
     text-align: center;
+    /* Add padding to container to prevent border clipping of child button on selection/hover */
+    padding: 5px;
 `;
 
 const OpenModalButton = styled.button`
@@ -135,10 +137,17 @@ const OpenModalButton = styled.button`
         border-radius: 6px;
         font-weight: 500;
 
+        /* Ensure outline doesn't clip */
+        outline-offset: 2px;
+
         &:hover {
             background: var(--neon-pink);
             color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 2px var(--neon-pink);
         }
     }
 `;
