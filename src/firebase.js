@@ -14,7 +14,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+let analytics;
+try {
+  analytics = getAnalytics(app);
+} catch (e) {
+  console.warn("Firebase Analytics failed to initialize (likely blocked by extension):", e);
+}
 
 export const logSystemLogin = () => {
   const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -29,11 +35,15 @@ export const logSystemLogin = () => {
   }
 
   if (!isLocalhost) {
-    logEvent(analytics, 'login', {
-      device_type: deviceType
-    });
-    // Optional: Log to console in prod for debugging if needed, but usually we keep it clean.
-    // console.log(`[Analytics] Event 'login' logged. Device: ${deviceType}`);
+    if (analytics) {
+      try {
+        logEvent(analytics, 'login', {
+          device_type: deviceType
+        });
+      } catch (e) {
+        console.warn("Firebase Analytics logging blocked:", e);
+      }
+    }
   } else {
     console.log(`[Analytics] Localhost detected. Event 'login' suppressed. Device: ${deviceType}`);
   }
