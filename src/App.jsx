@@ -14,6 +14,7 @@ import Awards from './components/Awards';
 import Testimonials from './components/Testimonials';
 import SystemAlert from './components/SystemAlert';
 import { logSystemLogin } from './firebase';
+import BackToTop from './components/common/BackToTop';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
@@ -129,6 +130,7 @@ function App() {
             <InterestsArea><Interests /></InterestsArea>
             <ContactArea><Contact /></ContactArea>
           </BentoGrid>
+          <BackToTop />
           <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10}}>
             SYSTEM STATUS: ONLINE | © {new Date().getFullYear()} RAJ KUMAR S
           </div>

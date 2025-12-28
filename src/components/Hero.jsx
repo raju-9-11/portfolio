@@ -147,7 +147,7 @@ const Hero = () => {
       const timeout = setTimeout(() => {
         setBioText((prev) => prev + fullText.charAt(idx));
         setIdx(idx + 1);
-      }, 30);
+      }, 10);
       return () => clearTimeout(timeout);
     }
   }, [idx, fullText]);
@@ -168,10 +168,15 @@ const Hero = () => {
           </TerminalBox>
 
           <Socials>
-            <SocialBtn href={profileData.socialLinks.linkedin} target="_blank">
+            <SocialBtn
+              href={profileData.socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit LinkedIn Profile"
+            >
               LINKEDIN
             </SocialBtn>
-            <SocialBtn href={`mailto:${profileData.socialLinks.email}`}>
+            <SocialBtn href={`mailto:${profileData.socialLinks.email}`} aria-label="Send Email">
               EMAIL_UPLINK
             </SocialBtn>
           </Socials>
