@@ -22,6 +22,10 @@ import ThemeSwitcher from './components/common/ThemeSwitcher';
 const MainWrapper = styled.div`
   min-height: 100vh;
   position: relative;
+  /* Ensure centering on ultra-wide screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const BentoGrid = styled.div`
@@ -31,6 +35,7 @@ const BentoGrid = styled.div`
   padding: 20px;
   width: 100%;
   max-width: 1400px;
+  /* Margin auto is good, but flex center on parent is safer for some browsers */
   margin: 0 auto;
   min-height: 100vh;
   padding-bottom: 50px;
@@ -127,7 +132,7 @@ function App() {
             <ContactArea><Contact /></ContactArea>
           </BentoGrid>
           <BackToTop />
-          <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10}}>
+          <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10, width: '100%'}}>
             <ThemeSwitcher />
             <br/>
             SYSTEM STATUS: ONLINE | © {new Date().getFullYear()} RAJ KUMAR S

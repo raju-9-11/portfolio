@@ -21,6 +21,8 @@ const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  /* Add padding to prevent hover shadows/transform clipping at grid edges */
+  padding: 5px;
 `;
 
 const ProjectCard = styled.div`
@@ -33,6 +35,17 @@ const ProjectCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  /*
+    FIX: Clipping issue.
+    overflow: hidden was likely hiding content when scaled or translated.
+    Removing it or increasing bounds might help.
+    However, the ::before effect needs overflow hidden to stay inside.
+    Solution: Ensure transform doesn't push important content out or use padding on parent.
+    For Professional theme, we definitely don't want overflow hidden if shadows or tooltips pop out,
+    but mainly here it's likely the text glitch or translation.
+    Let's conditionally remove overflow for Professional theme if possible,
+    but generally padding the grid (done above) helps.
+  */
   overflow: hidden;
 
   /* Professional Theme Override */
@@ -41,6 +54,7 @@ const ProjectCard = styled.div`
     border: 1px solid var(--border-color);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     border-radius: 8px;
+    overflow: visible; /* Allow shadows to bleed */
 
     &:hover {
       border-color: var(--neon-pink); /* Blue-500 */
