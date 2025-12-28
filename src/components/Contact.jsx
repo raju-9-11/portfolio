@@ -63,7 +63,7 @@ const Button = styled.button`
 `;
 
 const Status = styled.div`
-  color: ${props => props.error ? '#ff5555' : 'var(--neon-green)'};
+  color: ${props => props.$error ? '#ff5555' : 'var(--neon-green)'};
   font-size: 0.9rem;
   text-align: center;
 `;
@@ -82,6 +82,7 @@ const Contact = () => {
       setStatus({ type: 'success', text: 'TRANSMISSION SENT SUCCESSFULLY' });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) { // eslint-disable-line no-unused-vars
+      console.log(error);
       setStatus({ type: 'error', text: 'TRANSMISSION FAILED' });
     } finally {
       setLoading(false);
@@ -113,7 +114,7 @@ const Contact = () => {
         <Button type="submit" disabled={loading}>
           {loading ? 'UPLOADING...' : 'INITIATE UPLOAD'}
         </Button>
-        {status && <Status error={status.type === 'error'}>{status.text}</Status>}
+        {status && <Status $error={status.type === 'error'}>{status.text}</Status>}
       </Form>
     </PixelCard>
   );
