@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './styles/GlobalStyle';
 import Hero from './components/Hero';
@@ -12,6 +12,8 @@ import BootSequence from './components/BootSequence';
 import Certifications from './components/Certifications';
 import Awards from './components/Awards';
 import Testimonials from './components/Testimonials';
+import CookieBanner from './components/CookieBanner';
+import { logSystemLogin } from './firebase';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
@@ -101,6 +103,12 @@ const TestimonialsArea = styled.div` grid-area: T; `;
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
 
+  useEffect(() => {
+    if (bootComplete) {
+      logSystemLogin();
+    }
+  }, [bootComplete]);
+
   return (
     <>
       <GlobalStyle />
@@ -108,6 +116,7 @@ function App() {
 
       {bootComplete && (
         <MainWrapper>
+          <CookieBanner />
           <BentoGrid>
             <HeroArea><Hero /></HeroArea>
             <ProjectsArea><Projects /></ProjectsArea>
