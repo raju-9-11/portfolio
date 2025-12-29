@@ -159,6 +159,7 @@ const Socials = styled.div`
   gap: 15px;
   margin-top: 20px;
   justify-content: center;
+  flex-wrap: wrap; /* Ensure buttons wrap on mobile */
 
   @media (min-width: 900px) {
     justify-content: flex-start;
