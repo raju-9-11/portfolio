@@ -28,8 +28,8 @@ export const GlobalStyle = createGlobalStyle`
     --bg-size: 40px 40px;
   }
 
-  /* PROFESSIONAL THEME OVERRIDES */
-  [data-theme='professional'] {
+  /* MODERN THEME OVERRIDES */
+  [data-theme='modern'] {
     /* Cleaner, lighter palette requested by user */
     --bg-color: #f8fafc; /* Slate-50 - Very light cool gray */
     --card-bg: #ffffff;
@@ -37,12 +37,12 @@ export const GlobalStyle = createGlobalStyle`
     --text-dim: #64748b; /* Slate-500 */
     --border-color: #e2e8f0; /* Slate-200 */
 
-    /* Re-mapped accents to be more harmonious/professional */
+    /* Re-mapped accents to be more harmonious/modern */
     /* Blue for primary actions/links (replaces neon-cyan) */
-    --neon-cyan: #0f172a; /* Slate-900 (High contrast dark for primary elements) */
+    --neon-cyan: #3182ce; /* Muted Blue - for primary links/actions */
 
     /* Soft Blue/Indigo for secondary accents (replaces neon-pink) */
-    --neon-pink: #3b82f6; /* Blue-500 */
+    --neon-pink: #805ad5; /* Muted Purple - for secondary accents */
 
     /* Amber/Orange for warnings/highlights (replaces neon-yellow) */
     --neon-yellow: #d97706; /* Amber-600 */
@@ -93,11 +93,11 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  [data-theme='professional'] a {
+  [data-theme='modern'] a {
     color: var(--neon-pink); /* Blue-500 for links */
   }
 
-  [data-theme='professional'] a:hover {
+  [data-theme='modern'] a:hover {
     color: var(--neon-cyan); /* Dark slate on hover */
     text-shadow: none;
     text-decoration: underline;
@@ -115,7 +115,12 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
   }
 
-  [data-theme='professional'] ::-webkit-scrollbar-thumb {
+  [data-theme='modern'] ::-webkit-scrollbar-thumb {
      background: #cbd5e1; /* Slate-300 for subtler scrollbar */
+  }
+
+  [data-theme='modern'] ::selection {
+    background: rgba(49, 130, 206, 0.1);
+    color: inherit;
   }
 `;
