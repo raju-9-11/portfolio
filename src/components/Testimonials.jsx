@@ -10,7 +10,7 @@ const SliderContainer = styled.div`
 
 const Slide = styled.div`
   display: ${props => (props.active ? 'block' : 'none')};
-  padding: 20px;
+  padding: 20px 40px; /* Increased side padding to clear arrows */
   text-align: center;
 `;
 
