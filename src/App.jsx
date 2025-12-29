@@ -18,6 +18,7 @@ import { logSystemLogin } from './firebase';
 import BackToTop from './components/common/BackToTop';
 import CyberpunkOverlay from './components/effects/CyberpunkOverlay';
 import ThemeSwitcher from './components/common/ThemeSwitcher';
+import MobileNav from './components/common/MobileNav';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
@@ -41,6 +42,10 @@ const BentoGrid = styled.div`
   justify-content: center;
   min-height: 100vh;
   padding-bottom: 50px;
+
+  @media (max-width: 768px) {
+    padding-bottom: 100px; /* Extra padding for mobile nav */
+  }
 
   /* Mobile Layout */
   grid-template-areas:
@@ -134,6 +139,7 @@ function App() {
             <ContactArea><Contact /></ContactArea>
           </BentoGrid>
           <BackToTop />
+          <MobileNav />
           <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10, width: '100%'}}>
             <ThemeSwitcher />
             <br/>
