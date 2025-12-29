@@ -15,7 +15,7 @@ const ModalOverlay = styled.div`
   z-index: 1000;
   padding: 20px;
 
-  [data-theme='professional'] & {
+  [data-theme='modern'] & {
     background: rgba(0, 0, 0, 0.5); /* Slightly darker for contrast with white button */
     backdrop-filter: blur(2px);
   }
@@ -37,11 +37,11 @@ const ModalContent = styled.div`
     width: 8px;
   }
 
-  [data-theme='professional'] & ::-webkit-scrollbar-track {
+  [data-theme='modern'] & ::-webkit-scrollbar-track {
     background: #f1f5f9;
   }
 
-  [data-theme='professional'] & ::-webkit-scrollbar-thumb {
+  [data-theme='modern'] & ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 4px;
 
@@ -82,7 +82,7 @@ const CloseButton = styled.button`
         text-shadow: 0 0 5px var(--neon-yellow);
     }
 
-    [data-theme='professional'] & {
+    [data-theme='modern'] & {
         top: -40px; /* Position OUTSIDE the card */
         right: 0;
         font-size: 1.2rem;

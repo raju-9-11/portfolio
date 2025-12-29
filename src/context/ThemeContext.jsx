@@ -5,7 +5,7 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('professional');
+  const [theme, setTheme] = useState('modern');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');
@@ -15,7 +15,7 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'cyberpunk' ? 'professional' : 'cyberpunk';
+    const newTheme = theme === 'cyberpunk' ? 'modern' : 'cyberpunk';
     setTheme(newTheme);
     localStorage.setItem('portfolio-theme', newTheme);
   };

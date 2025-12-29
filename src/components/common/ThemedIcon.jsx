@@ -13,7 +13,7 @@ const IconWrapper = styled.span`
     color: var(--neon-pink);
   }
 
-  [data-theme='professional'] & {
+  [data-theme='modern'] & {
     color: inherit; /* Allow parent to control color (e.g. on hover) */
   }
 `;

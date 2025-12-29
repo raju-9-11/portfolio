@@ -38,7 +38,7 @@ const Button = styled.button`
   }
 
   /* Professional Styles */
-  [data-theme='professional'] & {
+  [data-theme='modern'] & {
     background: white;
     border: 1px solid var(--border-color);
     color: var(--text-main);

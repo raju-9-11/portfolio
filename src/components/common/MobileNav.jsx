@@ -23,7 +23,7 @@ const NavWrapper = styled.nav`
     display: none;
   }
 
-  [data-theme='professional'] & {
+  [data-theme='modern'] & {
     background: rgba(255, 255, 255, 0.95);
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,7 @@ const NavItem = styled.button`
     }
   }
 
-  [data-theme='professional'] & {
+  [data-theme='modern'] & {
     color: var(--text-dim);
 
     &:hover, &.active {
