@@ -19,6 +19,13 @@ const BannerWrapper = styled.div`
   gap: 10px;
   animation: ${slideIn} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
+  @media (max-width: 768px) {
+    bottom: 80px; /* Raise above mobile nav */
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+
   /* Cyberpunk Theme */
   [data-theme='cyberpunk'] & {
     background: rgba(10, 10, 10, 0.95);
