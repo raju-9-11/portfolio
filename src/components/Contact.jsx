@@ -92,12 +92,35 @@ const Contact = () => {
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const validateForm = (data) => {
+    if (!data.name || data.name.length > 100) return 'INVALID CODENAME (1-100 CHARS)';
+    // Basic email regex for security validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) return 'INVALID FREQUENCY (EMAIL FORMAT)';
+    if (!data.message || data.message.length > 1000) return 'PAYLOAD ERROR (1-1000 CHARS)';
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Security: Input sanitization and validation
+    const sanitizedData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim()
+    };
+
+    const validationError = validateForm(sanitizedData);
+    if (validationError) {
+      setStatus({ type: 'error', text: validationError });
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await sendEmail(formData);
+      await sendEmail(sanitizedData);
       setStatus({ type: 'success', text: 'TRANSMISSION SENT SUCCESSFULLY' });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
