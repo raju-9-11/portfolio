@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
-import { FaLinkedin, FaEnvelope, FaGamepad } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope, FaGamepad, FaFileAlt, FaDownload } from 'react-icons/fa';
 import ThemedIcon from './common/ThemedIcon';
 import GlitchText from './effects/GlitchText';
+import Modal from './common/Modal';
+import { useTheme } from '../context/ThemeContext';
 
 const HeroContent = styled.div`
   display: flex;
@@ -176,6 +178,7 @@ const SocialBtn = styled.a`
   color: var(--neon-cyan);
   font-size: 0.9rem;
   font-weight: bold;
+  cursor: pointer;
 
   &:hover {
     background: var(--neon-cyan);
@@ -198,10 +201,39 @@ const SocialBtn = styled.a`
   }
 `;
 
+const IframeWrapper = styled.div`
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  background: #f0f0f0;
+  border: 1px solid var(--text-dim);
+  margin-bottom: 20px;
+
+  [data-theme='cyberpunk'] & {
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+  }
+`;
+
+const StyledIframe = styled.iframe`
+  width: 100%;
+  height: 100%;
+  border: none;
+`;
+
+const DownloadButton = styled(SocialBtn)`
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+  text-decoration: none;
+`;
+
 const Hero = () => {
   const [bioText, setBioText] = useState('');
   const [idx, setIdx] = useState(0);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const fullText = profileData.summary;
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (idx < fullText.length) {
@@ -213,47 +245,76 @@ const Hero = () => {
     }
   }, [idx, fullText]);
 
+  // Determine resume file based on theme (cyberpunk vs professional)
+  const resumeUrl = theme === 'cyberpunk' ? '/resume-cyberpunk.pdf' : '/resume-modern.pdf';
+  const resumeTitle = theme === 'cyberpunk' ? 'IDENTITY FILE DETECTED' : 'Resume Preview';
+
   return (
-    <PixelCard>
-      <HeroContent>
-        <ProfileSection>
-          <Avatar src={profileData.profileImage || "https://ui-avatars.com/api/?name=Raj+Kumar+S&background=0a0a1a&color=00f3ff&size=150"} alt="Avatar" />
-          <GlitchName>{profileData.name}</GlitchName>
-          <Role>{profileData.headline}</Role>
-          <p style={{color: 'var(--text-dim)', marginTop: '10px'}}>{profileData.location}</p>
-        </ProfileSection>
+    <>
+      <PixelCard>
+        <HeroContent>
+          <ProfileSection>
+            <Avatar src={profileData.profileImage || "https://ui-avatars.com/api/?name=Raj+Kumar+S&background=0a0a1a&color=00f3ff&size=150"} alt="Avatar" />
+            <GlitchName>{profileData.name}</GlitchName>
+            <Role>{profileData.headline}</Role>
+            <p style={{color: 'var(--text-dim)', marginTop: '10px'}}>{profileData.location}</p>
+          </ProfileSection>
 
-        <InfoSection>
-          <TerminalBox>
-            <TypingText>{bioText}</TypingText>
-          </TerminalBox>
+          <InfoSection>
+            <TerminalBox>
+              <TypingText>{bioText}</TypingText>
+            </TerminalBox>
 
-          <Socials>
-            <SocialBtn
-              href={profileData.socialLinks.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit LinkedIn Profile"
-            >
-              <ThemedIcon ascii="" icon={<FaLinkedin size={16} />} />
-              <GlitchText text="Professional" />
-            </SocialBtn>
-            <SocialBtn href={`mailto:${profileData.socialLinks.email}`} aria-label="Send Email">
-              <ThemedIcon ascii="" icon={<FaEnvelope size={16} />} />
-              <GlitchText text="Informal" />
-            </SocialBtn>
-            <SocialBtn
-              onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
-              style={{ cursor: 'pointer' }}
-              aria-label="Contact for Fun"
-            >
-              <ThemedIcon ascii="" icon={<FaGamepad size={16} />} />
-              <GlitchText text="Say Hello" />
-            </SocialBtn>
-          </Socials>
-        </InfoSection>
-      </HeroContent>
-    </PixelCard>
+            <Socials>
+              <SocialBtn
+                href={profileData.socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit LinkedIn Profile"
+              >
+                <ThemedIcon ascii="" icon={<FaLinkedin size={16} />} />
+                <GlitchText text="Professional" />
+              </SocialBtn>
+
+              <SocialBtn
+                onClick={() => setIsResumeOpen(true)}
+                aria-label="View Resume"
+              >
+                <ThemedIcon ascii="" icon={<FaFileAlt size={16} />} />
+                <GlitchText text={theme === 'cyberpunk' ? "Identity File" : "Resume"} />
+              </SocialBtn>
+
+              <SocialBtn href={`mailto:${profileData.socialLinks.email}`} aria-label="Send Email">
+                <ThemedIcon ascii="" icon={<FaEnvelope size={16} />} />
+                <GlitchText text="Informal" />
+              </SocialBtn>
+
+              <SocialBtn
+                onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
+                style={{ cursor: 'pointer' }}
+                aria-label="Contact for Fun"
+              >
+                <ThemedIcon ascii="" icon={<FaGamepad size={16} />} />
+                <GlitchText text="Say Hello" />
+              </SocialBtn>
+            </Socials>
+          </InfoSection>
+        </HeroContent>
+      </PixelCard>
+
+      <Modal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+        title={resumeTitle}
+      >
+        <IframeWrapper>
+          <StyledIframe src={resumeUrl} title="Resume Preview" />
+        </IframeWrapper>
+        <DownloadButton href={resumeUrl} download>
+          <FaDownload /> Download PDF
+        </DownloadButton>
+      </Modal>
+    </>
   );
 };
 
