@@ -81,10 +81,11 @@ export const projectsData = [
     status: "Completed"
   },
   {
-    title: "Crypto Tracker Pro",
-    tech: ["React Native", "Firebase", "CoinGecko API"],
-    description: "Cross-platform mobile app tracking real-time cryptocurrency prices with alert notifications.",
-    status: "In Progress"
+    title: "FitPro Connect",
+    tech: ["React", "Firebase", "Stripe"],
+    description: "A comprehensive platform empowering fitness trainers to manage classes, showcase portfolios, and connect with clients.",
+    status: "In Progress",
+    link: "https://personal-trainer-mock.web.app/"
   },
   {
     title: "Linux Kernel Mod",
