@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
-import { FaLinkedin, FaEnvelope, FaGamepad, FaFileAlt, FaDownload, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope, FaGamepad, FaFileAlt, FaDownload } from 'react-icons/fa';
 import ThemedIcon from './common/ThemedIcon';
 import GlitchText from './effects/GlitchText';
 import Modal from './common/Modal';
@@ -239,7 +239,6 @@ const Hero = () => {
   const [bioText, setBioText] = useState('');
   const [idx, setIdx] = useState(0);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
   const fullText = profileData.summary;
   const { theme } = useTheme();
 
@@ -252,13 +251,6 @@ const Hero = () => {
       return () => clearTimeout(timeout);
     }
   }, [idx, fullText]);
-
-  // Reset preview state when modal closes
-  useEffect(() => {
-    if (!isResumeOpen) {
-      setShowPreview(false);
-    }
-  }, [isResumeOpen]);
 
   // Determine resume file based on theme (cyberpunk vs professional)
   const resumeUrl = theme === 'cyberpunk' ? '/resume-cyberpunk.pdf' : '/resume-modern.pdf';
@@ -322,21 +314,11 @@ const Hero = () => {
         onClose={() => setIsResumeOpen(false)}
         title={resumeTitle}
       >
-        {showPreview && (
-          <IframeWrapper>
-            <StyledIframe src={resumeUrl} title="Resume Preview" />
-          </IframeWrapper>
-        )}
+        <IframeWrapper>
+          <StyledIframe src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0`} title="Resume Preview" />
+        </IframeWrapper>
 
         <ActionButtons>
-          <ModalBtn
-            as="button"
-            onClick={() => setShowPreview(!showPreview)}
-          >
-            {showPreview ? <FaEyeSlash /> : <FaEye />}
-            {showPreview ? " Hide Preview" : " Show Preview"}
-          </ModalBtn>
-
           <ModalBtn href={resumeUrl} download>
             <FaDownload /> Download PDF
           </ModalBtn>
