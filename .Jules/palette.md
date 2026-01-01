@@ -9,3 +9,7 @@
 ## 2024-02-14 - Thematic Error Handling
 **Learning:** Error boundaries shouldn't be generic. A "BSOD" style error page turns a negative experience (crash) into a memorable, on-brand moment.
 **Action:** Always theme error states to match the app's personality.
+
+## 2025-05-24 - Interactive Semantics
+**Learning:** Custom interactive elements (like divs with onClick) are invisible to keyboard users. Converting them to semantic buttons with proper resets preserves the design while instantly granting focusability and keyboard support.
+**Action:** Audit all `onClick` handlers on non-interactive elements and convert to `<button>` or add `role="button"` with `tabIndex`.
