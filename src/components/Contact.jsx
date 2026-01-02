@@ -136,6 +136,7 @@ const Contact = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           placeholder="CODENAME (Name)"
+          aria-label="Name"
           value={formData.name}
           onChange={e => setFormData({...formData, name: e.target.value})}
           required
@@ -143,12 +144,14 @@ const Contact = () => {
         <Input
           type="email"
           placeholder="FREQUENCY (Email)"
+          aria-label="Email Address"
           value={formData.email}
           onChange={e => setFormData({...formData, email: e.target.value})}
           required
         />
         <TextArea
           placeholder="PAYLOAD (Message)"
+          aria-label="Message"
           value={formData.message}
           onChange={e => setFormData({...formData, message: e.target.value})}
           required
