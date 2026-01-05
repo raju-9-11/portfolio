@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useTheme } from '../../context/ThemeContext';
 
 const GlitchWrapper = styled.span`

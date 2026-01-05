@@ -1,18 +1,14 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 const ThemeContext = createContext();
 
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('professional');
-
-  useEffect(() => {
+  const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
+    return savedTheme || 'professional';
+  });
 
   const toggleTheme = () => {
     const newTheme = theme === 'cyberpunk' ? 'professional' : 'cyberpunk';

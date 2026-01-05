@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../../context/ThemeContext';
 
 const Button = styled.button`
   position: fixed;
