@@ -179,6 +179,7 @@ const SocialBtn = styled.a`
   font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
+  font-family: inherit; /* Ensure buttons inherit font */
 
   &:hover {
     background: var(--neon-cyan);
@@ -284,6 +285,8 @@ const Hero = () => {
               </SocialBtn>
 
               <SocialBtn
+                as="button"
+                type="button"
                 onClick={() => setIsResumeOpen(true)}
                 aria-label="View Resume"
               >
@@ -297,8 +300,9 @@ const Hero = () => {
               </SocialBtn>
 
               <SocialBtn
+                as="button"
+                type="button"
                 onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
-                style={{ cursor: 'pointer' }}
                 aria-label="Contact for Fun"
               >
                 <ThemedIcon ascii="" icon={<FaGamepad size={16} />} />

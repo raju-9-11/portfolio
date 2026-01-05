@@ -31,7 +31,7 @@ export const Controls = styled.div`
   gap: 2px;
 `;
 
-export const ControlButton = styled.button`
+export const ControlButton = styled.div`
   width: 16px;
   height: 14px;
   background-color: var(--win-gray);
@@ -40,15 +40,12 @@ export const ControlButton = styled.button`
   font-size: 8px;
   line-height: 10px;
   font-weight: bold;
-  cursor: pointer;
+  cursor: default;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-
-  &:active {
-    border-color: var(--win-black) var(--win-white) var(--win-white) var(--win-black);
-  }
+  user-select: none;
 `;
 
 export const WindowContent = styled.div`
