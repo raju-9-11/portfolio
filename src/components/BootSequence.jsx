@@ -93,7 +93,7 @@ const AccessText = styled.h1`
   animation: ${props => props.$theme === 'professional' ? 'none' : textGlow} 1.5s infinite;
 `;
 
-const SkipHint = styled.div`
+const SkipButton = styled.button`
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -102,6 +102,23 @@ const SkipHint = styled.div`
   font-size: 0.8rem;
   opacity: 0.6;
   animation: pulse 2s infinite;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 100;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 1px solid var(--neon-cyan);
+    text-decoration: none;
+  }
 
   @keyframes pulse {
     0%, 100% { opacity: 0.4; }
@@ -181,7 +198,13 @@ const BootSequence = ({ onComplete }) => {
             ))}
             <ProgressBar progress={progress} $theme={theme} />
           </LogContainer>
-          <SkipHint>{theme === 'cyberpunk' ? '[ESC] TO SKIP' : 'Press Esc to skip'}</SkipHint>
+          <SkipButton
+            onClick={handleSkip}
+            type="button"
+            aria-label="Skip initialization sequence"
+          >
+            {theme === 'cyberpunk' ? '[ SKIP_INTRO ]' : 'Skip Intro'}
+          </SkipButton>
         </>
       ) : (
         <AccessText $theme={theme}>{theme === 'cyberpunk' ? 'SYSTEM ONLINE' : 'Welcome'}</AccessText>
