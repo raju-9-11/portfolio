@@ -13,3 +13,7 @@
 ## 2025-05-24 - Interactive Semantics
 **Learning:** Custom interactive elements (like divs with onClick) are invisible to keyboard users. Converting them to semantic buttons with proper resets preserves the design while instantly granting focusability and keyboard support.
 **Action:** Audit all `onClick` handlers on non-interactive elements and convert to `<button>` or add `role="button"` with `tabIndex`.
+
+## 2025-02-27 - BootSequence Accessibility
+**Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
+**Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
