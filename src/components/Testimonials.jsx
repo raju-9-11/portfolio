@@ -100,7 +100,7 @@ const Testimonials = () => {
   return (
     <PixelCard title="Testimonials">
       <SliderContainer>
-        <NavButton onClick={prevSlide} direction="prev">&lt;</NavButton>
+        <NavButton onClick={prevSlide} direction="prev" aria-label="Previous testimonial">&lt;</NavButton>
         {testimonialsData.map((testimonial, index) => (
           <Slide key={index} active={index === current}>
             <Quote>{testimonial.quote}</Quote>
@@ -108,7 +108,7 @@ const Testimonials = () => {
             <Title>{testimonial.title}</Title>
           </Slide>
         ))}
-        <NavButton onClick={nextSlide} direction="next">&gt;</NavButton>
+        <NavButton onClick={nextSlide} direction="next" aria-label="Next testimonial">&gt;</NavButton>
       </SliderContainer>
     </PixelCard>
   );
