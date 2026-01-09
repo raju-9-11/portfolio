@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useTheme } from '../../context/ThemeContext';
 import GlitchText from '../effects/GlitchText';
 
 const StyledContainer = styled.div`

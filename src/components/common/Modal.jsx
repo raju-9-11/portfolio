@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { FaTimes } from 'react-icons/fa';
 import PixelCard from './PixelCard';
@@ -103,10 +104,24 @@ const CloseButton = styled.button`
 `;
 
 const Modal = ({ isOpen, onClose, title, children }) => {
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleEsc);
+    }
+
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <ModalOverlay onClick={onClose}>
+    <ModalOverlay onClick={onClose} role="dialog" aria-modal="true">
       <ModalContent onClick={e => e.stopPropagation()}>
         <CloseButton onClick={onClose} aria-label="Close Modal"><FaTimes /></CloseButton>
         <PixelCard title={title}>
