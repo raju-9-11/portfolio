@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-05-24 - Focus Visibility in Clean Themes
+**Learning:** "Clean" or "Modern" themes often fall into the trap of setting `outline: none` for aesthetics, destroying usability for keyboard navigators.
+**Action:** Always check `:focus-visible` styles in modern/clean themes and ensure a visible ring (even if colored to match the theme) replaces the browser default instead of removing it entirely.

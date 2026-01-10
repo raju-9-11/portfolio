@@ -63,7 +63,8 @@ const ProjectCard = styled.div`
     }
   }
 
-  [data-theme='cyberpunk'] &:hover {
+  [data-theme='cyberpunk'] &:hover,
+  [data-theme='cyberpunk'] &:focus-within {
     border-color: var(--neon-pink);
     box-shadow: 3px 3px 0 var(--neon-cyan);
     transform: translate(-2px, -2px);
@@ -96,7 +97,8 @@ const ProjectTitle = styled.h4`
   margin: 0;
   font-size: 1.1rem;
 
-  ${ProjectCard}:hover & {
+  ${ProjectCard}:hover &,
+  ${ProjectCard}:focus-within & {
     animation: ${glitchAnim} 0.5s cubic-bezier(.25, .46, .45, .94) both;
   }
 
@@ -106,7 +108,8 @@ const ProjectTitle = styled.h4`
     font-weight: 600;
   }
 
-  [data-theme='professional'] ${ProjectCard}:hover & {
+  [data-theme='professional'] ${ProjectCard}:hover &,
+  [data-theme='professional'] ${ProjectCard}:focus-within & {
     animation: none;
     color: var(--neon-pink);
   }
@@ -194,7 +197,23 @@ const ProjectLink = styled.a`
       color: var(--neon-pink); /* Blue-500 */
       text-shadow: none;
       text-decoration: none;
+      outline: none;
     }
+
+    &:focus-visible {
+      color: var(--neon-pink);
+      text-shadow: none;
+      text-decoration: none;
+      outline: 2px solid var(--neon-pink);
+      outline-offset: 2px;
+    }
+  }
+
+  &:focus-visible {
+    color: var(--neon-yellow);
+    text-shadow: 0 0 5px var(--neon-yellow);
+    outline: 1px dashed var(--neon-cyan);
+    outline-offset: 4px;
   }
 `;
 
@@ -215,8 +234,8 @@ const Projects = () => {
                 <Description>{project.description}</Description>
             </div>
             <ProjectLinks>
-              {project.liveUrl && (
-                <ProjectLink href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              {(project.liveUrl || project.link) && (
+                <ProjectLink href={project.liveUrl || project.link} target="_blank" rel="noopener noreferrer">
                   <FaExternalLinkAlt /> Live
                 </ProjectLink>
               )}
