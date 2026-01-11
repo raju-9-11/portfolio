@@ -13,7 +13,11 @@ const Button = styled.button`
   cursor: pointer;
   z-index: 99;
   opacity: ${props => props.$visible ? 0.8 : 0};
+  /* FIX: Visibility hidden ensures it's removed from tab order when not visible */
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
+  /* DELIGHT: Add scale for pop-in effect */
+  transform: ${props => props.$visible ? 'scale(1)' : 'scale(0.8)'};
   transition: all 0.3s ease;
 
   /* Cyberpunk Styles */
@@ -30,7 +34,8 @@ const Button = styled.button`
     &:hover {
       background: var(--neon-cyan);
       color: #000;
-      transform: translateY(-3px);
+      /* Combine scale with hover lift */
+      transform: scale(1.1) translateY(-3px);
       box-shadow: 0 0 10px var(--neon-cyan);
       opacity: 1;
     }
@@ -48,10 +53,16 @@ const Button = styled.button`
       background: var(--neon-cyan); /* Accent color */
       color: white;
       border-color: var(--neon-cyan);
-      transform: translateY(-3px);
+      /* Combine scale with hover lift */
+      transform: scale(1.1) translateY(-3px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       opacity: 1;
     }
+  }
+
+  /* FIX: Adjust position on mobile to avoid overlapping with SystemAlert */
+  @media (max-width: 768px) {
+    bottom: 140px;
   }
 `;
 
