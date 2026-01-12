@@ -13,8 +13,17 @@ const Button = styled.button`
   cursor: pointer;
   z-index: 99;
   opacity: ${props => props.$visible ? 0.8 : 0};
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 4px;
+    background: var(--neon-cyan);
+    color: #000;
+  }
 
   /* Cyberpunk Styles */
   [data-theme='cyberpunk'] & {
