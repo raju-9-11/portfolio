@@ -196,7 +196,15 @@ const BootSequence = ({ onComplete }) => {
             {logs.map((log, i) => (
               <LogLine key={i}>{theme === 'cyberpunk' ? '>' : ''} {log}</LogLine>
             ))}
-            <ProgressBar progress={progress} $theme={theme} />
+            <ProgressBar
+              progress={progress}
+              $theme={theme}
+              role="progressbar"
+              aria-valuenow={Math.round(progress)}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-label="System initialization progress"
+            />
           </LogContainer>
           <SkipButton
             onClick={handleSkip}
