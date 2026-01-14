@@ -49,15 +49,28 @@ const Skills = () => {
   return (
     <PixelCard title="Skills">
       <SkillsGrid>
-        {skillsData.map((skill) => (
-          <SkillBar key={skill.name}>
-            <SkillName>
-              <span>{skill.name}</span>
-              <span>{skill.level}%</span>
-            </SkillName>
-            <ProgressBar level={skill.level} />
-          </SkillBar>
-        ))}
+        {skillsData.map((skill) => {
+          // Generate a valid ID for aria-labelledby
+          const skillId = `skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`;
+
+          return (
+            <SkillBar key={skill.name}>
+              <SkillName id={skillId}>
+                <span>{skill.name}</span>
+                <span aria-hidden="true">{skill.level}%</span>
+              </SkillName>
+              <ProgressBar
+                level={skill.level}
+                role="progressbar"
+                aria-valuenow={skill.level}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuetext={`${skill.level}%`}
+                aria-labelledby={skillId}
+              />
+            </SkillBar>
+          );
+        })}
       </SkillsGrid>
     </PixelCard>
   );

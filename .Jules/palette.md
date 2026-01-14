@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2026-01-14 - Semantic Progress Bars
+**Learning:** Custom visual indicators (like progress bars) are invisible to screen readers without explicit ARIA roles. Adding `role="progressbar"` transforms a decorative div into a functional, accessible component.
+**Action:** Always map custom visual status indicators to their corresponding ARIA roles and attributes.
