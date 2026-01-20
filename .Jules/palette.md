@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-05-28 - Invisible Focus Traps
+**Learning:** Visually hidden elements (opacity: 0) remain in the keyboard tab order, creating confusing focus traps where focus disappears. Using `visibility: hidden` (or `display: none`) removes them from the accessibility tree while allowing transitions.
+**Action:** Always pair `opacity: 0` with `visibility: hidden` for elements that should not be interactive when invisible.
