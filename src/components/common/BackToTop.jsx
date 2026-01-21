@@ -13,6 +13,7 @@ const Button = styled.button`
   cursor: pointer;
   z-index: 99;
   opacity: ${props => props.$visible ? 0.8 : 0};
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
   transition: all 0.3s ease;
 
@@ -74,6 +75,10 @@ const BackToTop = () => {
       top: 0,
       behavior: 'smooth'
     });
+    // Move focus to top of document to reset navigation context
+    document.body.tabIndex = -1;
+    document.body.focus({ preventScroll: true });
+    document.body.removeAttribute('tabIndex');
   };
 
   useEffect(() => {

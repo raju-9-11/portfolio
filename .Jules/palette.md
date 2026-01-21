@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-03-05 - Focus Management & Visibility
+**Learning:** `opacity: 0` does not remove elements from the keyboard tab order, creating "ghost" tab stops. `visibility: hidden` is required. Additionally, large layout changes (like "Scroll to Top") must manage focus to prevent keyboard users from getting stranded.
+**Action:** Use `visibility` for fade transitions on interactive elements. Explicitly reset focus (e.g., to `document.body`) after large scroll or layout jumps.
