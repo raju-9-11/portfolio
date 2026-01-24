@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { sendEmail } from '../services/emailService';
+import { useTheme } from '../context/ThemeContext';
 
 const Form = styled.form`
   display: flex;
@@ -87,17 +88,63 @@ const Status = styled.div`
   text-align: center;
 `;
 
+const TEXT_CONFIG = {
+  cyberpunk: {
+    placeholders: {
+      name: "CODENAME (Name)",
+      email: "FREQUENCY (Email)",
+      message: "PAYLOAD (Message)"
+    },
+    errors: {
+      name: "INVALID CODENAME (1-100 CHARS)",
+      email: "INVALID FREQUENCY (EMAIL FORMAT)",
+      message: "PAYLOAD ERROR (1-1000 CHARS)",
+      transmission: "TRANSMISSION FAILED"
+    },
+    button: {
+      default: "INITIATE UPLOAD",
+      loading: "UPLOADING..."
+    },
+    status: {
+      success: "TRANSMISSION SENT SUCCESSFULLY"
+    }
+  },
+  professional: {
+    placeholders: {
+      name: "Your Name",
+      email: "Email Address",
+      message: "How can I help you?"
+    },
+    errors: {
+      name: "Please enter a valid name (1-100 characters)",
+      email: "Please enter a valid email address",
+      message: "Message must be between 1 and 1000 characters",
+      transmission: "Failed to send message. Please try again."
+    },
+    button: {
+      default: "Send Message",
+      loading: "Sending..."
+    },
+    status: {
+      success: "Message sent successfully!"
+    }
+  }
+};
+
 const Contact = () => {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const currentText = TEXT_CONFIG[theme] || TEXT_CONFIG.professional;
+
   const validateForm = (data) => {
-    if (!data.name || data.name.length > 100) return 'INVALID CODENAME (1-100 CHARS)';
+    if (!data.name || data.name.length > 100) return currentText.errors.name;
     // Basic email regex for security validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) return 'INVALID FREQUENCY (EMAIL FORMAT)';
-    if (!data.message || data.message.length > 1000) return 'PAYLOAD ERROR (1-1000 CHARS)';
+    if (!emailRegex.test(data.email)) return currentText.errors.email;
+    if (!data.message || data.message.length > 1000) return currentText.errors.message;
     return null;
   };
 
@@ -121,11 +168,11 @@ const Contact = () => {
 
     try {
       await sendEmail(sanitizedData);
-      setStatus({ type: 'success', text: 'TRANSMISSION SENT SUCCESSFULLY' });
+      setStatus({ type: 'success', text: currentText.status.success });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.log(error);
-      setStatus({ type: 'error', text: 'TRANSMISSION FAILED' });
+      setStatus({ type: 'error', text: currentText.errors.transmission });
     } finally {
       setLoading(false);
     }
@@ -133,9 +180,9 @@ const Contact = () => {
 
   return (
     <PixelCard title="Contact" id="contact-section">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} noValidate>
         <Input
-          placeholder="CODENAME (Name)"
+          placeholder={currentText.placeholders.name}
           aria-label="Name"
           value={formData.name}
           onChange={e => setFormData({...formData, name: e.target.value})}
@@ -143,14 +190,14 @@ const Contact = () => {
         />
         <Input
           type="email"
-          placeholder="FREQUENCY (Email)"
+          placeholder={currentText.placeholders.email}
           aria-label="Email Address"
           value={formData.email}
           onChange={e => setFormData({...formData, email: e.target.value})}
           required
         />
         <TextArea
-          placeholder="PAYLOAD (Message)"
+          placeholder={currentText.placeholders.message}
           aria-label="Message"
           value={formData.message}
           onChange={e => setFormData({...formData, message: e.target.value})}
@@ -158,7 +205,7 @@ const Contact = () => {
         />
         <Button type="submit" disabled={loading} aria-busy={loading}>
           {loading && <Spinner aria-hidden="true" />}
-          {loading ? 'UPLOADING...' : 'INITIATE UPLOAD'}
+          {loading ? currentText.button.loading : currentText.button.default}
         </Button>
         <div role="alert" aria-live="polite">
           {status && <Status $error={status.type === 'error'}>{status.text}</Status>}
