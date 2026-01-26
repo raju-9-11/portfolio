@@ -76,7 +76,7 @@ const ProgressBar = styled.div`
     top: 0;
     left: 0;
     height: 100%;
-    width: ${props => props.progress}%;
+    width: ${props => props.$progress}%;
     background: ${props => props.$theme === 'professional' ? 'var(--neon-pink)' : 'var(--neon-cyan)'};
     box-shadow: ${props => props.$theme === 'professional' ? 'none' : '0 0 10px var(--neon-cyan)'};
     transition: width 0.1s linear;
@@ -196,7 +196,15 @@ const BootSequence = ({ onComplete }) => {
             {logs.map((log, i) => (
               <LogLine key={i}>{theme === 'cyberpunk' ? '>' : ''} {log}</LogLine>
             ))}
-            <ProgressBar progress={progress} $theme={theme} />
+            <ProgressBar
+              $progress={progress}
+              $theme={theme}
+              role="progressbar"
+              aria-valuenow={Math.round(progress)}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-label="System Boot Progress"
+            />
           </LogContainer>
           <SkipButton
             onClick={handleSkip}

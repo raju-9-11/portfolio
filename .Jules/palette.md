@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-05-24 - Transient Props & Accessibility
+**Learning:** Styled-components pass all standard props to the DOM, causing React warnings for custom props like `progress` on `div`. Using transient props (`$progress`) fixes this while keeping the value available for styling. Pairing this with `role="progressbar"` creates a semantic, warning-free component.
+**Action:** Use `$` prefix for style-only props and ensure `div` based progress bars always have ARIA roles.
