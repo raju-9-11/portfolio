@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-02-27 - Invisible Focus Traps
+**Learning:** Elements hidden with only `opacity: 0` remain keyboard focusable, creating confusing "ghost" tab stops. CSS `visibility` transitions perfectly with `opacity` (delaying hidden state until fade-out completes) to solve this without complex JavaScript.
+**Action:** Always pair `opacity: 0` with `visibility: hidden` (or `inert`) for elements that should disappear from the tab order.

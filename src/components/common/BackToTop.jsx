@@ -14,6 +14,7 @@ const Button = styled.button`
   z-index: 99;
   opacity: ${props => props.$visible ? 0.8 : 0};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
   transition: all 0.3s ease;
 
   /* Cyberpunk Styles */
