@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-05-25 - Viewport Navigation & Focus
+**Learning:** Smooth scrolling interactions (like "Back to Top") create a disconnect if focus remains at the origin. Manually shifting focus to the destination (or a wrapper) aligns the keyboard experience with the visual one.
+**Action:** Always pair programmatic scrolling with programmatic focus management (`element.focus()`).

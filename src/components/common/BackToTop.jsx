@@ -13,8 +13,9 @@ const Button = styled.button`
   cursor: pointer;
   z-index: 99;
   opacity: ${props => props.$visible ? 0.8 : 0};
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, visibility 0s ${props => props.$visible ? '0s' : '0.3s'};
 
   /* Cyberpunk Styles */
   [data-theme='cyberpunk'] & {
@@ -74,6 +75,18 @@ const BackToTop = () => {
       top: 0,
       behavior: 'smooth'
     });
+
+    // Move focus to body for keyboard navigation
+    if (document.body) {
+      // Ensure body is focusable
+      document.body.tabIndex = -1;
+      document.body.focus({ preventScroll: true }); // preventScroll avoids jump if smooth scroll is slow
+
+      // Clean up tabIndex on blur
+      document.body.addEventListener('blur', () => {
+        document.body.removeAttribute('tabIndex');
+      }, { once: true });
+    }
   };
 
   useEffect(() => {
