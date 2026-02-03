@@ -17,3 +17,7 @@
 ## 2025-02-27 - BootSequence Accessibility
 **Learning:** Providing a keyboard-only skip method (ESC key) is insufficient for mobile and mouse users. An interactive button ensures universal access to skip functionality.
 **Action:** When implementing "Press Key to X" patterns, always pair them with an interactive UI element for users who cannot or do not use keyboard shortcuts.
+
+## 2025-05-25 - Transient Props & ARIA
+**Learning:** Passing props like `level` to DOM elements via styled-components causes warnings. Transient props (``) are essential for clean consoles. Progress bars need explicit `role="progressbar"` and labels to be meaningful to screen readers.
+**Action:** Audit styled-components for non-standard DOM attributes and use transient props. Ensure all visual meters have proper ARIA roles.

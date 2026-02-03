@@ -39,7 +39,7 @@ const ProgressBar = styled.div`
     left: 0;
     top: 0;
     height: 100%;
-    width: ${props => props.level}%;
+    width: ${props => props.$level}%;
     background: var(--neon-green);
     box-shadow: 0 0 5px var(--neon-green);
   }
@@ -49,13 +49,20 @@ const Skills = () => {
   return (
     <PixelCard title="Skills">
       <SkillsGrid>
-        {skillsData.map((skill) => (
+        {skillsData.map((skill, index) => (
           <SkillBar key={skill.name}>
             <SkillName>
-              <span>{skill.name}</span>
-              <span>{skill.level}%</span>
+              <span id={`skill-${index}`}>{skill.name}</span>
+              <span aria-hidden="true">{skill.level}%</span>
             </SkillName>
-            <ProgressBar level={skill.level} />
+            <ProgressBar
+              $level={skill.level}
+              role="progressbar"
+              aria-valuenow={skill.level}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-labelledby={`skill-${index}`}
+            />
           </SkillBar>
         ))}
       </SkillsGrid>
