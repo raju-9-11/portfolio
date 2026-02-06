@@ -35,17 +35,6 @@ const ProjectCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  /*
-    FIX: Clipping issue.
-    overflow: hidden was likely hiding content when scaled or translated.
-    Removing it or increasing bounds might help.
-    However, the ::before effect needs overflow hidden to stay inside.
-    Solution: Ensure transform doesn't push important content out or use padding on parent.
-    For Professional theme, we definitely don't want overflow hidden if shadows or tooltips pop out,
-    but mainly here it's likely the text glitch or translation.
-    Let's conditionally remove overflow for Professional theme if possible,
-    but generally padding the grid (done above) helps.
-  */
   overflow: hidden;
 
   /* Professional Theme Override */
@@ -56,14 +45,16 @@ const ProjectCard = styled.div`
     border-radius: 8px;
     overflow: visible; /* Allow shadows to bleed */
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       border-color: var(--neon-pink); /* Blue-500 */
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
       transform: translateY(-2px);
     }
   }
 
-  [data-theme='cyberpunk'] &:hover {
+  [data-theme='cyberpunk'] &:hover,
+  [data-theme='cyberpunk'] &:focus-within {
     border-color: var(--neon-pink);
     box-shadow: 3px 3px 0 var(--neon-cyan);
     transform: translate(-2px, -2px);
@@ -96,7 +87,8 @@ const ProjectTitle = styled.h4`
   margin: 0;
   font-size: 1.1rem;
 
-  ${ProjectCard}:hover & {
+  ${ProjectCard}:hover &,
+  ${ProjectCard}:focus-within & {
     animation: ${glitchAnim} 0.5s cubic-bezier(.25, .46, .45, .94) both;
   }
 
@@ -106,7 +98,8 @@ const ProjectTitle = styled.h4`
     font-weight: 600;
   }
 
-  [data-theme='professional'] ${ProjectCard}:hover & {
+  [data-theme='professional'] ${ProjectCard}:hover &,
+  [data-theme='professional'] ${ProjectCard}:focus-within & {
     animation: none;
     color: var(--neon-pink);
   }
@@ -202,32 +195,46 @@ const Projects = () => {
   return (
     <PixelCard title="Projects">
       <ProjectsGrid>
-        {projectsData.map((project, idx) => (
-          <ProjectCard key={idx}>
-            <div>
-                <ProjectHeader>
-                    <ProjectTitle>{project.title}</ProjectTitle>
-                    <Status>{project.status}</Status>
-                </ProjectHeader>
-                <TechStack>
-                {project.tech.map(t => <TechTag key={t}>{t}</TechTag>)}
-                </TechStack>
-                <Description>{project.description}</Description>
-            </div>
-            <ProjectLinks>
-              {project.liveUrl && (
-                <ProjectLink href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <FaExternalLinkAlt /> Live
-                </ProjectLink>
-              )}
-              {project.sourceUrl && (
-                <ProjectLink href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
-                  <FaGithub /> Source
-                </ProjectLink>
-              )}
-            </ProjectLinks>
-          </ProjectCard>
-        ))}
+        {projectsData.map((project, idx) => {
+          const liveLink = project.liveUrl || project.link;
+
+          return (
+            <ProjectCard key={idx}>
+              <div>
+                  <ProjectHeader>
+                      <ProjectTitle>{project.title}</ProjectTitle>
+                      <Status>{project.status}</Status>
+                  </ProjectHeader>
+                  <TechStack>
+                  {project.tech.map(t => <TechTag key={t}>{t}</TechTag>)}
+                  </TechStack>
+                  <Description>{project.description}</Description>
+              </div>
+              <ProjectLinks>
+                {liveLink && (
+                  <ProjectLink
+                    href={liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Live demo of ${project.title}`}
+                  >
+                    <FaExternalLinkAlt /> Live
+                  </ProjectLink>
+                )}
+                {project.sourceUrl && (
+                  <ProjectLink
+                    href={project.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Source code for ${project.title}`}
+                  >
+                    <FaGithub /> Source
+                  </ProjectLink>
+                )}
+              </ProjectLinks>
+            </ProjectCard>
+          );
+        })}
       </ProjectsGrid>
     </PixelCard>
   );
