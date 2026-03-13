@@ -1,11 +1,11 @@
 {
   "projects": {
-    "default": "portfolio-pac"
+    "default": "nyx-port"
   },
   "targets": {
-    "portfolio-pac": {
+    "nyx-port": {
       "hosting": {
-        "pac-dbe": [
+        "iamnyx": [
           "dist"
         ]
       }

@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import PixelCard from './common/PixelCard';
-import { projectsData } from '../data/portfolio';
+import { projects } from '../data/portfolio';
 
 const glitchAnim = keyframes`
   0% { transform: scale(1); clip-path: inset(0 0 0 0); }
@@ -195,18 +195,18 @@ const Projects = () => {
   return (
     <PixelCard title="Projects">
       <ProjectsGrid>
-        {projectsData.map((project, idx) => {
+        {projects.map((project, idx) => { // Changed from projectsData to projects
           const liveLink = project.liveUrl || project.link;
 
           return (
             <ProjectCard key={idx}>
               <div>
                   <ProjectHeader>
-                      <ProjectTitle>{project.title}</ProjectTitle>
+                      <ProjectTitle>{project.name}</ProjectTitle> {/* Changed from project.title to project.name */}
                       <Status>{project.status}</Status>
                   </ProjectHeader>
                   <TechStack>
-                  {project.tech.map(t => <TechTag key={t}>{t}</TechTag>)}
+                  {project.tags.map(t => <TechTag key={t}>{t}</TechTag>)} {/* Changed from project.tech to project.tags */}
                   </TechStack>
                   <Description>{project.description}</Description>
               </div>
@@ -216,17 +216,17 @@ const Projects = () => {
                     href={liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Live demo of ${project.title}`}
+                    aria-label={`Live demo of ${project.name}`} // Changed from project.title to project.name
                   >
                     <FaExternalLinkAlt /> Live
                   </ProjectLink>
                 )}
-                {project.sourceUrl && (
+                {project.repoUrl && ( // Changed from project.sourceUrl to project.repoUrl
                   <ProjectLink
-                    href={project.sourceUrl}
+                    href={project.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Source code for ${project.title}`}
+                    aria-label={`Source code for ${project.name}`} // Changed from project.title to project.name
                   >
                     <FaGithub /> Source
                   </ProjectLink>

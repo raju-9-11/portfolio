@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "pac-dbe",
+    "site": "iamnyx",
     "public": "dist",
     "ignore": [
       "firebase.json",

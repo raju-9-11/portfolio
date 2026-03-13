@@ -4,12 +4,12 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCzljm2NFMmfHKUfSVK8u_PwSvvUSPkzAE",
-  authDomain: "portfolio-pac.firebaseapp.com",
-  projectId: "portfolio-pac",
-  storageBucket: "portfolio-pac.firebasestorage.app",
-  messagingSenderId: "222630410662",
-  appId: "1:222630410662:web:ef8d048d7befd5c1ed7767"
+  apiKey: "AIzaSyCBZW-V3-51jsaqgb3_n_ajOi2DyXtPFpY",
+  authDomain: "iamnyx.firebaseapp.com",
+  projectId: "nyx-port",
+  storageBucket: "nyx-port.firebasestorage.app",
+  messagingSenderId: "395259503882",
+  appId: "1:395259503882:web:da7da68c550e3f854e86f3"
 };
 
 // Initialize Firebase

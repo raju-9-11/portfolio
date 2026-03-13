@@ -22,6 +22,7 @@ export const skillsData = [
   { name: "Java", level: 65, category: "Language" },
   { name: "Kotlin", level: 60, category: "Language" },
   { name: "Linux", level: 80, category: "OS" },
+  { name: "React Native", level: 30, category: "Mobile" },
 ];
 
 export const experienceData = [
@@ -73,25 +74,42 @@ export const experienceData = [
   }
 ];
 
-export const projectsData = [
+export const projects = [
   {
-    title: "Neon Task Manager",
-    tech: ["SwiftUI", "CoreData", "Combine"],
+    name: "Neon Task Manager",
+    tags: ["SwiftUI", "CoreData", "Combine"],
     description: "A futuristic task management app featuring gesture-based navigation and real-time syncing.",
+    imageUrl: null,
+    liveUrl: null,
+    repoUrl: null,
     status: "Completed"
   },
   {
-    title: "FitPro Connect",
-    tech: ["React", "Firebase", "Stripe"],
+    name: "FitPro Connect",
+    tags: ["React", "Firebase", "Stripe"],
     description: "A comprehensive platform empowering fitness trainers to manage classes, showcase portfolios, and connect with clients.",
-    status: "In Progress",
-    link: "https://personal-trainer-mock.web.app/"
+    imageUrl: null,
+    liveUrl: "https://personal-trainer-mock.web.app/",
+    repoUrl: null,
+    status: "In Progress"
   },
   {
-    title: "Linux Kernel Mod",
-    tech: ["C", "Linux", "Make"],
+    name: "Linux Kernel Mod",
+    tags: ["C", "Linux", "Make"],
     description: "A custom kernel module experimenting with process scheduling algorithms for low-latency tasks.",
+    imageUrl: null,
+    liveUrl: null,
+    repoUrl: null,
     status: "Experimental"
+  },
+  {
+    name: "Nexus",
+    tags: ["llm", "react", "react native", "firebase", "rag", "wellness"],
+    description: "Nexus (AGNES): A unified, multi-agent AI wellness platform with specialized agents and E2EE for holistic stability.",
+    imageUrl: "no image yet",
+    liveUrl: "https://agent-agnes-ai.web.app",
+    repoUrl: "https://github.com/raju-9-11/nexus",
+    status: "In Progress"
   }
 ];
 
