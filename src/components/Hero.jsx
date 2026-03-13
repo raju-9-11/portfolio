@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { profileData } from '../data/portfolio';
 import { FaLinkedin, FaEnvelope, FaGamepad, FaFileAlt, FaDownload } from 'react-icons/fa';
@@ -209,6 +209,10 @@ const IframeWrapper = styled.div`
   background: #f0f0f0;
   border: 1px solid var(--text-dim);
   margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   [data-theme='cyberpunk'] & {
     border: 1px solid var(--neon-cyan);
@@ -220,6 +224,28 @@ const StyledIframe = styled.iframe`
   width: 100%;
   height: 100%;
   border: none;
+  opacity: ${props => props.$loading ? 0 : 1};
+  transition: opacity 0.3s;
+`;
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  position: absolute;
+  border: 4px solid rgba(0, 243, 255, 0.1);
+  border-top: 4px solid var(--neon-cyan);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: ${spin} 1s linear infinite;
+
+  [data-theme='professional'] & {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--neon-pink);
+  }
 `;
 
 const ActionButtons = styled.div`
@@ -240,6 +266,7 @@ const Hero = () => {
   const [bioText, setBioText] = useState('');
   const [idx, setIdx] = useState(0);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [iframeLoading, setIframeLoading] = useState(true);
   const fullText = profileData.summary;
   const { theme } = useTheme();
 
@@ -256,6 +283,12 @@ const Hero = () => {
   // Determine resume file based on theme (cyberpunk vs professional)
   const resumeUrl = theme === 'cyberpunk' ? '/resume-cyberpunk.pdf' : '/resume-modern.pdf';
   const resumeTitle = theme === 'cyberpunk' ? 'IDENTITY FILE DETECTED' : 'Resume Preview';
+
+  // Handle open resume to reset loading state
+  const handleOpenResume = () => {
+    setIframeLoading(true);
+    setIsResumeOpen(true);
+  };
 
   return (
     <>
@@ -287,7 +320,7 @@ const Hero = () => {
               <SocialBtn
                 as="button"
                 type="button"
-                onClick={() => setIsResumeOpen(true)}
+                onClick={handleOpenResume}
                 aria-label="View Resume"
               >
                 <ThemedIcon ascii="" icon={<FaFileAlt size={16} />} />
@@ -319,7 +352,13 @@ const Hero = () => {
         title={resumeTitle}
       >
         <IframeWrapper>
-          <StyledIframe src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0`} title="Resume Preview" />
+          {iframeLoading && <Spinner />}
+          <StyledIframe
+            src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+            title="Resume Preview"
+            onLoad={() => setIframeLoading(false)}
+            $loading={iframeLoading}
+          />
         </IframeWrapper>
 
         <ActionButtons>
