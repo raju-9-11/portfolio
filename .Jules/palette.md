@@ -21,3 +21,6 @@
 ## 2025-02-27 - Semantic Visualization
 **Learning:** Visual data representations (like progress bars) are meaningless to screen readers if implemented as generic divs. `role="progressbar"` and proper `aria-labelledby` association are critical for conveying "50%" not just as text, but as a status.
 **Action:** Always wrap visual gauges/meters in semantic roles and link them to their text labels.
+## 2025-02-27 - Interactive Container States
+**Learning:** Complex interactive cards often rely on hover for visual feedback (like glitch effects), excluding keyboard users. Using `:focus-within` bridges this gap without changing the DOM structure, providing a unified experience.
+**Action:** When styling cards with interactive children, always pair `:hover` with `:focus-within` to ensure keyboard users receive the same visual affordances.
