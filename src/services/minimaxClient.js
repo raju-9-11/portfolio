@@ -5,7 +5,7 @@ import { dispatchTwilioAlert } from './twilioService.js';
 
 export async function askRookAgent({ messages, onChunk, onAction }) {
   const apiKey = import.meta.env?.VITE_MINIMAX_API_KEY || (typeof localStorage !== 'undefined' && typeof localStorage.getItem === 'function' ? localStorage.getItem('rook_minimax_key') : null);
-  const baseUrl = import.meta.env?.VITE_MINIMAX_BASE_URL || 'https://api.minimax.chat/v1';
+  const baseUrl = import.meta.env?.VITE_MINIMAX_BASE_URL || 'https://api.minimaxi.chat/v1';
 
   // Ingest Live GitHub Context
   const gitHubRepos = await fetchLiveGitHubContext();
