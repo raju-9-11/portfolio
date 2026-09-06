@@ -128,7 +128,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
     <ModalOverlay onClick={onClose} role="dialog" aria-modal="true">
       <ModalContent onClick={e => e.stopPropagation()}>
         <CloseButton onClick={onClose} aria-label="Close Modal"><FaTimes /></CloseButton>
-        <PixelCard title={title}>
+        <PixelCard title={title} scrollable>
             {children}
         </PixelCard>
       </ModalContent>

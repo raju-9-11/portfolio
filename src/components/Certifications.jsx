@@ -11,12 +11,14 @@ const CertificationsContainer = styled.div`
   gap: 14px;
   height: 100%;
   justify-content: space-between;
+  padding: 5px;
 `;
 
 const PreviewGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
+  padding: 2px;
 `;
 
 const CertCard = styled.div`

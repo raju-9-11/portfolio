@@ -101,20 +101,20 @@ export const CardTitle = styled.h3`
 
 export const CardContent = styled.div`
   flex: 1;
-  overflow-y: auto;
   position: relative;
   z-index: 2;
+  overflow: ${props => (props.$scrollable ? 'auto' : 'visible')};
 
   &::-webkit-scrollbar {
     width: 4px;
   }
 `;
 
-const PixelCard = ({ title, children, className, ...props }) => {
+const PixelCard = ({ title, children, className, scrollable = false, ...props }) => {
   return (
     <StyledContainer className={className} {...props}>
       {title && <CardTitle><GlitchText text={title} /></CardTitle>}
-      <CardContent>{children}</CardContent>
+      <CardContent $scrollable={scrollable}>{children}</CardContent>
     </StyledContainer>
   );
 };

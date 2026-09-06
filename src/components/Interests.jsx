@@ -6,6 +6,7 @@ const InterestsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 12px;
+  padding: 5px;
 `;
 
 const InterestCard = styled.div`

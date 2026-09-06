@@ -135,31 +135,40 @@ const Tag = styled.span`
   }
 `;
 
+const AwardsContainer = styled.div`
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Awards = () => {
   return (
     <PixelCard title="Awards & Honors">
-      {awardsData.map((award, idx) => (
-        <AwardCard key={idx}>
-          <div>
-            <Header>
-              <Title>
-                <FaAward size={16} />
-                <span>{award.name}</span>
-              </Title>
-              <StatusBadge>[National Stage]</StatusBadge>
-            </Header>
-            <IssuerTag>{award.issuer} • {award.date}</IssuerTag>
-            <Description>
-              Selected participant at India's premier nationwide hackathon, collaborating on real-time technological problem solving under continuous 36-hour sprint conditions.
-            </Description>
-          </div>
-          <TagRow>
-            <Tag>Hackathon</Tag>
-            <Tag>Rapid Prototyping</Tag>
-            <Tag>National Finalist</Tag>
-          </TagRow>
-        </AwardCard>
-      ))}
+      <AwardsContainer>
+        {awardsData.map((award, idx) => (
+          <AwardCard key={idx}>
+            <div>
+              <Header>
+                <Title>
+                  <FaAward size={16} />
+                  <span>{award.name}</span>
+                </Title>
+                <StatusBadge>[National Stage]</StatusBadge>
+              </Header>
+              <IssuerTag>{award.issuer} • {award.date}</IssuerTag>
+              <Description>
+                Selected participant at India's premier nationwide hackathon, collaborating on real-time technological problem solving under continuous 36-hour sprint conditions.
+              </Description>
+            </div>
+            <TagRow>
+              <Tag>Hackathon</Tag>
+              <Tag>Rapid Prototyping</Tag>
+              <Tag>National Finalist</Tag>
+            </TagRow>
+          </AwardCard>
+        ))}
+      </AwardsContainer>
     </PixelCard>
   );
 };

@@ -10,6 +10,7 @@ const ContactGrid = styled.div`
   grid-template-columns: 1fr 1.3fr;
   gap: 20px;
   align-items: stretch;
+  padding: 5px;
 
   @media (max-width: 868px) {
     grid-template-columns: 1fr;

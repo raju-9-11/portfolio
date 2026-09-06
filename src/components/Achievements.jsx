@@ -135,31 +135,40 @@ const Tag = styled.span`
   }
 `;
 
+const AchievementsContainer = styled.div`
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Achievements = () => {
   return (
     <PixelCard title="Achievements">
-      {achievementsData.map((item, idx) => (
-        <AchievementCard key={idx}>
-          <div>
-            <Header>
-              <Title>
-                <FaTrophy size={15} />
-                <span>{item.title}</span>
-              </Title>
-              <StatusBadge>[Top 10% Finish]</StatusBadge>
-            </Header>
-            <EventTag>@{item.event} (10km Course)</EventTag>
-            <Description>
-              {item.description} Completed with relentless stamina, high mental agility, and physical grit under demanding timed conditions.
-            </Description>
-          </div>
-          <TagRow>
-            <Tag>Endurance</Tag>
-            <Tag>Mental Resilience</Tag>
-            <Tag>Obstacle Racing</Tag>
-          </TagRow>
-        </AchievementCard>
-      ))}
+      <AchievementsContainer>
+        {achievementsData.map((item, idx) => (
+          <AchievementCard key={idx}>
+            <div>
+              <Header>
+                <Title>
+                  <FaTrophy size={15} />
+                  <span>{item.title}</span>
+                </Title>
+                <StatusBadge>[Top 10% Finish]</StatusBadge>
+              </Header>
+              <EventTag>@{item.event} (10km Course)</EventTag>
+              <Description>
+                {item.description} Completed with relentless stamina, high mental agility, and physical grit under demanding timed conditions.
+              </Description>
+            </div>
+            <TagRow>
+              <Tag>Endurance</Tag>
+              <Tag>Mental Resilience</Tag>
+              <Tag>Obstacle Racing</Tag>
+            </TagRow>
+          </AchievementCard>
+        ))}
+      </AchievementsContainer>
     </PixelCard>
   );
 };
