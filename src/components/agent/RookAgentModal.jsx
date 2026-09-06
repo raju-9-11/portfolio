@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { askRookAgent } from '../../services/minimaxClient';
-import { FaPaperPlane, FaTimes, FaRobot, FaKey, FaCheck, FaPhoneAlt } from 'react-icons/fa';
+import { FaPaperPlane, FaTimes, FaRobot, FaPhoneAlt } from 'react-icons/fa';
 
 const FloatingRookButton = styled(motion.button)`
   position: fixed;
@@ -293,14 +293,6 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [twilioSent, setTwilioSent] = useState(false);
-  const [showKeyModal, setShowKeyModal] = useState(false);
-  const [apiKeyInput, setApiKeyInput] = useState(() => {
-    if (typeof localStorage !== 'undefined' && typeof localStorage.getItem === 'function') {
-      return localStorage.getItem('rook_minimax_key') || '';
-    }
-    return '';
-  });
-  const [keySaved, setKeySaved] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -358,18 +350,6 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
     }
   };
 
-  const handleSaveKey = (e) => {
-    e.preventDefault();
-    if (apiKeyInput.trim()) {
-      localStorage.setItem('rook_minimax_key', apiKeyInput.trim());
-      setKeySaved(true);
-      setTimeout(() => {
-        setKeySaved(false);
-        setShowKeyModal(false);
-      }, 1000);
-    }
-  };
-
   return (
     <>
       <FloatingRookButton
@@ -400,13 +380,6 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
               </HeaderTitle>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <button
-                  onClick={() => setShowKeyModal(!showKeyModal)}
-                  title="Configure MiniMax API Key"
-                  style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '0.85rem' }}
-                >
-                  <FaKey />
-                </button>
-                <button
                   onClick={() => setIsOpen(false)}
                   style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '1rem' }}
                   aria-label="Close Chat"
@@ -415,25 +388,6 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
                 </button>
               </div>
             </DrawerHeader>
-
-            {/* Optional Key Configuration Drawer */}
-            {showKeyModal && (
-              <div style={{ padding: '10px 16px', background: 'rgba(0,0,0,0.1)', borderBottom: '1px solid var(--border-color)', fontSize: '0.78rem' }}>
-                <form onSubmit={handleSaveKey} style={{ display: 'flex', gap: 6 }}>
-                  <input
-                    type="password"
-                    placeholder="Enter MiniMax API Key"
-                    value={apiKeyInput}
-                    onChange={e => setApiKeyInput(e.target.value)}
-                    style={{ flex: 1, padding: '4px 8px', fontSize: '0.78rem', borderRadius: 4, border: '1px solid var(--border-color)' }}
-                  />
-                  <button type="submit" style={{ padding: '4px 10px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer' }}>
-                    {keySaved ? <FaCheck /> : 'Save'}
-                  </button>
-                </form>
-                <div style={{ color: 'var(--text-dim)', marginTop: 4 }}>Key stored locally in browser session.</div>
-              </div>
-            )}
 
             <MessagesContainer>
               {messages.map((msg, i) => (
