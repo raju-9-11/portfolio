@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -9,17 +9,25 @@ const firebaseConfig = {
   projectId: "nyx-port",
   storageBucket: "nyx-port.firebasestorage.app",
   messagingSenderId: "395259503882",
-  appId: "1:395259503882:web:da7da68c550e3f854e86f3"
+  appId: "1:395259503882:web:da7da68c550e3f854e86f3",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || undefined
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-let analytics;
-try {
-  analytics = getAnalytics(app);
-} catch (e) {
-  console.warn("Firebase Analytics failed to initialize (likely blocked by extension):", e);
+let analytics = null;
+// Only attempt to initialize analytics if a valid measurement ID is configured
+if (firebaseConfig.measurementId) {
+  isSupported().then((supported) => {
+    if (supported) {
+      try {
+        analytics = getAnalytics(app);
+      } catch (e) {
+        console.warn("Firebase Analytics failed to initialize:", e);
+      }
+    }
+  }).catch(() => {});
 }
 
 export const logSystemLogin = () => {
