@@ -58,6 +58,35 @@ export const GlobalStyle = createGlobalStyle`
     transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  button:focus,
+  button:focus-visible,
+  button:active,
+  button:focus:not(:focus-visible),
+  [role="button"]:focus,
+  [role="button"]:focus-visible,
+  [role="button"]:active {
+    outline: none !important;
+    box-shadow: none;
+  }
+
+  a:focus,
+  a:focus-visible,
+  a:active,
+  a:focus:not(:focus-visible) {
+    outline: none !important;
+  }
+
   body {
     margin: 0;
     padding: 0;
