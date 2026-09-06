@@ -38,6 +38,10 @@ RAJ'S PROFILE & TECHNICAL ARCHITECTURE:
   - 'Hermes Companion App': Native Android app for self-hosted Hermes AI agent fleet with Tailscale mesh pairing, bidirectional telemetry, and accessibility automation.
   - 'Nexus (AGNES)': Unified multi-agent wellness platform with specialized agent coordination.
 • Top Skills: Swift (90%), Agentic Coding (90%), AI/LLMs (85%), UIKit/SwiftUI (85%), Linux Kernel (80%), Firebase (75%), React (70%), Kotlin/Android (60%).
+• Education & Qualifications:
+  - Schooling: Went to D.A.V School and High School.
+  - Higher Education: Studied Bachelor of Engineering (B.E.) in Electronics and Communication Engineering (ECE) at Sairam Engineering College.
+  - Continuous Learning: Constantly learning new technologies across agentic architectures, embedded systems, and mobile platforms.
 • Other Highlights: Spartan Racer (top 10% obstacle course finish).
 
 LIVE GITHUB REPOSITORIES (coding-nyx):
@@ -219,14 +223,24 @@ I will make sure Raj is notified immediately so he can follow up with you prompt
   if (query.includes('raj') || query.includes('who') || query.includes('about') || query.includes('background') || query.includes('intro')) {
     return `**Raj Kumar S** is an iOS Developer and Agentic Systems Engineer with a deep focus on mobile architecture and low-level systems. He is currently a Member of Technical Staff at Zoho (3+ years), based in Chennai, India.
 
-Key highlights of his work:
+Key highlights of his work & background:
 • **iOS Architecture & Design Systems**: Core contributor at Zoho, engineering the Zoho Mobile UI Kit in Swift, slashing UI development turnaround by 30%, and optimizing cold launch performance by 20%.
 • **Agentic Systems**: Architected an internal agentic framework automating component lifecycles from specification through quality verification to production code contracts.
 • **Systems & Embedded Linux**: Developed **a0090-meta (hub-11 OS)**, bringing up mainline Linux 6.18 on RK3588 hardware with custom device trees (DTS) and FIT images.
 • **Full-Cycle & AI Systems**: Built companion apps pairing with autonomous agent fleets (Hermes) via Tailscale mesh networking.
+• **Education**: Studied B.E. in Electronics and Communication Engineering (ECE) at Sairam Engineering College, with schooling at D.A.V School. He is an avid technologist constantly learning new technologies.
 
 Feel free to ask me more about his specific projects, his technical stack, or leave a note to get in touch!
 [ACTION:SCROLL_TO:hero]`;
+  }
+
+  if (query.includes('education') || query.includes('college') || query.includes('school') || query.includes('degree') || query.includes('qualification') || query.includes('study') || query.includes('studied') || query.includes('sairam') || query.includes('dav')) {
+    return `### Educational Background & Qualifications:
+• **Schooling**: Attended **D.A.V School and High School**.
+• **Higher Education**: Graduated with a **B.E. in Electronics and Communication Engineering (ECE)** from **Sairam Engineering College**.
+• **Growth & Learning**: Raj is deeply curious and is constantly learning new technologies across agentic software pipelines, low-level systems, and modern mobile frameworks.
+
+Feel free to ask me anything else about Raj's work or how to connect!`;
   }
 
   if (query.includes('zoho') || query.includes('experience') || query.includes('work')) {
