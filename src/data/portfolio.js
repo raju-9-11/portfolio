@@ -231,7 +231,6 @@ export const testimonialsData = [
 
 export const interestsData = [
   "Obstacle Course Races",
-  "Electronic Music Production",
   "Linux Customization (Rice)",
   "System Architecture",
   "Retro Gaming"
