@@ -17,7 +17,7 @@ import SystemAlert from './components/SystemAlert';
 import { logSystemLogin } from './firebase';
 import BackToTop from './components/common/BackToTop';
 import CyberpunkOverlay from './components/effects/CyberpunkOverlay';
-import ThemeSwitcher, { FloatingThemeButton } from './components/common/ThemeSwitcher';
+import ThemeSwitcher from './components/common/ThemeSwitcher';
 import MobileNav from './components/common/MobileNav';
 import SkipLink from './components/common/SkipLink';
 
@@ -40,8 +40,7 @@ const BentoGrid = styled.div`
   max-width: 1400px;
   /* Margin auto is good, but flex center on parent is safer for some browsers */
   margin: 0 auto;
-  justify-content: center;
-  min-height: 100vh;
+  flex: 1;
   padding-bottom: 50px;
 
   @media (max-width: 768px) {
@@ -126,7 +125,6 @@ function App() {
       {bootComplete && (
         <MainWrapper>
           <SkipLink />
-          <FloatingThemeButton />
           <CyberpunkOverlay />
           <SystemAlert />
           <BentoGrid id="main-content">
