@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
 import { askRookAgent } from '../../services/minimaxClient';
-import { FaPaperPlane, FaTimes, FaRobot, FaPhoneAlt } from 'react-icons/fa';
+import { dispatchTwilioAlert } from '../../services/twilioService';
+import { FaPaperPlane, FaTimes, FaRobot, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 
 const FloatingRookButton = styled(motion.button)`
   position: fixed;
@@ -134,24 +136,67 @@ const MessagesContainer = styled.div`
 `;
 
 const MessageBubble = styled.div`
-  max-width: 85%;
+  max-width: 88%;
   padding: 10px 14px;
-  font-size: 0.85rem;
-  line-height: 1.45;
+  font-size: 0.84rem;
+  line-height: 1.5;
   border-radius: 12px;
   align-self: ${props => props.$isUser ? 'flex-end' : 'flex-start'};
-  white-space: pre-wrap;
+  word-break: break-word;
 
   ${props => props.$isUser ? `
     background: var(--neon-cyan);
-    color: #ffffff;
+    color: #000;
+    font-weight: 500;
     border-bottom-right-radius: 2px;
+    white-space: pre-wrap;
   ` : `
     background: rgba(255, 255, 255, 0.05);
     color: var(--text-main);
     border: 1px solid var(--border-color);
     border-bottom-left-radius: 2px;
   `}
+
+  p {
+    margin: 0 0 8px 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul, ol {
+    margin: 6px 0 8px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  strong, b {
+    font-weight: 700;
+    color: inherit;
+  }
+
+  a {
+    color: var(--neon-cyan);
+    text-decoration: underline;
+    font-weight: 500;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  code {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+  }
 
   [data-theme='professional'] & {
     ${props => props.$isUser ? `
@@ -162,6 +207,15 @@ const MessageBubble = styled.div`
       color: #0f172a;
       border-color: #e2e8f0;
     `}
+
+    a {
+      color: #2563eb;
+    }
+
+    code {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
   }
 `;
 
@@ -186,6 +240,9 @@ const Chip = styled.button`
   font-size: 0.72rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 
   &:hover {
     border-color: var(--neon-cyan);
@@ -201,6 +258,162 @@ const Chip = styled.button`
     &:hover {
       background: #eff6ff;
       border-color: #bfdbfe;
+      color: #2563eb;
+    }
+  }
+`;
+
+const InlineFormCard = styled.div`
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+`;
+
+const InlineFormHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--neon-cyan);
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #0f172a;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 2px 6px;
+  }
+`;
+
+const InlineInput = styled.input`
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-main);
+  outline: none;
+
+  &:focus {
+    border-color: var(--neon-cyan);
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+
+    &:focus {
+      border-color: #2563eb;
+    }
+  }
+`;
+
+const InlineTextarea = styled.textarea`
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-main);
+  outline: none;
+  resize: vertical;
+  min-height: 50px;
+
+  &:focus {
+    border-color: var(--neon-cyan);
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+
+    &:focus {
+      border-color: #2563eb;
+    }
+  }
+`;
+
+const InlineActions = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 2px;
+`;
+
+const SubmitInlineBtn = styled.button`
+  background: var(--neon-cyan);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #2563eb;
+    color: #fff;
+  }
+`;
+
+const ScrollLinkBtn = styled.button`
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px 0;
+
+  &:hover {
+    color: var(--neon-cyan);
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    &:hover {
       color: #2563eb;
     }
   }
@@ -264,19 +477,6 @@ const SendButton = styled.button`
   }
 `;
 
-const TwilioNotificationBanner = styled.div`
-  background: #10b98122;
-  border: 1px solid #10b981;
-  color: #10b981;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 6px;
-`;
-
 export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenResume }) => {
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -287,12 +487,22 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hello! I am Rook Agent, Raj's portfolio assistant. Ask me about his Agentic Component Framework, Linux 6.18 kernel builds, or leave a message and I'll send an instant SMS to Raj via Twilio!"
+      content: "Hello! I am **Rook Agent**, Raj's portfolio assistant. Ask me anything about his **Agentic Component Framework**, iOS architecture at Zoho, or Linux kernel projects. If you'd like to get in touch with Raj, feel free to leave a message right here in chat, use the quick message card, or the contact section below!"
     }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [twilioSent, setTwilioSent] = useState(false);
+  const [contactAlertSent, setContactAlertSent] = useState(false);
+  const [showInlineForm, setShowInlineForm] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search).get('form') === 'open';
+    }
+    return false;
+  });
+  const [formName, setFormName] = useState('');
+  const [formContact, setFormContact] = useState('');
+  const [formNote, setFormNote] = useState('');
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -335,8 +545,11 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
           });
         },
         onAction: (action) => {
-          if (action.type === 'twilio') {
-            setTwilioSent(true);
+          if (action.type === 'alert_sent' || action.type === 'twilio') {
+            setContactAlertSent(true);
+          }
+          if (action.type === 'show_contact_form') {
+            setShowInlineForm(true);
           }
           if (action.type === 'open_resume' && onOpenResume) {
             onOpenResume();
@@ -347,6 +560,40 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
       console.error(err);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleInlineSubmit = async (e) => {
+    e.preventDefault();
+    if (!formName.trim() || !formContact.trim()) return;
+    setIsSubmittingForm(true);
+    try {
+      await dispatchTwilioAlert({
+        senderName: formName.trim(),
+        senderContact: formContact.trim(),
+        message: formNote.trim() || 'Left message via inline chat card'
+      });
+      setContactAlertSent(true);
+      setShowInlineForm(false);
+      setMessages(prev => [
+        ...prev,
+        { role: 'user', content: `[Submitted Message: From ${formName.trim()} (${formContact.trim()})]` },
+        { role: 'assistant', content: `Thank you **${formName.trim()}**! I have dispatched your note directly to Raj. He will get back to you promptly.` }
+      ]);
+      setFormName('');
+      setFormContact('');
+      setFormNote('');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSubmittingForm(false);
+    }
+  };
+
+  const scrollToContactSection = () => {
+    const el = document.getElementById('contact-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -392,14 +639,57 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
             <MessagesContainer>
               {messages.map((msg, i) => (
                 <MessageBubble key={i} $isUser={msg.role === 'user'}>
-                  {msg.content}
+                  {msg.role === 'user' ? (
+                    msg.content
+                  ) : (
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  )}
                 </MessageBubble>
               ))}
-              {twilioSent && (
-                <TwilioNotificationBanner>
-                  <FaPhoneAlt />
-                  <span>Twilio Alert Dispatched: Raj has been notified via SMS!</span>
-                </TwilioNotificationBanner>
+
+              {showInlineForm && (
+                <InlineFormCard>
+                  <InlineFormHeader>
+                    <span>Leave a Message for Raj</span>
+                    <button type="button" onClick={() => setShowInlineForm(false)} aria-label="Close message form">✕</button>
+                  </InlineFormHeader>
+                  <form onSubmit={handleInlineSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <InlineInput
+                      placeholder="Your Name"
+                      value={formName}
+                      onChange={e => setFormName(e.target.value)}
+                      required
+                    />
+                    <InlineInput
+                      placeholder="Your Email or Phone"
+                      value={formContact}
+                      onChange={e => setFormContact(e.target.value)}
+                      required
+                    />
+                    <InlineTextarea
+                      placeholder="Your note or opportunity..."
+                      value={formNote}
+                      onChange={e => setFormNote(e.target.value)}
+                      rows={2}
+                      required
+                    />
+                    <InlineActions>
+                      <SubmitInlineBtn type="submit" disabled={isSubmittingForm || !formName.trim() || !formContact.trim()}>
+                        {isSubmittingForm ? 'Sending...' : 'Send Message to Raj'}
+                      </SubmitInlineBtn>
+                      <ScrollLinkBtn type="button" onClick={scrollToContactSection}>
+                        Or open bottom form ↓
+                      </ScrollLinkBtn>
+                    </InlineActions>
+                  </form>
+                </InlineFormCard>
+              )}
+
+              {contactAlertSent && (
+                <DirectNotificationBanner>
+                  <FaCheckCircle />
+                  <span>Notification Sent: Raj has been alerted directly!</span>
+                </DirectNotificationBanner>
               )}
               <div ref={messagesEndRef} />
             </MessagesContainer>
@@ -414,8 +704,11 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
               <Chip onClick={() => handleSendMessage("What are his live GitHub repos?")}>
                 GitHub Repos
               </Chip>
-              <Chip onClick={() => handleSendMessage("I want to interview Raj. Can you let him know?")}>
-                Contact / Interview
+              <Chip onClick={() => setShowInlineForm(prev => !prev)}>
+                <FaEnvelope size={10} /> Leave a Message
+              </Chip>
+              <Chip onClick={scrollToContactSection}>
+                Contact Form ↓
               </Chip>
             </QuickChips>
 

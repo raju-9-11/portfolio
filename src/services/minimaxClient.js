@@ -34,9 +34,18 @@ ${githubSummary}
 
 BEHAVIOR & TONE:
 - Be technically sharp, concise, and helpful. You represent Raj directly.
-- Speak in natural, confident prose with developer depth.
-- When the visitor expresses interest in interviewing Raj, hiring him, or leaving a contact message, ALWAYS encourage them and trigger an instant Twilio alert by emitting:
-  [ACTION:TWILIO_DISPATCH:Sender Name|Email or Phone|Short message/opportunity]
+- FORMATTING: ALWAYS use clean GitHub-flavored Markdown (bolding key terms, using bullet lists with '•' or '-', formatting links as [Title](url), formatting code/metrics with inline backticks).
+- CONTACT & REACH OUT:
+  When a visitor wants to contact, interview, hire Raj, or leave a note:
+  1. Warmly let them know they can either:
+     a) Leave their message directly here in chat (simply providing Name, Email/Contact, and Note).
+     b) Use the quick interactive message form right in this chat window.
+     c) Fill out the full contact form at the bottom of the page.
+  2. NEVER mention third-party services or infrastructure like "Twilio" to the visitor. Simply say you will notify Raj directly so he can get back to them promptly.
+  3. When they provide contact details or want to send a note, emit:
+     [ACTION:ALERT_DISPATCH:Sender Name|Email or Phone|Short message/opportunity]
+  4. If they request the form or want to enter details, emit:
+     [ACTION:SHOW_INLINE_CONTACT_FORM]
 - You can drive the user's browser during conversation by emitting actions:
   • [ACTION:SCROLL_TO:projects]
   • [ACTION:SCROLL_TO:experience]
@@ -125,19 +134,23 @@ BEHAVIOR & TONE:
 function parseAndEmitActions(text, onAction) {
   if (!onAction) return;
 
-  const twilioMatch = text.match(/\[ACTION:TWILIO_DISPATCH:([^|]+)\|([^|]+)\|([^\]]+)\]/);
-  if (twilioMatch) {
+  const alertMatch = text.match(/\[ACTION:(?:TWILIO_DISPATCH|ALERT_DISPATCH):([^|]+)\|([^|]+)\|([^\]]+)\]/);
+  if (alertMatch) {
     onAction({
-      type: 'twilio',
-      name: twilioMatch[1].trim(),
-      contact: twilioMatch[2].trim(),
-      message: twilioMatch[3].trim()
+      type: 'alert_sent',
+      name: alertMatch[1].trim(),
+      contact: alertMatch[2].trim(),
+      message: alertMatch[3].trim()
     });
     dispatchTwilioAlert({
-      senderName: twilioMatch[1].trim(),
-      senderContact: twilioMatch[2].trim(),
-      message: twilioMatch[3].trim()
+      senderName: alertMatch[1].trim(),
+      senderContact: alertMatch[2].trim(),
+      message: alertMatch[3].trim()
     });
+  }
+
+  if (text.includes('[ACTION:SHOW_INLINE_CONTACT_FORM]')) {
+    onAction({ type: 'show_contact_form' });
   }
 
   const scrollMatch = text.match(/\[ACTION:SCROLL_TO:([a-zA-Z0-9_-]+)\]/);
@@ -159,18 +172,23 @@ function cleanActionTags(text) {
 }
 
 function generateFallbackResponse(query, repos) {
-  if (query.includes('hire') || query.includes('interview') || query.includes('contact') || query.includes('touch') || query.includes('reach')) {
-    return `I would be thrilled to connect you with Raj! He is currently open to high-impact iOS, systems, and agentic engineering opportunities.
+  if (query.includes('hire') || query.includes('interview') || query.includes('contact') || query.includes('touch') || query.includes('reach') || query.includes('message')) {
+    return `I would be thrilled to connect you with Raj! He is open to high-impact iOS, systems, and agentic engineering opportunities.
 
-If you leave your name and email or phone number here, I will immediately dispatch a high-priority SMS alert directly to Raj's phone via Twilio!
-[ACTION:SCROLL_TO:contact]`;
+You have three convenient ways to reach out:
+1. **Leave your message directly here in chat** (just provide your name, email/phone, and note).
+2. **Use the quick interactive contact card** in this chat window.
+3. **Fill out the contact form** at the bottom of the page.
+
+I will make sure Raj is notified immediately so he can follow up with you promptly!
+[ACTION:SHOW_INLINE_CONTACT_FORM]`;
   }
 
   if (query.includes('agentic') || query.includes('framework') || query.includes('component')) {
     return `At Zoho, Raj developed an **Agentic Component Framework** specifically to streamline and accelerate UI development across their mobile ecosystem.
 
 Key breakthroughs:
-• Automated generation, verification, and iteration of modular Swift/SwiftUI components.
+• **Automated generation, verification, and iteration** of modular Swift/SwiftUI components.
 • Slashed frontend component delivery time by **30%**.
 • Coupled with his modular Zoho Mobile UI Kit to ensure seamless visual consistency.
 [ACTION:SCROLL_TO:experience]`;
@@ -189,7 +207,7 @@ Major architectural impact:
   if (query.includes('linux') || query.includes('kernel') || query.includes('rk3588') || query.includes('hardware')) {
     return `On the embedded & systems front, Raj built **a0090-meta (hub-11 OS)**:
 • An upstream-maintainable mainline **Linux 6.18** distribution for the AMedia RK3588 NVR Demo board.
-• Engineered custom board Device Tree Source (DTS), FIT boot image assembly, and driver integration.
+• Engineered custom board Device Tree Source (\`dts\`), FIT boot image assembly, and driver integration.
 • Also developed custom Linux kernel modules experimenting with low-latency process scheduling.
 [ACTION:SCROLL_TO:projects]`;
   }
@@ -211,7 +229,8 @@ I can guide you through:
 • His **Agentic Component Framework** & 3+ years at Zoho as Member of Technical Staff.
 • His **Linux Kernel 6.18 / RK3588** embedded OS builds (\`a0090-meta\`).
 • His **Hermes Companion App** (Tailscale mesh & AI agent fleet).
-• Live GitHub commits or dispatching an instant SMS to Raj via Twilio if you want to connect!
+• Live GitHub commits across **coding-nyx** and **raju-9-11**.
+• Leaving a message to get in touch with Raj directly!
 
-What would you like to explore?`;
+Feel free to ask me anything or leave a note for him!`;
 }
