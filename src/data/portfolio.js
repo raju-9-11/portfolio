@@ -34,8 +34,12 @@ export const experienceData = [
     dates: "May 2022 - Present",
     duration: "3 yrs 8 mos",
     type: "Full-time",
-    description: "As a Member of Technical Staff at Zoho since May 2022, I have focused on engineering and maintaining a modular UI architecture, creating reusable components in Swift, ensuring design consistency across the Zoho mobile ecosystem and reducing frontend development time for new features by 30%. My role has included leading the design and development of critical modules, from initial UI/UX wireframing to core logic implementation and API integration using Swift and UIKit/SwiftUI. I have also optimized app performance by refactoring legacy code and optimizing data-handling patterns, resulting in a 20% improvement in app launch speed and a significant reduction in memory overhead.",
+    description: "As a Member of Technical Staff at Zoho since May 2022, I have focused on engineering modular UI architectures, developing an agentic development framework for rapid component creation and verification, creating reusable components in Swift, and ensuring design consistency across the Zoho mobile ecosystem. My role has included leading the design of critical modules from wireframing to API integration using Swift and UIKit/SwiftUI, reducing frontend development time by 30%, and optimizing app performance resulting in a 20% improvement in launch speed and reduced memory overhead.",
     projects: [
+      {
+        name: "Agentic Component Framework",
+        desc: "Developed an agentic development framework for automating the generation, validation, and iteration of modular UI components."
+      },
       {
         name: "Zoho Mobile UI Kit",
         desc: "Engineered a comprehensive library of reusable UI components using Swift, reducing frontend dev time by 30%."
