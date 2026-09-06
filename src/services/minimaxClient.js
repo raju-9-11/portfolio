@@ -51,17 +51,16 @@ BEHAVIOR & TONE:
 - Be technically sharp, concise, and helpful. You represent Raj directly.
 - When asked about any project, like 'a009-hub', 'hub-11', 'a0090-meta', 'hermes', 'nexus', or his Zoho work, give deep, authentic technical details based on Raj's real architecture.
 - FORMATTING: ALWAYS use clean GitHub-flavored Markdown (bolding key terms, using bullet lists with '•' or '-', formatting links as [Title](url), formatting code/metrics with inline backticks).
-- CONTACT & REACH OUT:
-  When a visitor wants to contact, interview, hire Raj, or leave a note:
-  1. Warmly let them know they can either:
-     a) Leave their message directly here in chat (simply providing Name, Email/Contact, and Note).
-     b) Use the quick interactive message form right in this chat window.
-     c) Fill out the full contact form at the bottom of the page.
-  2. NEVER mention third-party services or infrastructure like "Twilio" to the visitor. Simply say you will notify Raj directly so he can get back to them promptly.
-  3. When they provide contact details or want to send a note, emit:
-     [ACTION:ALERT_DISPATCH:Sender Name|Email or Phone|Short message/opportunity]
-  4. If they request the form or want to enter details, emit:
-     [ACTION:SHOW_INLINE_CONTACT_FORM]
+- CONTACT & LEAD DISPATCH (CONVERSATIONAL & ACTIONABLE):
+  You have autonomous lead capture capabilities to notify Raj directly!
+  1. When a visitor introduces themselves or expresses hiring/contact interest (e.g. "I am Nyx, look to hire Raj"):
+     - Warmly acknowledge them by name: "Hello Nyx! Wonderful to connect with you."
+     - If they have not provided an email or phone number yet, ask for it right here in chat so Raj can get back to them.
+     - Emit: [ACTION:PREFILL_FORM:Sender Name||Short message/opportunity]
+  2. As soon as they provide an email or phone number (e.g. "nyx@example.com" or in the current message):
+     - Confirm that their message has been sent directly to Raj's alert system!
+     - Emit: [ACTION:ALERT_DISPATCH:Sender Name|Email or Phone|Short message/opportunity]
+  3. NEVER repeat a rigid list of "three convenient ways to reach out". Converse naturally, taking their message directly like an intelligent assistant.
 - You can drive the user's browser during conversation by emitting actions:
   • [ACTION:SCROLL_TO:projects]
   • [ACTION:SCROLL_TO:experience]
@@ -140,8 +139,7 @@ BEHAVIOR & TONE:
   }
 
   // Built-in intelligent fallback engine (Simulated MiniMax response)
-  const lastUserMsg = messages[messages.length - 1]?.content?.toLowerCase() || '';
-  let fallbackReply = generateFallbackResponse(lastUserMsg, gitHubRepos);
+  const fallbackReply = generateFallbackResponse(messages, gitHubRepos);
 
   // Simulate typewriter streaming
   let accumulated = '';
@@ -173,6 +171,16 @@ function parseAndEmitActions(text, onAction) {
     });
   }
 
+  const prefillMatch = text.match(/\[ACTION:PREFILL_FORM:([^|]*)\|([^|]*)\|([^\]]*)\]/);
+  if (prefillMatch) {
+    onAction({
+      type: 'prefill_form',
+      name: prefillMatch[1].trim(),
+      contact: prefillMatch[2].trim(),
+      message: prefillMatch[3].trim()
+    });
+  }
+
   if (text.includes('[ACTION:SHOW_INLINE_CONTACT_FORM]')) {
     onAction({ type: 'show_contact_form' });
   }
@@ -195,7 +203,62 @@ function cleanActionTags(text) {
   return text.replace(/\[ACTION:[^\]]+\]/g, '').trim();
 }
 
-function generateFallbackResponse(query, repos) {
+function extractContactInfo(messagesInput) {
+  let name = '';
+  let contact = '';
+  let note = '';
+
+  const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i;
+  const phoneRegex = /(?:(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\+?\d{10,14})/;
+
+  const msgs = Array.isArray(messagesInput)
+    ? messagesInput
+    : [{ role: 'user', content: String(messagesInput || '') }];
+
+  const userMessages = msgs
+    .filter(m => m && m.role === 'user' && typeof m.content === 'string')
+    .map(m => m.content);
+
+  for (const msg of userMessages) {
+    // 1. Extract email
+    const emailMatch = msg.match(emailRegex);
+    if (emailMatch && !contact) {
+      contact = emailMatch[1];
+    }
+
+    // 2. Extract phone if no email yet
+    if (!contact) {
+      const phoneMatch = msg.match(phoneRegex);
+      if (phoneMatch) {
+        contact = phoneMatch[0];
+      }
+    }
+
+    // 3. Extract name
+    const nameMatch = msg.match(/(?:i am|i'm|my name is|this is|call me)\s+([a-zA-Z0-9_ -]{2,25}?)(?:[,.]|\s+and|\s+looking|\s+look|\s+want|\s+to|\s+from|\s+for|\s*$)/i);
+    if (nameMatch && !name) {
+      const extracted = nameMatch[1].trim();
+      if (!/^(here|just|interested|open|ready|reaching|writing|there|looking)$/i.test(extracted)) {
+        name = extracted;
+      }
+    }
+
+    // 4. Extract message note
+    if (!note && (msg.toLowerCase().includes('hire') || msg.toLowerCase().includes('interview') || msg.toLowerCase().includes('oppor') || msg.toLowerCase().includes('project') || msg.toLowerCase().includes('job') || msg.toLowerCase().includes('role') || msg.toLowerCase().includes('reach'))) {
+      note = msg;
+    }
+  }
+
+  return { name, contact, note: note || 'Message left via Rook chat' };
+}
+
+function generateFallbackResponse(messagesInput, repos) {
+  const msgs = Array.isArray(messagesInput)
+    ? messagesInput
+    : [{ role: 'user', content: String(messagesInput || '') }];
+  const query = (msgs[msgs.length - 1]?.content || '').toLowerCase();
+  const contactInfo = extractContactInfo(msgs);
+
   // 1. Embedded Systems & a0090-meta / hub-11 OS
   if (
     query.includes('a009') ||
@@ -270,16 +333,44 @@ Raj architected **Nexus**, a unified multi-agent wellness platform where special
 [ACTION:SCROLL_TO:projects]`;
   }
 
-  // 5. Contact / Hire / Outreach
-  if (query.includes('hire') || query.includes('interview') || query.includes('contact') || query.includes('touch') || query.includes('reach') || query.includes('message') || query.includes('email')) {
-    return `I would be thrilled to connect you with Raj! He is open to high-impact iOS, systems, and agentic engineering opportunities.
+  // 5. Conversational Contact & Lead Capture
+  const hasContactDetails = Boolean(contactInfo.contact);
+  const hasIntroducedName = Boolean(contactInfo.name);
+  const hasContactIntent =
+    query.includes('hire') ||
+    query.includes('interview') ||
+    query.includes('contact') ||
+    query.includes('touch') ||
+    query.includes('reach') ||
+    query.includes('message') ||
+    query.includes('email') ||
+    query.includes('phone') ||
+    Boolean(query.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/)) ||
+    Boolean(query.match(/(?:(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\+?\d{10,14})/));
 
-You have three convenient ways to reach out:
-1. **Leave your message directly here in chat** (just provide your name, email/phone, and note).
-2. **Use the quick interactive contact card** in this chat window.
-3. **Fill out the contact form** at the bottom of the page.
+  if (hasContactIntent || hasContactDetails || (hasIntroducedName && (query.includes('raj') || query.includes('look') || query.includes('want')))) {
+    // Case A: User provided their email or phone number
+    if (hasContactDetails) {
+      const sender = contactInfo.name || 'Visitor';
+      const cleanNote = contactInfo.note || 'Inquiry sent via portfolio chat';
+      return `✅ **Message Dispatched to Raj!**
 
-I will make sure Raj is notified immediately so he can follow up with you promptly!
+Thank you **${sender}**! I have forwarded your message and contact details (\`${contactInfo.contact}\`) directly to Raj's personal alert system. He will review your opportunity and get back to you promptly!
+[ACTION:ALERT_DISPATCH:${sender}|${contactInfo.contact}|${cleanNote}]`;
+    }
+
+    // Case B: User introduced their name (e.g. "i am nyx, look to hire raj")
+    if (hasIntroducedName) {
+      return `Hello **${contactInfo.name}**! It's fantastic to connect with you. Raj is open to high-impact iOS, systems, and agentic engineering opportunities.
+
+What is the best **email address or phone number** to reach you? Please share it right here in chat, and I will dispatch an instant notification directly to Raj's inbox so he can follow up with you promptly!
+[ACTION:PREFILL_FORM:${contactInfo.name}||${contactInfo.note}]`;
+    }
+
+    // Case C: General hire/contact intent without name or contact
+    return `Raj is actively open to high-impact iOS, systems, and agentic engineering opportunities!
+
+Who am I speaking with, and what is the best **email or phone number** to reach you? You can share your details right here in chat, and I will dispatch an immediate alert directly to Raj.
 [ACTION:SHOW_INLINE_CONTACT_FORM]`;
   }
 

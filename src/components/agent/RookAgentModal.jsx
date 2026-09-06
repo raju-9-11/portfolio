@@ -585,6 +585,12 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
           if (action.type === 'show_contact_form') {
             setShowInlineForm(true);
           }
+          if (action.type === 'prefill_form') {
+            if (action.name) setFormName(action.name);
+            if (action.contact) setFormContact(action.contact);
+            if (action.message) setFormNote(action.message);
+            setShowInlineForm(true);
+          }
           if (action.type === 'open_resume' && onOpenResume) {
             onOpenResume();
           }
