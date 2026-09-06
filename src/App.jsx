@@ -20,6 +20,8 @@ import CyberpunkOverlay from './components/effects/CyberpunkOverlay';
 import ThemeSwitcher from './components/common/ThemeSwitcher';
 import MobileNav from './components/common/MobileNav';
 import SkipLink from './components/common/SkipLink';
+import IOSSandbox from './components/sandbox/IOSSandbox';
+import RookAgentModal from './components/agent/RookAgentModal';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
@@ -52,6 +54,7 @@ const BentoGrid = styled.div`
     "H"
     "J"
     "E"
+    "B"
     "S"
     "L"
     "T"
@@ -67,6 +70,7 @@ const BentoGrid = styled.div`
       "H H"
       "J J"
       "E E"
+      "B B"
       "S S"
       "L A"
       "W I"
@@ -82,6 +86,7 @@ const BentoGrid = styled.div`
     grid-template-areas:
       "H H H H"
       "J J E E"
+      "B B B B"
       "S S S S"
       "L A W I"
       "T T T T"
@@ -94,6 +99,7 @@ const HeroArea = styled.div` grid-area: H; `;
 const SkillsArea = styled.div` grid-area: S; `;
 const ExperienceArea = styled.div` grid-area: E; `;
 const ProjectsArea = styled.div` grid-area: J; `;
+const SandboxArea = styled.div` grid-area: B; `;
 const AchievementsArea = styled.div` grid-area: A; `;
 const InterestsArea = styled.div` grid-area: I; `;
 const ContactArea = styled.div` grid-area: C; `;
@@ -104,6 +110,7 @@ const TestimonialsArea = styled.div` grid-area: T; `;
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
+  const [rookPrompt, setRookPrompt] = useState(null);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -128,9 +135,10 @@ function App() {
           <CyberpunkOverlay />
           <SystemAlert />
           <BentoGrid id="main-content">
-            <HeroArea><Hero /></HeroArea>
+            <HeroArea><Hero onAskRook={(prompt) => setRookPrompt(prompt)} /></HeroArea>
             <ProjectsArea><Projects /></ProjectsArea>
             <ExperienceArea><Experience /></ExperienceArea>
+            <SandboxArea><IOSSandbox /></SandboxArea>
             <SkillsArea><Skills /></SkillsArea>
             <CertificationsArea><Certifications /></CertificationsArea>
             <TestimonialsArea><Testimonials /></TestimonialsArea>
@@ -141,6 +149,11 @@ function App() {
           </BentoGrid>
           <BackToTop />
           <MobileNav />
+          <RookAgentModal
+            externalPrompt={rookPrompt}
+            onClearExternalPrompt={() => setRookPrompt(null)}
+            onOpenResume={() => window.open(theme === 'cyberpunk' ? '/resume-cyberpunk.pdf' : '/resume-modern.pdf', '_blank')}
+          />
           <div style={{textAlign: 'center', padding: '20px', color: 'var(--text-dim)', fontSize: '0.8rem', position: 'relative', zIndex: 10, width: '100%'}}>
             <ThemeSwitcher />
             <br/>

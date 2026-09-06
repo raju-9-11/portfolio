@@ -7,6 +7,7 @@ import ThemedIcon from './common/ThemedIcon';
 import GlitchText from './effects/GlitchText';
 import Modal from './common/Modal';
 import { useTheme } from '../context/ThemeContext';
+import VirtualShell from './terminal/VirtualShell';
 
 const HeroContent = styled.div`
   display: flex;
@@ -270,7 +271,7 @@ const ModalBtn = styled(SocialBtn)`
   justify-content: center;
 `;
 
-const Hero = () => {
+const Hero = ({ onAskRook }) => {
   const [bioText, setBioText] = useState('');
   const [idx, setIdx] = useState(0);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -310,9 +311,16 @@ const Hero = () => {
           </ProfileSection>
 
           <InfoSection>
-            <TerminalBox>
-              <TypingText>{bioText}</TypingText>
-            </TerminalBox>
+            {theme === 'cyberpunk' ? (
+              <VirtualShell
+                onOpenResume={handleOpenResume}
+                onAskRook={onAskRook}
+              />
+            ) : (
+              <TerminalBox>
+                <TypingText>{bioText}</TypingText>
+              </TerminalBox>
+            )}
 
             <Socials>
               <SocialBtn
