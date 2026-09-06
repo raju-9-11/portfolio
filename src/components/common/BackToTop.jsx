@@ -13,8 +13,9 @@ const Button = styled.button`
   cursor: pointer;
   z-index: 99;
   opacity: ${props => props.$visible ? 0.8 : 0};
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
   pointer-events: ${props => props.$visible ? 'all' : 'none'};
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0s linear ${props => props.$visible ? '0s' : '0.3s'};
 
   /* Cyberpunk Styles */
   [data-theme='cyberpunk'] & {
@@ -74,6 +75,9 @@ const BackToTop = () => {
       top: 0,
       behavior: 'smooth'
     });
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
   };
 
   useEffect(() => {

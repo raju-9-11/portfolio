@@ -40,7 +40,7 @@ const ThemeSwitcher = () => {
     <SwitcherContainer
       onClick={toggleTheme}
       type="button"
-      aria-label={`Switch to ${theme === 'cyberpunk' ? 'Professional' : 'Cyberpunk'} Mode`}
+      aria-label={`Switch to ${theme === 'cyberpunk' ? 'Modern' : 'Cyberpunk'} Mode`}
     >
       {theme === 'cyberpunk' ? (
         <>

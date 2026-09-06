@@ -76,13 +76,22 @@ export const experienceData = [
 
 export const projects = [
   {
-    name: "Neon Task Manager",
-    tags: ["SwiftUI", "CoreData", "Combine"],
-    description: "A futuristic task management app featuring gesture-based navigation and real-time syncing.",
+    name: "Hermes Companion App",
+    tags: ["Android", "Kotlin", "Jetpack Compose", "Tailscale", "AI Agents"],
+    description: "Native Android companion application for self-hosted Hermes Agent fleet featuring device pairing via Tailscale, bidirectional control, accessibility automation, and real-time chat.",
+    imageUrl: null,
+    liveUrl: "https://github.com/coding-nyx/hermes-companion-app/releases",
+    repoUrl: "https://github.com/coding-nyx/hermes-companion-app",
+    status: "Active"
+  },
+  {
+    name: "a0090-meta (hub-11 OS)",
+    tags: ["Linux Kernel", "RK3588", "Device Tree", "C", "Armbian"],
+    description: "Upstream-maintainable Linux OS distribution for the AMedia RK3588 NVR Demo (hub-11), featuring mainline Linux 6.18, custom board DTS, FIT boot image assembly, and driver integration.",
     imageUrl: null,
     liveUrl: null,
-    repoUrl: null,
-    status: "Completed"
+    repoUrl: "https://github.com/coding-nyx/a0090-meta",
+    status: "Active"
   },
   {
     name: "FitPro Connect",

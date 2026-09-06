@@ -19,6 +19,7 @@ import BackToTop from './components/common/BackToTop';
 import CyberpunkOverlay from './components/effects/CyberpunkOverlay';
 import ThemeSwitcher from './components/common/ThemeSwitcher';
 import MobileNav from './components/common/MobileNav';
+import SkipLink from './components/common/SkipLink';
 
 const MainWrapper = styled.div`
   min-height: 100vh;
@@ -124,9 +125,10 @@ function App() {
 
       {bootComplete && (
         <MainWrapper>
+          <SkipLink />
           <CyberpunkOverlay />
           <SystemAlert />
-          <BentoGrid>
+          <BentoGrid id="main-content">
             <HeroArea><Hero /></HeroArea>
             <ProjectsArea><Projects /></ProjectsArea>
             <ExperienceArea><Experience /></ExperienceArea>

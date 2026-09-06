@@ -64,10 +64,10 @@ const LogLine = styled.div`
 const ProgressBar = styled.div`
   width: 100%;
   height: 4px;
-  background: ${props => props.$theme === 'professional' ? '#e2e8f0' : '#333'};
+  background: ${props => props.$theme === 'cyberpunk' ? '#333' : '#e2e8f0'};
   margin-top: 20px;
   position: relative;
-  border-radius: ${props => props.$theme === 'professional' ? '4px' : '0'};
+  border-radius: ${props => props.$theme === 'cyberpunk' ? '0' : '4px'};
   overflow: hidden;
 
   &::after {
@@ -76,21 +76,21 @@ const ProgressBar = styled.div`
     top: 0;
     left: 0;
     height: 100%;
-    width: ${props => props.progress}%;
-    background: ${props => props.$theme === 'professional' ? 'var(--neon-pink)' : 'var(--neon-cyan)'};
-    box-shadow: ${props => props.$theme === 'professional' ? 'none' : '0 0 10px var(--neon-cyan)'};
+    width: ${props => props.$progress}%;
+    background: ${props => props.$theme === 'cyberpunk' ? 'var(--neon-cyan)' : 'var(--neon-pink)'};
+    box-shadow: ${props => props.$theme === 'cyberpunk' ? '0 0 10px var(--neon-cyan)' : 'none'};
     transition: width 0.1s linear;
   }
 `;
 
 const AccessText = styled.h1`
-  color: ${props => props.$theme === 'professional' ? 'var(--text-main)' : 'var(--neon-pink)'};
+  color: ${props => props.$theme === 'cyberpunk' ? 'var(--neon-pink)' : 'var(--text-main)'};
   font-size: 2rem;
   margin-top: 20px;
   text-align: center;
-  text-transform: ${props => props.$theme === 'professional' ? 'none' : 'uppercase'};
-  letter-spacing: ${props => props.$theme === 'professional' ? 'normal' : '5px'};
-  animation: ${props => props.$theme === 'professional' ? 'none' : textGlow} 1.5s infinite;
+  text-transform: ${props => props.$theme === 'cyberpunk' ? 'uppercase' : 'none'};
+  letter-spacing: ${props => props.$theme === 'cyberpunk' ? '5px' : 'normal'};
+  animation: ${props => props.$theme === 'cyberpunk' ? textGlow : 'none'} 1.5s infinite;
 `;
 
 const SkipButton = styled.button`
@@ -196,7 +196,15 @@ const BootSequence = ({ onComplete }) => {
             {logs.map((log, i) => (
               <LogLine key={i}>{theme === 'cyberpunk' ? '>' : ''} {log}</LogLine>
             ))}
-            <ProgressBar progress={progress} $theme={theme} />
+            <ProgressBar
+              $progress={progress}
+              $theme={theme}
+              role="progressbar"
+              aria-valuenow={Math.round(progress)}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-label="System Boot Progress"
+            />
           </LogContainer>
           <SkipButton
             onClick={handleSkip}
