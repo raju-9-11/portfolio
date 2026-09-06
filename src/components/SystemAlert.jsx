@@ -216,7 +216,7 @@ const SystemAlert = ({ onOpenRook }) => {
   const handleTriggerRook = () => {
     handleDismiss();
     if (onOpenRook) {
-      onOpenRook("Tell me about yourself, your Agentic Framework, and how you can contact Raj.");
+      onOpenRook("Tell me about Raj, his background, and his work.");
     }
   };
 
@@ -231,22 +231,22 @@ const SystemAlert = ({ onOpenRook }) => {
         <Message>
           <AlertTitle>
             {theme === 'cyberpunk' ? (
-              <span>SYSTEM_MSG // ROOK ONLINE</span>
+              <span>SYSTEM_INIT // WELCOME</span>
             ) : (
               <span>Welcome to Raj's Portfolio!</span>
             )}
           </AlertTitle>
           {theme === 'cyberpunk' ? (
             <div>
-              Neural link established. <strong>Rook</strong> (AI Portfolio Agent) is standing by at bottom-left. Query Rook about Raj's <strong>Agentic Component Framework</strong>, iOS architecture at Zoho, or low-level Linux builds.
+              Welcome to Raj Kumar's portfolio! Explore his iOS engineering at Zoho, low-level Linux systems, and full-cycle development work. You can also chat with <strong>Rook</strong> (AI assistant at bottom-left) to ask about Raj or connect.
             </div>
           ) : (
             <div>
-              Meet <strong>Rook</strong> — Raj's autonomous AI assistant (bottom-left). Ask Rook about his <strong>Agentic Component Framework</strong>, iOS systems at Zoho, or get in touch directly.
+              Welcome! Explore Raj's iOS engineering at Zoho, low-level Linux systems, and full-cycle projects. Have questions? Ask <strong>Rook</strong> (bottom-left) about Raj, his background, or how to get in touch.
             </div>
           )}
           <RookActionRow>
-            <StatusBadge>Rook Agent Active</StatusBadge>
+            <StatusBadge>Portfolio Live</StatusBadge>
             <RookTriggerBtn onClick={handleTriggerRook}>
               <FaRobot size={12} />
               <span>Ask Rook</span>

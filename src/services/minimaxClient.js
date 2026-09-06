@@ -216,6 +216,19 @@ I will make sure Raj is notified immediately so he can follow up with you prompt
 [ACTION:SCROLL_TO:projects]`;
   }
 
+  if (query.includes('raj') || query.includes('who') || query.includes('about') || query.includes('background') || query.includes('intro')) {
+    return `**Raj Kumar S** is an iOS Developer and Agentic Systems Engineer with a deep focus on mobile architecture and low-level systems. He is currently a Member of Technical Staff at Zoho (3+ years), based in Chennai, India.
+
+Key highlights of his work:
+• **iOS Architecture & Design Systems**: Core contributor at Zoho, engineering the Zoho Mobile UI Kit in Swift, slashing UI development turnaround by 30%, and optimizing cold launch performance by 20%.
+• **Agentic Systems**: Architected an internal agentic framework automating component lifecycles from specification through quality verification to production code contracts.
+• **Systems & Embedded Linux**: Developed **a0090-meta (hub-11 OS)**, bringing up mainline Linux 6.18 on RK3588 hardware with custom device trees (DTS) and FIT images.
+• **Full-Cycle & AI Systems**: Built companion apps pairing with autonomous agent fleets (Hermes) via Tailscale mesh networking.
+
+Feel free to ask me more about his specific projects, his technical stack, or leave a note to get in touch!
+[ACTION:SCROLL_TO:hero]`;
+  }
+
   if (query.includes('zoho') || query.includes('experience') || query.includes('work')) {
     return `Raj has been a **Member of Technical Staff at Zoho** for over 3 years (since May 2022).
 
@@ -245,14 +258,14 @@ Major architectural impact:
 [ACTION:OPEN_RESUME]`;
   }
 
-  return `Greetings! I am **Rook Agent**, Raj's portfolio assistant.
+  return `Greetings! I am **Rook**, Raj's portfolio assistant.
 
 I can guide you through:
-• His **Agentic Component Framework** & 3+ years at Zoho as Member of Technical Staff.
+• Raj's background & 3+ years at Zoho as Member of Technical Staff.
 • His **Linux Kernel 6.18 / RK3588** embedded OS builds (\`a0090-meta\`).
 • His **Hermes Companion App** (Tailscale mesh & AI agent fleet).
 • Live GitHub commits under **coding-nyx**.
 • Leaving a message to get in touch with Raj directly!
 
-Feel free to ask me anything or leave a note for him!`;
+Feel free to ask me anything about Raj or leave a note for him!`;
 }

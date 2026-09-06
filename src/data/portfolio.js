@@ -16,15 +16,19 @@ export const skillsData = [
   { name: "Swift", level: 90, category: "Mobile" },
   { name: "SwiftUI", level: 85, category: "Mobile" },
   { name: "UIKit", level: 85, category: "Mobile" },
-  { name: "Agentic Coding", level: 90, category: "AI" },
+  { name: "Agentic Frameworks", level: 90, category: "AI" },
   { name: "AI / LLMs", level: 85, category: "AI" },
-  { name: "React", level: 70, category: "Frontend" },
-  { name: "Firebase", level: 75, category: "Backend" },
+  { name: "Adaptability", level: 90, category: "Core" },
+  { name: "Teamwork", level: 90, category: "Core" },
   { name: "Linux", level: 80, category: "OS" },
+  { name: "Zoho Catalyst", level: 75, category: "Cloud" },
+  { name: "Firebase", level: 75, category: "Backend" },
+  { name: "React", level: 70, category: "Frontend" },
+  { name: "AWS", level: 50, category: "Cloud" },
   { name: "Kotlin", level: 60, category: "Language" },
   { name: "Android", level: 60, category: "Mobile" },
   { name: "Java", level: 65, category: "Language" },
-  { name: "React Native", level: 30, category: "Mobile" },
+  { name: "React Native", level: 65, category: "Mobile" },
 ];
 
 export const experienceData = [

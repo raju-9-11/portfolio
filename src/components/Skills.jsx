@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import PixelCard from './common/PixelCard';
-import { FaApple, FaMicrochip, FaLayerGroup } from 'react-icons/fa';
+import { FaApple, FaMicrochip, FaRobot, FaCloud } from 'react-icons/fa';
 
 const glitchAnim = keyframes`
   0% { transform: scale(1); clip-path: inset(0 0 0 0); }
@@ -13,9 +13,17 @@ const glitchAnim = keyframes`
 
 const SkillsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 5px;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const DomainCard = styled.div`
@@ -110,7 +118,9 @@ const StatusBadge = styled.span`
   color: ${props => {
     switch (props.$type) {
       case 'primary': return 'var(--neon-green)';
+      case 'ai': return 'var(--neon-yellow)';
       case 'systems': return 'var(--neon-pink)';
+      case 'cloud': return 'var(--neon-cyan)';
       default: return 'var(--neon-cyan)';
     }
   }};
@@ -123,7 +133,9 @@ const StatusBadge = styled.span`
     color: ${props => {
       switch (props.$type) {
         case 'primary': return '#166534';
+        case 'ai': return '#d97706';
         case 'systems': return '#7c3aed';
+        case 'cloud': return '#0284c7';
         default: return '#0284c7';
       }
     }};
@@ -252,19 +264,34 @@ const TechTag = styled.span`
 
 const skillCategories = [
   {
-    id: 'ios-agentic',
-    title: 'Agentic AI & iOS Systems',
+    id: 'ios-mobile',
+    title: 'iOS & Mobile Systems',
     status: 'Core Production',
     type: 'primary',
     icon: <FaApple size={16} />,
-    subtitle: 'Modular component architecture, Swift design systems, and deterministic multi-agent state machines.',
+    subtitle: 'Native iOS component architectures, Swift design systems, and cross-platform mobile runtimes.',
     skills: [
       { name: 'Swift & SwiftUI', level: 90 },
-      { name: 'Agentic Framework', level: 90 },
       { name: 'UIKit Architecture', level: 85 },
-      { name: 'AI / LLM Pipelines', level: 85 }
+      { name: 'Kotlin & Android', level: 60 },
+      { name: 'Java & React Native', level: 65 }
     ],
-    tags: ['Swift Concurrency', 'TDD QA', 'Design Systems', 'State Machine', 'Combine']
+    tags: ['Swift Concurrency', 'Design Systems', 'Combine', 'Jetpack Compose']
+  },
+  {
+    id: 'agentic-ai',
+    title: 'Agentic AI & Leadership',
+    status: 'Autonomous AI',
+    type: 'ai',
+    icon: <FaRobot size={16} />,
+    subtitle: 'Deterministic multi-agent workflows, code generation quality gates, adaptability, and cross-team leadership.',
+    skills: [
+      { name: 'Agentic Frameworks', level: 90 },
+      { name: 'AI / LLM Pipelines', level: 85 },
+      { name: 'Adaptability', level: 90 },
+      { name: 'Teamwork & Mentorship', level: 90 }
+    ],
+    tags: ['Deterministic Loops', 'Quality Gates', 'Prompt Pipelines', 'Teamwork']
   },
   {
     id: 'systems-linux',
@@ -282,19 +309,19 @@ const skillCategories = [
     tags: ['Mainline 6.18', 'Device Tree', 'Memory Bounds', 'Process Hooks']
   },
   {
-    id: 'fullcycle-ecosystem',
-    title: 'Full-Cycle & Ecosystem',
-    status: 'Cross-Platform',
-    type: 'ecosystem',
-    icon: <FaLayerGroup size={16} />,
-    subtitle: 'Cross-platform mobile companions, cloud services, telemetry, and secure networking mesh.',
+    id: 'cloud-fullcycle',
+    title: 'Cloud & Full-Cycle Stack',
+    status: 'Cloud & Services',
+    type: 'cloud',
+    icon: <FaCloud size={16} />,
+    subtitle: 'Serverless cloud runtimes, Zoho Catalyst microservices, scalable datastores, and cloud infra.',
     skills: [
+      { name: 'Zoho Catalyst', level: 75 },
       { name: 'Firebase & Auth', level: 75 },
       { name: 'React & Web Apps', level: 70 },
-      { name: 'Kotlin & Android', level: 60 },
-      { name: 'Java & React Native', level: 65 }
+      { name: 'AWS (Beginner)', level: 50 }
     ],
-    tags: ['Jetpack Compose', 'Tailscale Mesh', 'Cloud Firestore', 'REST/WebSockets']
+    tags: ['Zoho Catalyst', 'Serverless', 'NoSQL Datastore', 'AWS EC2/S3']
   }
 ];
 

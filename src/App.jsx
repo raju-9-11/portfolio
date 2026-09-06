@@ -134,7 +134,7 @@ function App() {
         <MainWrapper>
           <SkipLink />
           <CyberpunkOverlay />
-          <SystemAlert onOpenRook={(prompt) => setRookPrompt(prompt || "Tell me about Raj's Agentic Component Framework and experience at Zoho")} />
+          <SystemAlert onOpenRook={(prompt) => setRookPrompt(prompt || "Tell me about Raj, his background, and his work")} />
           <BentoGrid id="main-content">
             <HeroArea><Hero onAskRook={(prompt) => setRookPrompt(prompt)} /></HeroArea>
             <ProjectsArea><Projects /></ProjectsArea>

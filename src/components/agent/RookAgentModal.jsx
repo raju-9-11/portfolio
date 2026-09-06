@@ -515,7 +515,7 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hello! I am **Rook Agent**, Raj's portfolio assistant. Ask me anything about his **Agentic Component Framework**, iOS architecture at Zoho, or Linux kernel projects. If you'd like to get in touch with Raj, feel free to leave a message right here in chat, use the quick message card, or the contact section below!"
+      content: "Hello! I am **Rook**, Raj's portfolio assistant. Ask me anything about Raj, his iOS engineering at Zoho, systems projects, or background. If you'd like to get in touch with Raj, feel free to leave a message right here in chat, use the quick message card, or the contact section below!"
     }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -743,10 +743,10 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
 
             <QuickChips>
               <Chip onClick={() => {
-                logAgentInteraction('rook_chip_click', { chip: 'Agentic Framework' });
-                handleSendMessage("Tell me about the Agentic Component Framework");
+                logAgentInteraction('rook_chip_click', { chip: 'About Raj' });
+                handleSendMessage("Tell me about Raj and his background");
               }}>
-                Agentic Framework
+                About Raj
               </Chip>
               <Chip onClick={() => {
                 logAgentInteraction('rook_chip_click', { chip: 'Linux & RK3588' });
