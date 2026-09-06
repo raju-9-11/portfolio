@@ -2,95 +2,178 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { testimonialsData } from '../data/portfolio';
+import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const SliderContainer = styled.div`
+const TestimonialCard = styled.div`
+  /* Cyberpunk style matching ProjectCard */
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--text-dim);
+  padding: 24px 30px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+
+  /* Professional Theme */
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  [data-theme='cyberpunk'] & {
+    border-color: var(--neon-pink);
+    box-shadow: 2px 2px 0 var(--neon-cyan);
+  }
 `;
 
-const Slide = styled.div`
-  display: ${props => (props.$active ? 'block' : 'none')};
-  padding: 20px 40px; /* Increased side padding to clear arrows */
-  text-align: center;
+const QuoteIconWrapper = styled.div`
+  color: var(--neon-pink);
+  opacity: 0.4;
+  margin-bottom: 8px;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #2563eb;
+    opacity: 0.3;
+  }
 `;
 
-const Quote = styled.blockquote`
-  font-size: 1rem;
+const QuoteText = styled.blockquote`
+  font-size: 0.95rem;
   font-style: italic;
   color: var(--text-main);
-  margin: 0 0 15px 0;
-  line-height: 1.5;
-
-  &::before, &::after {
-    content: '"';
-    color: var(--neon-pink);
-  }
+  line-height: 1.6;
+  margin: 0 0 18px 0;
 
   [data-theme='professional'] &,
   [data-theme='modern'] & {
     color: #334155;
-    line-height: 1.6;
-
-    &::before, &::after {
-      color: #2563eb;
-    }
   }
 `;
 
-const Author = styled.div`
-  font-size: 0.9rem;
+const AuthorMeta = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-color);
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    border-top: 1px solid #f1f5f9;
+  }
+`;
+
+const AuthorInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`;
+
+const AuthorName = styled.span`
   color: var(--neon-cyan);
+  font-weight: 700;
+  font-size: 0.9rem;
 
   [data-theme='professional'] &,
   [data-theme='modern'] & {
     color: #0f172a;
-    font-weight: 600;
   }
 `;
 
-const Title = styled.div`
-  font-size: 0.8rem;
+const AuthorRole = styled.span`
+  font-size: 0.78rem;
   color: var(--text-dim);
 
   [data-theme='professional'] &,
   [data-theme='modern'] & {
     color: #64748b;
-    font-size: 0.85rem;
   }
 `;
 
-const NavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.3);
-  border: 1px solid var(--text-dim);
-  color: var(--neon-yellow);
-  padding: 5px 10px;
-  cursor: pointer;
-  z-index: 10;
-  font-size: 1.2rem;
+const CompanyBadge = styled.span`
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  background: var(--neon-cyan);
+  color: var(--bg-color);
+  font-weight: bold;
 
-  &:hover {
-    border-color: var(--neon-pink);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+`;
+
+const ControlsRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding: 0 4px;
+`;
+
+const Indicators = styled.div`
+  display: flex;
+  gap: 6px;
+`;
+
+const Dot = styled.button`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: ${props => props.$active ? 'var(--neon-pink)' : 'var(--text-dim)'};
+  transition: all 0.2s ease;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: ${props => props.$active ? '#2563eb' : '#cbd5e1'};
+    width: ${props => props.$active ? '18px' : '8px'};
+    border-radius: 9999px;
+  }
+`;
+
+const NavBtn = styled.button`
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  [data-theme='cyberpunk'] & {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+
+    &:hover {
+      background: var(--neon-cyan);
+      color: #000;
+    }
   }
 
-  ${props => props.$direction === 'prev' ? 'left: 10px;' : 'right: 10px;'}
-
-  /* Professional Theme Overrides */
   [data-theme='professional'] &,
   [data-theme='modern'] & {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     color: #475569;
     border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
     &:hover {
       background: #2563eb;
@@ -116,19 +199,44 @@ const Testimonials = () => {
     return null;
   }
 
+  const testimonial = testimonialsData[current];
+
   return (
-    <PixelCard title="Testimonials">
-      <SliderContainer>
-        <NavButton onClick={prevSlide} $direction="prev" aria-label="Previous testimonial">&lt;</NavButton>
-        {testimonialsData.map((testimonial, index) => (
-          <Slide key={index} $active={index === current}>
-            <Quote>{testimonial.quote}</Quote>
-            <Author>{testimonial.name}</Author>
-            <Title>{testimonial.title}</Title>
-          </Slide>
-        ))}
-        <NavButton onClick={nextSlide} $direction="next" aria-label="Next testimonial">&gt;</NavButton>
-      </SliderContainer>
+    <PixelCard title="Endorsements & Testimonials">
+      <TestimonialCard>
+        <div>
+          <QuoteIconWrapper>
+            <FaQuoteLeft size={20} />
+          </QuoteIconWrapper>
+          <QuoteText>"{testimonial.quote}"</QuoteText>
+        </div>
+        <AuthorMeta>
+          <AuthorInfo>
+            <AuthorName>{testimonial.name}</AuthorName>
+            <AuthorRole>{testimonial.title}</AuthorRole>
+          </AuthorInfo>
+          <CompanyBadge>Zoho Colleague</CompanyBadge>
+        </AuthorMeta>
+      </TestimonialCard>
+
+      <ControlsRow>
+        <NavBtn onClick={prevSlide} aria-label="Previous testimonial">
+          <FaChevronLeft size={11} />
+        </NavBtn>
+        <Indicators>
+          {testimonialsData.map((_, idx) => (
+            <Dot
+              key={idx}
+              $active={idx === current}
+              onClick={() => setCurrent(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </Indicators>
+        <NavBtn onClick={nextSlide} aria-label="Next testimonial">
+          <FaChevronRight size={11} />
+        </NavBtn>
+      </ControlsRow>
     </PixelCard>
   );
 };

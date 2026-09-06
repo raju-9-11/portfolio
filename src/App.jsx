@@ -57,10 +57,10 @@ const BentoGrid = styled.div`
     "B"
     "S"
     "L"
-    "T"
     "A"
     "W"
     "I"
+    "T"
     "C";
 
   /* Tablet Layout */
@@ -72,9 +72,10 @@ const BentoGrid = styled.div`
       "E E"
       "B B"
       "S S"
-      "L A"
-      "W I"
+      "L L"
+      "A W"
       "T T"
+      "I I"
       "C C";
   }
 
@@ -88,8 +89,8 @@ const BentoGrid = styled.div`
       "J J E E"
       "B B B B"
       "S S S S"
-      "L A W I"
-      "T T T T"
+      "L L A W"
+      "T T I I"
       "C C C C";
   }
 `;
@@ -133,7 +134,7 @@ function App() {
         <MainWrapper>
           <SkipLink />
           <CyberpunkOverlay />
-          <SystemAlert />
+          <SystemAlert onOpenRook={(prompt) => setRookPrompt(prompt || "Tell me about Raj's Agentic Component Framework and experience at Zoho")} />
           <BentoGrid id="main-content">
             <HeroArea><Hero onAskRook={(prompt) => setRookPrompt(prompt)} /></HeroArea>
             <ProjectsArea><Projects /></ProjectsArea>
@@ -145,7 +146,7 @@ function App() {
             <AchievementsArea><Achievements /></AchievementsArea>
             <AwardsArea><Awards /></AwardsArea>
             <InterestsArea><Interests /></InterestsArea>
-            <ContactArea><Contact /></ContactArea>
+            <ContactArea><Contact onOpenRook={(prompt) => setRookPrompt(prompt)} /></ContactArea>
           </BentoGrid>
           <BackToTop />
           <MobileNav />

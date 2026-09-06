@@ -1,69 +1,165 @@
 import styled from 'styled-components';
 import PixelCard from './common/PixelCard';
 import { awardsData } from '../data/portfolio';
-
-const AwardsList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-`;
+import { FaAward } from 'react-icons/fa';
 
 const AwardCard = styled.div`
-  background: rgba(0,0,0,0.2);
+  /* Cyberpunk style matching ProjectCard */
+  background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--text-dim);
-  padding: 15px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
 
+  /* Professional Theme */
   [data-theme='professional'] &,
   [data-theme='modern'] & {
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+    &:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+  }
+
+  [data-theme='cyberpunk'] &:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 2px 2px 0 var(--neon-pink);
+    transform: translate(-1px, -1px);
   }
 `;
 
-const AwardName = styled.h4`
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+`;
+
+const Title = styled.h4`
   color: var(--neon-cyan);
-  font-size: 1rem;
-  margin-bottom: 5px;
+  font-size: 0.98rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   [data-theme='professional'] &,
   [data-theme='modern'] & {
     color: #0f172a;
-    font-weight: 600;
+    font-weight: 700;
+
+    svg {
+      color: #3b82f6;
+    }
   }
 `;
 
-const Issuer = styled.p`
-  font-size: 0.9rem;
-  color: var(--text-main);
-  margin: 0;
+const StatusBadge = styled.span`
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  font-weight: 600;
 
   [data-theme='professional'] &,
   [data-theme='modern'] & {
-    color: var(--text-dim);
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+    border-radius: 4px;
   }
 `;
 
-const Date = styled.p`
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    margin: 0;
-    margin-top: 5px;
+const IssuerTag = styled.div`
+  color: var(--neon-pink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #475569;
+  }
+`;
+
+const Description = styled.p`
+  color: #ccc;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0 0 12px 0;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #64748b;
+  }
+`;
+
+const TagRow = styled.div`
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    border-top: 1px solid #f1f5f9;
+  }
+`;
+
+const Tag = styled.span`
+  font-size: 0.7rem;
+  background: var(--neon-cyan);
+  color: var(--bg-color);
+  padding: 2px 6px;
+  font-weight: bold;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-weight: 500;
+  }
 `;
 
 const Awards = () => {
   return (
-    <PixelCard title="Awards">
-      <AwardsList>
-        {awardsData.map((award, idx) => (
-          <AwardCard key={idx}>
-            <AwardName>{award.name}</AwardName>
-            <Issuer>{award.issuer}</Issuer>
-            <Date>Date: {award.date}</Date>
-          </AwardCard>
-        ))}
-      </AwardsList>
+    <PixelCard title="Awards & Honors">
+      {awardsData.map((award, idx) => (
+        <AwardCard key={idx}>
+          <div>
+            <Header>
+              <Title>
+                <FaAward size={16} />
+                <span>{award.name}</span>
+              </Title>
+              <StatusBadge>[National Stage]</StatusBadge>
+            </Header>
+            <IssuerTag>{award.issuer} • {award.date}</IssuerTag>
+            <Description>
+              Selected participant at India's premier nationwide hackathon, collaborating on real-time technological problem solving under continuous 36-hour sprint conditions.
+            </Description>
+          </div>
+          <TagRow>
+            <Tag>Hackathon</Tag>
+            <Tag>Rapid Prototyping</Tag>
+            <Tag>National Finalist</Tag>
+          </TagRow>
+        </AwardCard>
+      ))}
     </PixelCard>
   );
 };
