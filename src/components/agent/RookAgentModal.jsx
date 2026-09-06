@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { askRookAgent } from '../../services/minimaxClient';
 import { dispatchTwilioAlert } from '../../services/twilioService';
+import { logAgentInteraction } from '../../firebase';
 import { FaPaperPlane, FaTimes, FaRobot, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 
 const FloatingRookButton = styled(motion.button)`
@@ -419,6 +420,33 @@ const ScrollLinkBtn = styled.button`
   }
 `;
 
+const DirectNotificationBanner = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid var(--neon-green, #22c55e);
+  color: var(--neon-green, #22c55e);
+  animation: bannerFadeIn 0.25s ease-out;
+
+  @keyframes bannerFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #166534;
+  }
+`;
+
 const InputForm = styled.form`
   padding: 12px 16px;
   display: flex;
@@ -523,6 +551,11 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
     const text = (userText || inputValue).trim();
     if (!text || isLoading) return;
 
+    logAgentInteraction('rook_message_sent', {
+      query_length: text.length,
+      snippet: text.slice(0, 50)
+    });
+
     const newMessages = [...messages, { role: 'user', content: text }];
     setMessages(newMessages);
     setInputValue('');
@@ -545,6 +578,7 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
           });
         },
         onAction: (action) => {
+          logAgentInteraction('rook_action_triggered', { action_type: action.type });
           if (action.type === 'alert_sent' || action.type === 'twilio') {
             setContactAlertSent(true);
           }
@@ -556,8 +590,12 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
           }
         }
       });
+      logAgentInteraction('rook_response_completed', {
+        response_length: assistantText.length
+      });
     } catch (err) {
       console.error(err);
+      logAgentInteraction('rook_chat_error', { error: err.message || 'unknown' });
     } finally {
       setIsLoading(false);
     }
@@ -568,6 +606,9 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
     if (!formName.trim() || !formContact.trim()) return;
     setIsSubmittingForm(true);
     try {
+      logAgentInteraction('rook_contact_submitted', {
+        has_note: Boolean(formNote.trim())
+      });
       await dispatchTwilioAlert({
         senderName: formName.trim(),
         senderContact: formContact.trim(),
@@ -600,13 +641,19 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
   return (
     <>
       <FloatingRookButton
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          const next = !isOpen;
+          setIsOpen(next);
+          if (next) {
+            logAgentInteraction('rook_chat_opened', { source: 'floating_button' });
+          }
+        }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        aria-label="Open Rook Agent Chat"
+        aria-label="Open Rook Chat"
       >
         <FaRobot size={16} />
-        <span>Rook Agent</span>
+        <span>Rook</span>
       </FloatingRookButton>
 
       <AnimatePresence>
@@ -695,19 +742,34 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
             </MessagesContainer>
 
             <QuickChips>
-              <Chip onClick={() => handleSendMessage("Tell me about the Agentic Component Framework")}>
+              <Chip onClick={() => {
+                logAgentInteraction('rook_chip_click', { chip: 'Agentic Framework' });
+                handleSendMessage("Tell me about the Agentic Component Framework");
+              }}>
                 Agentic Framework
               </Chip>
-              <Chip onClick={() => handleSendMessage("What did Raj build for RK3588 Linux?")}>
+              <Chip onClick={() => {
+                logAgentInteraction('rook_chip_click', { chip: 'Linux & RK3588' });
+                handleSendMessage("What did Raj build for RK3588 Linux?");
+              }}>
                 Linux & RK3588
               </Chip>
-              <Chip onClick={() => handleSendMessage("What are his live GitHub repos?")}>
+              <Chip onClick={() => {
+                logAgentInteraction('rook_chip_click', { chip: 'GitHub Repos' });
+                handleSendMessage("What are his live GitHub repos?");
+              }}>
                 GitHub Repos
               </Chip>
-              <Chip onClick={() => setShowInlineForm(prev => !prev)}>
+              <Chip onClick={() => {
+                logAgentInteraction('rook_chip_click', { chip: 'Leave Message' });
+                setShowInlineForm(prev => !prev);
+              }}>
                 <FaEnvelope size={10} /> Leave a Message
               </Chip>
-              <Chip onClick={scrollToContactSection}>
+              <Chip onClick={() => {
+                logAgentInteraction('rook_chip_click', { chip: 'Contact Form' });
+                scrollToContactSection();
+              }}>
                 Contact Form ↓
               </Chip>
             </QuickChips>

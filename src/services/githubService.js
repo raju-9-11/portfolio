@@ -1,6 +1,6 @@
 // Live GitHub Context Service for Rook Agent
 
-const GITHUB_ACCOUNTS = ['coding-nyx', 'raju-9-11'];
+const GITHUB_ACCOUNTS = ['coding-nyx'];
 const CACHE_KEY = 'rook_github_cache';
 const CACHE_TTL = 1000 * 60 * 30; // 30 minutes
 
@@ -73,11 +73,11 @@ export async function fetchLiveGitHubContext() {
     },
     {
       name: "nexus",
-      owner: "raju-9-11",
+      owner: "coding-nyx",
       description: "Unified multi-agent AI wellness platform with specialized agents",
       language: "JavaScript",
       stars: 2,
-      url: "https://github.com/raju-9-11/nexus"
+      url: "https://github.com/coding-nyx/nexus"
     }
   ];
 

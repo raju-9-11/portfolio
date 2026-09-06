@@ -40,7 +40,7 @@ RAJ'S PROFILE & TECHNICAL ARCHITECTURE:
 • Top Skills: Swift (90%), Agentic Coding (90%), AI/LLMs (85%), UIKit/SwiftUI (85%), Linux Kernel (80%), Firebase (75%), React (70%), Kotlin/Android (60%).
 • Other Highlights: Spartan Racer (top 10% obstacle course finish).
 
-LIVE GITHUB REPOSITORIES (coding-nyx & raju-9-11):
+LIVE GITHUB REPOSITORIES (coding-nyx):
 ${githubSummary}
 
 BEHAVIOR & TONE:
@@ -236,7 +236,7 @@ Major architectural impact:
 
   if (query.includes('github') || query.includes('repo') || query.includes('commit')) {
     const list = repos.slice(0, 3).map(r => `• **${r.name}** (${r.language}): ${r.description || ''}`).join('\n');
-    return `Here are Raj's active GitHub projects right now:\n${list}\n\nAll repositories are live under **coding-nyx** and **raju-9-11** on GitHub!
+    return `Here are Raj's active GitHub projects right now:\n${list}\n\nAll repositories are live under **coding-nyx** on GitHub!
 [ACTION:SCROLL_TO:projects]`;
   }
 
@@ -251,7 +251,7 @@ I can guide you through:
 • His **Agentic Component Framework** & 3+ years at Zoho as Member of Technical Staff.
 • His **Linux Kernel 6.18 / RK3588** embedded OS builds (\`a0090-meta\`).
 • His **Hermes Companion App** (Tailscale mesh & AI agent fleet).
-• Live GitHub commits across **coding-nyx** and **raju-9-11**.
+• Live GitHub commits under **coding-nyx**.
 • Leaving a message to get in touch with Raj directly!
 
 Feel free to ask me anything or leave a note for him!`;

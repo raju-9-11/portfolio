@@ -132,7 +132,7 @@ export const projects = [
     description: "Nexus (AGNES): A unified, multi-agent AI wellness platform with specialized agents and E2EE for holistic stability.",
     imageUrl: "no image yet",
     liveUrl: "https://agent-agnes-ai.web.app",
-    repoUrl: "https://github.com/raju-9-11/nexus",
+    repoUrl: null,
     status: "In Progress"
   }
 ];

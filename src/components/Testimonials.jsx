@@ -9,7 +9,7 @@ const SliderContainer = styled.div`
 `;
 
 const Slide = styled.div`
-  display: ${props => (props.active ? 'block' : 'none')};
+  display: ${props => (props.$active ? 'block' : 'none')};
   padding: 20px 40px; /* Increased side padding to clear arrows */
   text-align: center;
 `;
@@ -75,7 +75,7 @@ const NavButton = styled.button`
     border-color: var(--neon-pink);
   }
 
-  ${props => props.direction === 'prev' ? 'left: 10px;' : 'right: 10px;'}
+  ${props => props.$direction === 'prev' ? 'left: 10px;' : 'right: 10px;'}
 
   /* Professional Theme Overrides */
   [data-theme='professional'] &,
@@ -119,15 +119,15 @@ const Testimonials = () => {
   return (
     <PixelCard title="Testimonials">
       <SliderContainer>
-        <NavButton onClick={prevSlide} direction="prev" aria-label="Previous testimonial">&lt;</NavButton>
+        <NavButton onClick={prevSlide} $direction="prev" aria-label="Previous testimonial">&lt;</NavButton>
         {testimonialsData.map((testimonial, index) => (
-          <Slide key={index} active={index === current}>
+          <Slide key={index} $active={index === current}>
             <Quote>{testimonial.quote}</Quote>
             <Author>{testimonial.name}</Author>
             <Title>{testimonial.title}</Title>
           </Slide>
         ))}
-        <NavButton onClick={nextSlide} direction="next" aria-label="Next testimonial">&gt;</NavButton>
+        <NavButton onClick={nextSlide} $direction="next" aria-label="Next testimonial">&gt;</NavButton>
       </SliderContainer>
     </PixelCard>
   );

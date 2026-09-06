@@ -49,4 +49,29 @@ export const logSystemLogin = () => {
   }
 };
 
+/**
+ * Log agent chat interactions to Firebase Analytics (free Google Analytics 4 events).
+ * @param {string} eventName - e.g. 'rook_chat_open', 'rook_message_sent', 'rook_contact_dispatched'
+ * @param {Object} params - custom parameters (strings/numbers)
+ */
+export const logAgentInteraction = (eventName, params = {}) => {
+  const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+  if (isLocalhost) {
+    console.log(`[Analytics:Rook] '${eventName}'`, params);
+  }
+
+  if (analytics) {
+    try {
+      logEvent(analytics, eventName, {
+        ...params,
+        environment: isLocalhost ? 'development' : 'production',
+        timestamp: new Date().toISOString()
+      });
+    } catch (e) {
+      console.warn(`[Firebase Analytics] Failed to log '${eventName}':`, e);
+    }
+  }
+};
+
 export default app;
