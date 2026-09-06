@@ -32,11 +32,11 @@ RAJ'S PROFILE & TECHNICAL ARCHITECTURE:
   - Revamped core architecture & optimized data-handling patterns, resulting in 20% faster cold launch speeds and 30% reduced memory footprint.
   - Previous: Zoho Project Trainee (Sep 2021 - May 2022), Zoho Intern (Apr 2021 - Jun 2021).
 • Embedded & Low-Level Linux Chops:
-  - 'a0090-meta (hub-11 OS)': Upstream-maintainable Linux 6.18 OS distribution for AMedia RK3588 NVR Demo. Custom device tree (DTS), FIT boot image assembly, driver integration.
-  - 'Linux Kernel Mod': Experimental low-latency real-time process scheduler module.
+  - **a0090-meta** (also known as **hub-11 OS**, **a009-hub**, **hub-11**, **hub11**): Upstream-maintainable mainline Linux 6.18 OS distribution engineered for the AMedia RK3588 NVR Demo board. Raj engineered the custom Device Tree Source (DTS), U-Boot / FIT boot image assembly, kernel driver integration, and platform bring-up.
+  - **Linux Kernel Mod**: Experimental low-latency real-time process scheduler module for CPU task balancing.
 • AI & Mobile Systems:
-  - 'Hermes Companion App': Native Android app for self-hosted Hermes AI agent fleet with Tailscale mesh pairing, bidirectional telemetry, and accessibility automation.
-  - 'Nexus (AGNES)': Unified multi-agent wellness platform with specialized agent coordination.
+  - **Hermes Companion App**: Native Android app for self-hosted Hermes AI agent fleet with Tailscale mesh pairing, bidirectional telemetry, and accessibility automation.
+  - **Nexus (AGNES)**: Unified multi-agent wellness platform with specialized agent coordination.
 • Top Skills: Swift (90%), Agentic Coding (90%), AI/LLMs (85%), UIKit/SwiftUI (85%), Linux Kernel (80%), Firebase (75%), React (70%), Kotlin/Android (60%).
 • Technical Pedigree & Academic Foundation:
   - Early STEM Foundation: **D.A.V. (Junior & High School)** — Forged in a prestigious, mathematically rigorous environment renowned for analytical discipline, competitive problem-solving, and foundational science excellence.
@@ -49,6 +49,7 @@ ${githubSummary}
 
 BEHAVIOR & TONE:
 - Be technically sharp, concise, and helpful. You represent Raj directly.
+- When asked about any project, like 'a009-hub', 'hub-11', 'a0090-meta', 'hermes', 'nexus', or his Zoho work, give deep, authentic technical details based on Raj's real architecture.
 - FORMATTING: ALWAYS use clean GitHub-flavored Markdown (bolding key terms, using bullet lists with '•' or '-', formatting links as [Title](url), formatting code/metrics with inline backticks).
 - CONTACT & REACH OUT:
   When a visitor wants to contact, interview, hire Raj, or leave a note:
@@ -73,6 +74,10 @@ BEHAVIOR & TONE:
   // Check if we have an active API key
   if (apiKey) {
     try {
+      const cleanMessages = messages
+        .filter(m => m && m.content && m.content !== '...' && typeof m.content === 'string')
+        .map(m => ({ role: m.role, content: m.content }));
+
       const response = await fetch(`${baseUrl}/chat/completions`, {
         method: 'POST',
         headers: {
@@ -83,7 +88,7 @@ BEHAVIOR & TONE:
           model: 'MiniMax-Text-01',
           messages: [
             { role: 'system', content: systemPrompt },
-            ...messages
+            ...cleanMessages
           ],
           stream: true,
           temperature: 0.7
@@ -123,7 +128,11 @@ BEHAVIOR & TONE:
           }
         }
 
-        return cleanActionTags(fullText);
+        if (fullText.trim()) {
+          return cleanActionTags(fullText);
+        }
+      } else {
+        console.warn(`[MiniMax] API returned HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (err) {
       console.warn("MiniMax streaming request failed, falling back to local simulation:", err);
@@ -187,19 +196,60 @@ function cleanActionTags(text) {
 }
 
 function generateFallbackResponse(query, repos) {
-  if (query.includes('hire') || query.includes('interview') || query.includes('contact') || query.includes('touch') || query.includes('reach') || query.includes('message')) {
-    return `I would be thrilled to connect you with Raj! He is open to high-impact iOS, systems, and agentic engineering opportunities.
+  // 1. Embedded Systems & a0090-meta / hub-11 OS
+  if (
+    query.includes('a009') ||
+    query.includes('hub') ||
+    query.includes('hub11') ||
+    query.includes('hub-11') ||
+    query.includes('linux') ||
+    query.includes('kernel') ||
+    query.includes('rk3588') ||
+    query.includes('hardware') ||
+    query.includes('embedded') ||
+    query.includes('dts') ||
+    query.includes('device tree') ||
+    query.includes('amedia') ||
+    query.includes('nvr')
+  ) {
+    return `### **a0090-meta (hub-11 OS)** — Mainline Embedded Linux & Platform Bring-up
 
-You have three convenient ways to reach out:
-1. **Leave your message directly here in chat** (just provide your name, email/phone, and note).
-2. **Use the quick interactive contact card** in this chat window.
-3. **Fill out the contact form** at the bottom of the page.
+**a0090-meta** (also known as **hub-11 OS** or **a009-hub**) is an upstream-maintainable mainline **Linux 6.18** operating system distribution engineered by Raj for the **AMedia RK3588 NVR Demo** board.
 
-I will make sure Raj is notified immediately so he can follow up with you promptly!
-[ACTION:SHOW_INLINE_CONTACT_FORM]`;
+#### Key Architectural Highlights:
+• **Custom Board Device Tree (DTS)**: Hand-crafted and patched Device Tree Source (\`dts\`) mapping hardware peripherals, high-speed SerDes, PCIe, and memory allocations specifically for the Rockchip RK3588 silicon.
+• **FIT Boot Image Assembly & U-Boot**: Architected flattened image tree (\`FIT\`) boot containers packaging the mainline kernel, initramfs, and hardware dtbs into an atomic, verifiable payload.
+• **Upstream Tracking**: Designed to stay maintainable against mainline Linux releases rather than relying on bloated, frozen vendor BSP blobs.
+• **Process Scheduling Module**: Developed experimental real-time kernel modules exploring low-latency task scheduling under high-throughput video workloads.
+
+[ACTION:SCROLL_TO:projects]`;
   }
 
-  if (query.includes('agentic') || query.includes('framework') || query.includes('component') || query.includes('spec') || query.includes('pipeline')) {
+  // 2. Hermes Companion App (Tailscale & AI fleet)
+  if (query.includes('hermes') || query.includes('companion') || query.includes('tailscale') || query.includes('mesh') || query.includes('fleet')) {
+    return `### **Hermes Companion App** — Native Android & Autonomous Agent Fleet Pairing
+
+Raj built the **Hermes Companion App**, a native Android client tailored for interacting with and managing a self-hosted **Hermes AI agent fleet**:
+• **Tailscale Mesh Pairing**: Secure, peer-to-peer mesh networking allowing seamless remote commands and bidirectional telemetry with private AI nodes.
+• **Bidirectional Telemetry**: Real-time streaming status updates, health checks, and execution traces.
+• **Accessibility Automation**: Native Android automation services allowing autonomous agent actions to be safely triggered and observed on mobile devices.
+
+[ACTION:SCROLL_TO:projects]`;
+  }
+
+  // 3. Nexus (AGNES) Multi-Agent Wellness
+  if (query.includes('nexus') || query.includes('agnes') || query.includes('wellness')) {
+    return `### **Nexus (AGNES)** — Multi-Agent Intelligence Platform
+
+Raj architected **Nexus**, a unified multi-agent wellness platform where specialized autonomous agents collaborate:
+• **Agent Specialization**: Distributes responsibilities (analytics, user telemetry, adaptive wellness advice) among purpose-built sub-agents.
+• **State Coordination**: Synchronizes agent hand-offs and deterministic memory models to ensure reliable, personalized insights.
+
+[ACTION:SCROLL_TO:projects]`;
+  }
+
+  // 4. Agentic Component Development Framework (Zoho Innovation)
+  if (query.includes('agentic') || query.includes('framework') || query.includes('component') || query.includes('spec') || query.includes('pipeline') || query.includes('contract')) {
     return `At Zoho, Raj engineered an **Agentic Component Development Framework** — a deterministic, config-driven multi-agent pipeline designed to automate the component creation lifecycle from **Spec → Contract → QA Tests → Implementation → Gate Verification → Ship**.
 
 ### Architecture & Working Mechanics:
@@ -220,20 +270,43 @@ I will make sure Raj is notified immediately so he can follow up with you prompt
 [ACTION:SCROLL_TO:projects]`;
   }
 
-  if (query.includes('raj') || query.includes('who') || query.includes('about') || query.includes('background') || query.includes('intro')) {
-    return `**Raj Kumar S** is an iOS Developer and Agentic Systems Engineer with a deep focus on mobile architecture and low-level systems. He is currently a Member of Technical Staff at Zoho (3+ years), based in Chennai, India.
+  // 5. Contact / Hire / Outreach
+  if (query.includes('hire') || query.includes('interview') || query.includes('contact') || query.includes('touch') || query.includes('reach') || query.includes('message') || query.includes('email')) {
+    return `I would be thrilled to connect you with Raj! He is open to high-impact iOS, systems, and agentic engineering opportunities.
 
-Key highlights of his work & background:
-• **iOS Architecture & Design Systems**: Core contributor at Zoho, engineering the Zoho Mobile UI Kit in Swift, slashing UI development turnaround by 30%, and optimizing cold launch performance by 20%.
-• **Agentic Systems**: Architected an internal agentic framework automating component lifecycles from specification through quality verification to production code contracts.
-• **Systems & Embedded Linux**: Developed **a0090-meta (hub-11 OS)**, bringing up mainline Linux 6.18 on RK3588 hardware with custom device trees (DTS) and FIT images.
-• **Full-Cycle & AI Systems**: Built companion apps pairing with autonomous agent fleets (Hermes) via Tailscale mesh networking.
-• **Pedigree & Continuous Learning**: Grounded by **D.A.V. (Junior & High School)** and a **B.E. in Electronics and Communication Engineering (ECE)** from **Sri Sairam Engineering College** — bridging silicon-level hardware insight with high-level software craft, backed by a relentless drive to master and operationalize frontier technologies into production.
+You have three convenient ways to reach out:
+1. **Leave your message directly here in chat** (just provide your name, email/phone, and note).
+2. **Use the quick interactive contact card** in this chat window.
+3. **Fill out the contact form** at the bottom of the page.
 
-Feel free to ask me more about his specific projects, his technical stack, or leave a note to get in touch!
-[ACTION:SCROLL_TO:hero]`;
+I will make sure Raj is notified immediately so he can follow up with you promptly!
+[ACTION:SHOW_INLINE_CONTACT_FORM]`;
   }
 
+  // 6. Zoho Experience & Career
+  if (query.includes('zoho') || query.includes('experience') || query.includes('work') || query.includes('job') || query.includes('career') || query.includes('role')) {
+    return `Raj has been a **Member of Technical Staff at Zoho** for over 3 years (since May 2022).
+
+Major architectural impact:
+1. **Agentic Component Framework**: Built an internal workflow for automated UI component generation and testing.
+2. **Zoho Mobile UI Kit**: Created a reusable component library in Swift (-30% dev time across mobile modules).
+3. **Performance Refactor**: Optimized data patterns & legacy architecture (+20% app launch speed, -30% memory footprint).
+4. **Previous Progression**: Zoho Project Trainee (Sep 2021 - May 2022), Zoho Intern (Apr 2021 - Jun 2021).
+[ACTION:SCROLL_TO:experience]`;
+  }
+
+  // 7. Skills & Tech Stack
+  if (query.includes('skill') || query.includes('stack') || query.includes('tech') || query.includes('technolog') || query.includes('proficiency') || query.includes('swift') || query.includes('ios') || query.includes('catalyst') || query.includes('aws')) {
+    return `### 🛠️ Raj's Technical Proficiencies & Architecture Stack:
+
+• **iOS & Mobile Systems**: **Swift & SwiftUI** (90%), **UIKit Architecture** (85%), Swift Concurrency, Custom Design Systems, Combine, Kotlin/Android (60%), Java & React Native (65%).
+• **Autonomous AI & Agentic Systems**: **Agentic Frameworks** (90%), **AI / LLM Pipelines** (85%), Deterministic Loops, Quality Gates, Adaptability (90%), Teamwork & Mentorship (90%).
+• **Systems & Embedded Linux**: **Linux Kernel & C** (80%), **Device Tree / DTS** (75%), POSIX & Makefiles (75%), Armbian / FIT Images (70%), Low-latency Process Scheduling.
+• **Cloud & Full-Cycle Services**: **Zoho Catalyst** (75%), **Firebase & Auth** (75%), **React & Web Apps** (70%), **AWS** (50%).
+[ACTION:SCROLL_TO:skills]`;
+  }
+
+  // 8. Education & Academic Pedigree
   if (query.includes('education') || query.includes('college') || query.includes('school') || query.includes('degree') || query.includes('qualification') || query.includes('study') || query.includes('studied') || query.includes('sairam') || query.includes('dav')) {
     return `### 🎓 Academic Pedigree & Engineering Foundation:
 
@@ -250,43 +323,61 @@ Feel free to ask me more about his specific projects, his technical stack, or le
 *Looking for someone with deep fundamentals who masters complex stacks at lightning speed? Ask me about his latest projects or leave a note to connect!*`;
   }
 
-  if (query.includes('zoho') || query.includes('experience') || query.includes('work')) {
-    return `Raj has been a **Member of Technical Staff at Zoho** for over 3 years (since May 2022).
+  // 9. Spartan Race & Physical Grit
+  if (query.includes('spartan') || query.includes('race') || query.includes('racing') || query.includes('obstacle') || query.includes('fitness') || query.includes('grit') || query.includes('endurance')) {
+    return `### 🏅 Spartan Racer — Top 10% Finish (10km Obstacle Course)
 
-Major architectural impact:
-1. **Agentic Component Framework**: Built an internal workflow for automated UI component generation and testing.
-2. **Zoho Mobile UI Kit**: Created a reusable component library in Swift (-30% dev time).
-3. **Performance Refactor**: Optimized data patterns & legacy architecture (+20% launch speed, -30% memory footprint).
-[ACTION:SCROLL_TO:experience]`;
+Raj conquered the grueling 10km Spartan obstacle course race, finishing in the **top 10%**.
+This physical and mental endurance discipline mirrors his engineering philosophy: relentless stamina, calm resilience under pressure, and pushing through complex roadblocks to cross the finish line.
+[ACTION:SCROLL_TO:achievements]`;
   }
 
-  if (query.includes('linux') || query.includes('kernel') || query.includes('rk3588') || query.includes('hardware')) {
-    return `On the embedded & systems front, Raj built **a0090-meta (hub-11 OS)**:
-• An upstream-maintainable mainline **Linux 6.18** distribution for the AMedia RK3588 NVR Demo board.
-• Engineered custom board Device Tree Source (\`dts\`), FIT boot image assembly, and driver integration.
-• Also developed custom Linux kernel modules experimenting with low-latency process scheduling.
-[ACTION:SCROLL_TO:projects]`;
+  // 10. Smart India Hackathon & Awards
+  if (query.includes('hackathon') || query.includes('smart india') || query.includes('sih') || query.includes('award') || query.includes('honor')) {
+    return `### 🏆 Smart India Hackathon — National Finalist (Aug 2020)
+
+Selected participant at India's premier nationwide hackathon, collaborating on real-time technological problem solving under continuous 36-hour sprint conditions with rapid prototyping and execution.
+[ACTION:SCROLL_TO:awards]`;
   }
 
-  if (query.includes('github') || query.includes('repo') || query.includes('commit')) {
+  // 11. GitHub Repositories
+  if (query.includes('github') || query.includes('repo') || query.includes('commit') || query.includes('code')) {
     const list = repos.slice(0, 3).map(r => `• **${r.name}** (${r.language}): ${r.description || ''}`).join('\n');
     return `Here are Raj's active GitHub projects right now:\n${list}\n\nAll repositories are live under **coding-nyx** on GitHub!
 [ACTION:SCROLL_TO:projects]`;
   }
 
+  // 12. Resume
   if (query.includes('resume') || query.includes('cv')) {
     return `Opening Raj's official resume PDF for you right now...
 [ACTION:OPEN_RESUME]`;
   }
 
+  // 13. General About / Background
+  if (query.includes('raj') || query.includes('who') || query.includes('about') || query.includes('background') || query.includes('intro')) {
+    return `**Raj Kumar S** is an iOS Developer and Agentic Systems Engineer with a deep focus on mobile architecture and low-level systems. He is currently a Member of Technical Staff at Zoho (3+ years), based in Chennai, India.
+
+Key highlights of his work & background:
+• **iOS Architecture & Design Systems**: Core contributor at Zoho, engineering the Zoho Mobile UI Kit in Swift, slashing UI development turnaround by 30%, and optimizing cold launch performance by 20%.
+• **Agentic Systems**: Architected an internal agentic framework automating component lifecycles from specification through quality verification to production code contracts.
+• **Systems & Embedded Linux**: Developed **a0090-meta (hub-11 OS)**, bringing up mainline Linux 6.18 on RK3588 hardware with custom device trees (DTS) and FIT images.
+• **Full-Cycle & AI Systems**: Built companion apps pairing with autonomous agent fleets (Hermes) via Tailscale mesh networking.
+• **Pedigree & Continuous Learning**: Grounded by **D.A.V. (Junior & High School)** and a **B.E. in Electronics and Communication Engineering (ECE)** from **Sri Sairam Engineering College** — bridging silicon-level hardware insight with high-level software craft, backed by a relentless drive to master and operationalize frontier technologies into production.
+
+Feel free to ask me more about his specific projects, his technical stack, or leave a note to get in touch!
+[ACTION:SCROLL_TO:hero]`;
+  }
+
+  // 14. Friendly Greeting / Default
   return `Greetings! I am **Rook**, Raj's portfolio assistant.
 
 I can guide you through:
-• Raj's background & 3+ years at Zoho as Member of Technical Staff.
-• His **Linux Kernel 6.18 / RK3588** embedded OS builds (\`a0090-meta\`).
-• His **Hermes Companion App** (Tailscale mesh & AI agent fleet).
-• Live GitHub commits under **coding-nyx**.
-• Leaving a message to get in touch with Raj directly!
+• **a0090-meta (hub-11 OS)** — Raj's mainline Linux 6.18 embedded OS for RK3588.
+• **Agentic Component Framework** — His deterministic multi-agent pipeline at Zoho.
+• **Hermes Companion App** — Native Android client for private AI agent fleets via Tailscale mesh.
+• **Zoho Mobile UI Kit** & iOS performance refactors (-30% memory, +20% launch speed).
+• **Academic Pedigree** — D.A.V. and B.E. in ECE at Sri Sairam Engineering College.
+• Live GitHub code & leaving a direct message for Raj!
 
-Feel free to ask me anything about Raj or leave a note for him!`;
+Feel free to ask about any specific project or leave a note for Raj!`;
 }
