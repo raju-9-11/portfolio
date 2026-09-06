@@ -38,10 +38,10 @@ RAJ'S PROFILE & TECHNICAL ARCHITECTURE:
   - 'Hermes Companion App': Native Android app for self-hosted Hermes AI agent fleet with Tailscale mesh pairing, bidirectional telemetry, and accessibility automation.
   - 'Nexus (AGNES)': Unified multi-agent wellness platform with specialized agent coordination.
 • Top Skills: Swift (90%), Agentic Coding (90%), AI/LLMs (85%), UIKit/SwiftUI (85%), Linux Kernel (80%), Firebase (75%), React (70%), Kotlin/Android (60%).
-• Education & Qualifications:
-  - Schooling: Went to D.A.V School and High School.
-  - Higher Education: Studied Bachelor of Engineering (B.E.) in Electronics and Communication Engineering (ECE) at Sairam Engineering College.
-  - Continuous Learning: Constantly learning new technologies across agentic architectures, embedded systems, and mobile platforms.
+• Technical Pedigree & Academic Foundation:
+  - Early STEM Foundation: **D.A.V. (Junior & High School)** — Forged in a prestigious, mathematically rigorous environment renowned for analytical discipline, competitive problem-solving, and foundational science excellence.
+  - Undergraduate Engineering: **B.E. in Electronics & Communication Engineering (ECE)** from **Sri Sairam Engineering College** — Grounded in microprocessors, signals, and hardware architecture. This hardware-to-software duality gives Raj a rare vertical advantage: mastering everything from silicon registers, board bring-up, and Linux kernel internals to high-performance Swift mobile architectures and agentic AI systems.
+  - Continuous Learning Velocity: An insatiable, self-driven technologist with an extraordinary ramp-up curve — continuously mastering and operationalizing frontier tech (deterministic agentic state machines, custom kernel schedulers, distributed mesh networks, and next-gen mobile runtimes) directly into production.
 • Other Highlights: Spartan Racer (top 10% obstacle course finish).
 
 LIVE GITHUB REPOSITORIES (coding-nyx):
@@ -228,19 +228,26 @@ Key highlights of his work & background:
 • **Agentic Systems**: Architected an internal agentic framework automating component lifecycles from specification through quality verification to production code contracts.
 • **Systems & Embedded Linux**: Developed **a0090-meta (hub-11 OS)**, bringing up mainline Linux 6.18 on RK3588 hardware with custom device trees (DTS) and FIT images.
 • **Full-Cycle & AI Systems**: Built companion apps pairing with autonomous agent fleets (Hermes) via Tailscale mesh networking.
-• **Education**: Studied B.E. in Electronics and Communication Engineering (ECE) at Sairam Engineering College, with schooling at D.A.V School. He is an avid technologist constantly learning new technologies.
+• **Pedigree & Continuous Learning**: Grounded by **D.A.V. (Junior & High School)** and a **B.E. in Electronics and Communication Engineering (ECE)** from **Sri Sairam Engineering College** — bridging silicon-level hardware insight with high-level software craft, backed by a relentless drive to master and operationalize frontier technologies into production.
 
 Feel free to ask me more about his specific projects, his technical stack, or leave a note to get in touch!
 [ACTION:SCROLL_TO:hero]`;
   }
 
   if (query.includes('education') || query.includes('college') || query.includes('school') || query.includes('degree') || query.includes('qualification') || query.includes('study') || query.includes('studied') || query.includes('sairam') || query.includes('dav')) {
-    return `### Educational Background & Qualifications:
-• **Schooling**: Attended **D.A.V School and High School**.
-• **Higher Education**: Graduated with a **B.E. in Electronics and Communication Engineering (ECE)** from **Sairam Engineering College**.
-• **Growth & Learning**: Raj is deeply curious and is constantly learning new technologies across agentic software pipelines, low-level systems, and modern mobile frameworks.
+    return `### 🎓 Academic Pedigree & Engineering Foundation:
 
-Feel free to ask me anything else about Raj's work or how to connect!`;
+• 🏫 **Early STEM Crucible — D.A.V. (Junior & High School)**
+  Forged in one of the most mathematically rigorous environments renowned for analytical discipline, competitive problem-solving, and foundational science excellence.
+
+• ⚡ **Hardware-to-Software Duality — B.E. in Electronics & Communication Engineering (ECE)**
+  *Sri Sairam Engineering College*
+  Grounded in microprocessors, signal processing, and low-level digital systems. This hardware foundation gives Raj an unfair advantage over traditional software engineers—powering his ability to navigate seamlessly from board bring-up, device trees (DTS), and Linux kernel schedulers all the way to high-concurrency mobile architectures and multi-agent AI ecosystems.
+
+• 🚀 **High-Velocity Continuous Learning Engine**
+  Raj doesn't wait for industry trends—he operationalizes them. With an insatiable appetite for frontier engineering, he continuously masters and ships emerging technologies (from autonomous agent orchestration and Tailscale mesh networks to modern compiler toolchains and production Swift design systems) directly into high-impact deliverables.
+
+*Looking for someone with deep fundamentals who masters complex stacks at lightning speed? Ask me about his latest projects or leave a note to connect!*`;
   }
 
   if (query.includes('zoho') || query.includes('experience') || query.includes('work')) {
