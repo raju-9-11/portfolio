@@ -82,6 +82,15 @@ export const experienceData = [
 
 export const projects = [
   {
+    name: "Agentic Component Framework",
+    tags: ["Agentic AI", "Python", "State Machine", "Multi-Agent", "Swift / iOS"],
+    description: "A deterministic, config-driven agentic pipeline that automates component lifecycles from spec → contract → QA test suite → implementation → gate verification. Features 8 declarative quality gates, multi-target parallel tracks, and unified multi-ecosystem prompt compilation.",
+    imageUrl: null,
+    liveUrl: null,
+    repoUrl: null,
+    status: "Production"
+  },
+  {
     name: "Hermes Companion App",
     tags: ["Android", "Kotlin", "Jetpack Compose", "Tailscale", "AI Agents"],
     description: "Native Android companion application for self-hosted Hermes Agent fleet featuring device pairing via Tailscale, bidirectional control, accessibility automation, and real-time chat.",

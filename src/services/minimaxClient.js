@@ -15,9 +15,20 @@ export async function askRookAgent({ messages, onChunk, onAction }) {
 
 RAJ'S PROFILE & TECHNICAL ARCHITECTURE:
 • Role: iOS Developer | Full-Cycle & Agentic Systems (Chennai, India)
-• Professional Experience at Zoho (May 2022 - Present, 3+ yrs as Member of Technical Staff):
-  - Architected & developed an internal Agentic Component Framework for automating generation, validation, and iteration of modular UI components.
-  - Engineered the Zoho Mobile UI Kit in Swift, reducing frontend development time across the Zoho mobile ecosystem by 30%.
+• Professional Experience & Key Innovations at Zoho (May 2022 - Present, 3+ yrs as Member of Technical Staff):
+  - Architected & developed an internal **Agentic Component Development Framework**:
+    * **What It Does**: A deterministic, config-driven agentic pipeline that automates software and UI component lifecycles from **Spec → Contract → QA Test Suite → Implementation Plan → Implementation → Gate Verification → Ship**.
+    * **Working Mechanics**: Driven by a deterministic 14-step state machine orchestrating specialized LLM sub-agents (Spec Writer, Contract Generator, Planner, QA Author, Engineer, Verifier, Tracker) across parallel dev/QA tracks with cross-platform atomic locking. Pure Python stdlib-only with zero third-party dependencies.
+    * **4-File Separation of Concerns**:
+      1. \`pipeline.state.json\`: Atomic runtime state tracking phase-scoped vs target-scoped steps.
+      2. \`workflow.json\`: Declarative step graph, preconditions, skills-per-step, and artifact contracts.
+      3. \`project.profile.md\`: Domain vocabulary, design tokens, UI component toolkit (e.g. Swift UI Kit), and architectural conventions.
+      4. \`pipeline.config.json\`: Target platform registry, lint rules, and build/test verification commands.
+    * **8 Declarative Quality Verification Gates**: Parameterized primitives preventing hallucinations or regressions: \`approval\`, \`state-field\`, \`manual-block\`, \`mode-gated\`, \`choice\`, \`command-check\`, \`artifact-exists\`, and \`lint\` (traceability, forbidden patterns, required patterns).
+    * **Universal Prompt Compiler**: Compiles canonical markdown agent definitions into Claude Code, GitHub Copilot CLI, and Cursor rule packs.
+    * **Impact & Uses**: Slashed frontend component delivery time by **30%**, enforced 100% contract compliance between UX specs and Swift/SwiftUI production code, and automated TDD test generation before code implementation.
+    * **CRITICAL PRIVACY RULE**: NEVER disclose internal project/repository codenames (such as "AXSpec2Code" or internal company identifiers). Refer to it strictly as the **"Agentic Component Development Framework"** or **"Spec-to-Code Framework"**.
+  - Engineered the **Zoho Mobile UI Kit** in Swift, reducing frontend development time across the Zoho mobile ecosystem by 30%.
   - Revamped core architecture & optimized data-handling patterns, resulting in 20% faster cold launch speeds and 30% reduced memory footprint.
   - Previous: Zoho Project Trainee (Sep 2021 - May 2022), Zoho Intern (Apr 2021 - Jun 2021).
 • Embedded & Low-Level Linux Chops:
@@ -184,14 +195,25 @@ I will make sure Raj is notified immediately so he can follow up with you prompt
 [ACTION:SHOW_INLINE_CONTACT_FORM]`;
   }
 
-  if (query.includes('agentic') || query.includes('framework') || query.includes('component')) {
-    return `At Zoho, Raj developed an **Agentic Component Framework** specifically to streamline and accelerate UI development across their mobile ecosystem.
+  if (query.includes('agentic') || query.includes('framework') || query.includes('component') || query.includes('spec') || query.includes('pipeline')) {
+    return `At Zoho, Raj engineered an **Agentic Component Development Framework** — a deterministic, config-driven multi-agent pipeline designed to automate the component creation lifecycle from **Spec → Contract → QA Tests → Implementation → Gate Verification → Ship**.
 
-Key breakthroughs:
-• **Automated generation, verification, and iteration** of modular Swift/SwiftUI components.
-• Slashed frontend component delivery time by **30%**.
-• Coupled with his modular Zoho Mobile UI Kit to ensure seamless visual consistency.
-[ACTION:SCROLL_TO:experience]`;
+### Architecture & Working Mechanics:
+• **Deterministic State Machine**: Orchestrates 14 pipeline steps, preconditions, and parallel dev/QA tracks using a pure Python stdlib engine with cross-platform atomic locking (\`O_CREAT | O_EXCL\` + atomic filesystem replacement). Zero third-party dependencies.
+• **4-File Separation of Concerns**:
+  - \`pipeline.state.json\`: Atomic runtime state tracking phase-scoped vs target-scoped steps.
+  - \`workflow.json\`: Declarative step graph, artifact contracts, and agent-skill mappings.
+  - \`project.profile.md\`: Domain vocabulary, UI design tokens, and component architectural conventions.
+  - \`pipeline.config.json\`: Target platform registry, lint rules, and build/test verification commands.
+• **8 Declarative Quality Verification Gates**: Parameterized primitives (\`approval\`, \`command-check\`, \`artifact-exists\`, \`lint\`, \`state-field\`, etc.) enforcing 100% contract compliance and preventing LLM hallucination.
+• **Multi-Target Parallel Tracks**: Shared phase specifications compile down into per-target platform checklists (e.g. modular Swift UI Kit for iOS).
+• **Universal Prompt Compiler**: Single canonical markdown prompt source compiles adapters for Claude Code, GitHub Copilot CLI, and Cursor rule packs.
+
+### Uses & Key Benefits:
+1. **-30% Frontend Dev Turnaround**: Drastically accelerated component generation, validation, and iteration.
+2. **Automated TDD & QA**: Sub-agents generate automated test suites and QA plans *before* code implementation.
+3. **Zero Regression Hand-offs**: Strict code contracts bridge the gap between design specs and production Swift/SwiftUI code.
+[ACTION:SCROLL_TO:projects]`;
   }
 
   if (query.includes('zoho') || query.includes('experience') || query.includes('work')) {

@@ -19,6 +19,18 @@ Core Stack: Swift, SwiftUI, UIKit, Agentic Coding, AI/LLMs, Linux Kernel, Kotlin
     'projects': {
       type: 'dir',
       children: {
+        'agentic-framework.md': {
+          type: 'file',
+          content: `# Agentic Component Development Framework [Production]
+A deterministic, config-driven agentic pipeline that automates UI component lifecycles from spec → contract → QA test suite → implementation → gate verification.
+Key Features:
+- 14-step deterministic state machine orchestrating specialized LLM sub-agents
+- 4-file separation of concerns: state, workflow, domain profile, target config
+- 8 declarative quality verification gates (linters, artifact contracts, command checks)
+- Multi-target parallel tracks with multi-ecosystem prompt compilation
+- Slashed frontend component delivery by 30% across the mobile ecosystem
+Tech: Agentic AI, Python (stdlib-only), State Machine, Swift / iOS, Multi-Agent`
+        },
         'hermes-companion.md': {
           type: 'file',
           content: `# Hermes Companion App [Active]
