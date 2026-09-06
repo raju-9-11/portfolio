@@ -238,11 +238,11 @@ const SystemAlert = ({ onOpenRook }) => {
           </AlertTitle>
           {theme === 'cyberpunk' ? (
             <div>
-              Welcome to Raj Kumar's portfolio! Explore his iOS engineering at Zoho, low-level Linux systems, and full-cycle development work. You can also chat with <strong>Rook</strong> (AI assistant at bottom-left) to ask about Raj or connect.
+              Welcome to Raj's portfolio! Explore his professional journey, engineering work, and key projects. Have questions? Chat with <strong>Rook</strong> (AI assistant at bottom-left) to learn more or connect.
             </div>
           ) : (
             <div>
-              Welcome! Explore Raj's iOS engineering at Zoho, low-level Linux systems, and full-cycle projects. Have questions? Ask <strong>Rook</strong> (bottom-left) about Raj, his background, or how to get in touch.
+              Welcome to Raj's portfolio! Take a look around to explore his professional life, work experience, and projects. Have questions? Feel free to ask <strong>Rook</strong> (bottom-left) or get in touch.
             </div>
           )}
           <RookActionRow>
