@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { askRookAgent } from '../../services/minimaxClient';
-import { dispatchTwilioAlert } from '../../services/twilioService';
+import { sendRookAlert } from '../../services/emailService';
 import { logAgentInteraction } from '../../firebase';
 import { FaPaperPlane, FaTimes, FaRobot, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 
@@ -609,7 +609,7 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
       logAgentInteraction('rook_contact_submitted', {
         has_note: Boolean(formNote.trim())
       });
-      await dispatchTwilioAlert({
+      await sendRookAlert({
         senderName: formName.trim(),
         senderContact: formContact.trim(),
         message: formNote.trim() || 'Left message via inline chat card'

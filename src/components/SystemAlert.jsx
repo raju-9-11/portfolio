@@ -238,11 +238,11 @@ const SystemAlert = ({ onOpenRook }) => {
           </AlertTitle>
           {theme === 'cyberpunk' ? (
             <div>
-              Welcome to Raj's portfolio! Explore his professional journey, engineering work, and key projects. Have questions? Chat with <strong>Rook</strong> (AI assistant at bottom-left) to learn more or connect.
+              Welcome to Raj's portfolio! Explore his professional journey, engineering work, and key projects. Have questions? Chat with <strong>Rook</strong> (AI assistant) to learn more or connect.
             </div>
           ) : (
             <div>
-              Welcome to Raj's portfolio! Take a look around to explore his professional life, work experience, and projects. Have questions? Feel free to ask <strong>Rook</strong> (bottom-left) or get in touch.
+              Welcome to Raj's portfolio! Take a look around to explore his professional life, work experience, and projects. Have questions? Feel free to ask <strong>Rook</strong> or get in touch.
             </div>
           )}
           <RookActionRow>

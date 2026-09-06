@@ -1,7 +1,7 @@
 // MiniMax AI OpenAI-Compatible Client for Rook Agent
 
 import { fetchLiveGitHubContext } from './githubService.js';
-import { dispatchTwilioAlert } from './twilioService.js';
+import { sendRookAlert } from './emailService.js';
 
 export async function askRookAgent({ messages, onChunk, onAction }) {
   const apiKey = import.meta.env?.VITE_MINIMAX_API_KEY;
@@ -153,7 +153,7 @@ function parseAndEmitActions(text, onAction) {
       contact: alertMatch[2].trim(),
       message: alertMatch[3].trim()
     });
-    dispatchTwilioAlert({
+    sendRookAlert({
       senderName: alertMatch[1].trim(),
       senderContact: alertMatch[2].trim(),
       message: alertMatch[3].trim()
