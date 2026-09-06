@@ -299,10 +299,10 @@ const skillCategories = [
     status: 'Kernel & Hardware',
     type: 'systems',
     icon: <FaMicrochip size={16} />,
-    subtitle: 'Low-level OS distributions, RK3588 board bring-up, device trees, and kernel process scheduling.',
+    subtitle: 'Low-level OS distributions, board bring-up, device trees, and kernel process scheduling.',
     skills: [
       { name: 'Linux Kernel & C', level: 80 },
-      { name: 'RK3588 / DTS', level: 75 },
+      { name: 'Device Tree / DTS', level: 75 },
       { name: 'POSIX & Makefiles', level: 75 },
       { name: 'Armbian / FIT Images', level: 70 }
     ],

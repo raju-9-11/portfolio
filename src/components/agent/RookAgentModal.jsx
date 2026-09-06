@@ -749,10 +749,10 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
                 About Raj
               </Chip>
               <Chip onClick={() => {
-                logAgentInteraction('rook_chip_click', { chip: 'Linux & RK3588' });
-                handleSendMessage("What did Raj build for RK3588 Linux?");
+                logAgentInteraction('rook_chip_click', { chip: 'Linux & Systems' });
+                handleSendMessage("What did Raj build for Linux and embedded systems?");
               }}>
-                Linux & RK3588
+                Linux & Systems
               </Chip>
               <Chip onClick={() => {
                 logAgentInteraction('rook_chip_click', { chip: 'GitHub Repos' });
