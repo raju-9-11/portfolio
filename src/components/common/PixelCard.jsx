@@ -81,7 +81,7 @@ export const CardTitle = styled.h3`
   }
 
   /* Professional specific */
-  [data-theme='professional'] & {
+  [data-theme='modern'] & {
     color: var(--text-main);
     border-bottom: 1px solid var(--border-color);
   }

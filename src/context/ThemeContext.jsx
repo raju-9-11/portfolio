@@ -8,11 +8,12 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');
-    return savedTheme || 'professional';
+    if (savedTheme === 'professional') return 'modern';
+    return savedTheme || 'modern';
   });
 
   const toggleTheme = () => {
-    const newTheme = theme === 'cyberpunk' ? 'professional' : 'cyberpunk';
+    const newTheme = theme === 'cyberpunk' ? 'modern' : 'cyberpunk';
     setTheme(newTheme);
     localStorage.setItem('portfolio-theme', newTheme);
   };
