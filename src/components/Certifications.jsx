@@ -20,11 +20,12 @@ const CertificationCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  [data-theme='professional'] & {
-    background: var(--bg-color);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
 `;
 
@@ -33,8 +34,9 @@ const CertificationName = styled.h4`
   font-size: 0.9rem;
   margin-bottom: 5px;
 
-  [data-theme='professional'] & {
-    color: var(--text-main);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #0f172a;
     font-weight: 600;
   }
 `;
@@ -44,7 +46,8 @@ const Issuer = styled.p`
   color: var(--text-main);
   margin-bottom: 10px;
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     color: var(--text-dim);
   }
 `;
@@ -70,11 +73,12 @@ const CredentialLink = styled.a`
     color: var(--neon-yellow);
   }
 
-  [data-theme='professional'] & {
-    color: var(--neon-pink); /* Blue-500 */
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #2563eb;
     &:hover {
        text-decoration: underline;
-       color: var(--neon-cyan);
+       color: #1d4ed8;
     }
   }
 `;
@@ -99,16 +103,14 @@ const PreviewItem = styled.li`
         display: block;
     }
 
-    [data-theme='professional'] & {
-        border-left: 2px solid var(--border-color); /* Subtle accent */
-        /* Or use accent color? Let's use accent for consistency */
-        border-left-color: var(--neon-pink);
+    [data-theme='professional'] &,
+    [data-theme='modern'] & {
+        border-left: 2px solid #2563eb;
     }
 `;
 
 const ButtonContainer = styled.div`
     text-align: center;
-    /* Add padding to container to prevent border clipping of child button on selection/hover */
     padding: 5px;
 `;
 
@@ -128,14 +130,23 @@ const OpenModalButton = styled.button`
         box-shadow: 0 0 10px var(--neon-yellow);
     }
 
-    [data-theme='professional'] & {
-        background: var(--bg-color);
-        color: var(--neon-pink); /* Blue text */
-        border: 1px solid var(--neon-pink);
+    [data-theme='professional'] &,
+    [data-theme='modern'] & {
+        background: #ffffff;
+        color: #2563eb;
+        border: 1px solid #2563eb;
         font-family: var(--font-main);
         text-transform: none;
-        border-radius: 6px;
-        font-weight: 500;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+        &:hover {
+            background: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+    }
 
         /* Ensure outline doesn't clip */
         outline-offset: 2px;

@@ -77,15 +77,16 @@ const ProgressBar = styled.div`
     left: 0;
     height: 100%;
     width: ${props => props.$progress}%;
-    background: ${props => props.$theme === 'cyberpunk' ? 'var(--neon-cyan)' : 'var(--neon-pink)'};
+    background: ${props => props.$theme === 'cyberpunk' ? 'var(--neon-cyan)' : 'linear-gradient(90deg, #2563eb, #3b82f6)'};
     box-shadow: ${props => props.$theme === 'cyberpunk' ? '0 0 10px var(--neon-cyan)' : 'none'};
     transition: width 0.1s linear;
   }
 `;
 
 const AccessText = styled.h1`
-  color: ${props => props.$theme === 'cyberpunk' ? 'var(--neon-pink)' : 'var(--text-main)'};
+  color: ${props => props.$theme === 'cyberpunk' ? 'var(--neon-pink)' : '#0f172a'};
   font-size: 2rem;
+  font-weight: ${props => props.$theme === 'cyberpunk' ? 'bold' : '600'};
   margin-top: 20px;
   text-align: center;
   text-transform: ${props => props.$theme === 'cyberpunk' ? 'uppercase' : 'none'};

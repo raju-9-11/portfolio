@@ -28,40 +28,34 @@ export const GlobalStyle = createGlobalStyle`
     --bg-size: 40px 40px;
   }
 
-  /* MODERN THEME OVERRIDES */
+  /* PROFESSIONAL / LIGHT THEME */
+  [data-theme='professional'],
   [data-theme='modern'] {
-    /* Cleaner, lighter palette requested by user */
-    --bg-color: #f8fafc; /* Slate-50 - Very light cool gray */
+    --bg-color: #f8fafc; /* Crisp slate-50 */
     --card-bg: #ffffff;
-    --text-main: #334155; /* Slate-700 - Softer than pure black */
+    --text-main: #0f172a; /* Slate-900: sharp, legible contrast */
+    --text-muted: #334155; /* Slate-700 */
     --text-dim: #64748b; /* Slate-500 */
     --border-color: #e2e8f0; /* Slate-200 */
 
-    /* Re-mapped accents to be more harmonious/modern */
-    /* Blue for primary actions/links (replaces neon-cyan) */
-    --neon-cyan: #3182ce; /* Muted Blue - for primary links/actions */
-
-    /* Soft Blue/Indigo for secondary accents (replaces neon-pink) */
-    --neon-pink: #805ad5; /* Muted Purple - for secondary accents */
-
-    /* Amber/Orange for warnings/highlights (replaces neon-yellow) */
+    /* Professional tech palette */
+    --neon-cyan: #2563eb; /* Tech Blue-600 */
+    --neon-pink: #4f46e5; /* Indigo-600 */
     --neon-yellow: #d97706; /* Amber-600 */
-
-    /* Emerald for success (replaces neon-green) */
     --neon-green: #059669; /* Emerald-600 */
 
     --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --border-radius: 12px; /* Slightly tighter radius */
+    --border-radius: 12px;
     --letter-spacing: normal;
     --text-transform: none;
 
-    --bg-image: none;
-    --bg-size: auto;
+    --bg-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    --bg-size: 24px 24px;
   }
 
   * {
     box-sizing: border-box;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
   body {
@@ -70,15 +64,32 @@ export const GlobalStyle = createGlobalStyle`
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: var(--font-main);
-
     background-image: var(--bg-image);
     background-size: var(--bg-size);
+    line-height: 1.5;
   }
 
   h1, h2, h3, h4, h5, h6 {
     text-transform: var(--text-transform);
     letter-spacing: var(--letter-spacing);
     margin: 0 0 10px 0;
+  }
+
+  [data-theme='professional'] h1,
+  [data-theme='professional'] h2,
+  [data-theme='professional'] h3,
+  [data-theme='professional'] h4,
+  [data-theme='professional'] h5,
+  [data-theme='professional'] h6,
+  [data-theme='modern'] h1,
+  [data-theme='modern'] h2,
+  [data-theme='modern'] h3,
+  [data-theme='modern'] h4,
+  [data-theme='modern'] h5,
+  [data-theme='modern'] h6 {
+    color: #0f172a;
+    font-weight: 700;
+    letter-spacing: -0.015em;
   }
 
   a {
@@ -88,19 +99,20 @@ export const GlobalStyle = createGlobalStyle`
 
     &:hover {
       color: var(--neon-pink);
-      /* Only add glow in cyberpunk mode */
       text-shadow: 0 0 5px var(--neon-pink);
     }
   }
 
+  [data-theme='professional'] a,
   [data-theme='modern'] a {
-    color: var(--neon-pink); /* Blue-500 for links */
-  }
-
-  [data-theme='modern'] a:hover {
-    color: var(--neon-cyan); /* Dark slate on hover */
+    color: #2563eb;
     text-shadow: none;
-    text-decoration: underline;
+
+    &:hover {
+      color: #1d4ed8;
+      text-shadow: none;
+      text-decoration: underline;
+    }
   }
 
   /* Custom Scrollbar */
@@ -115,12 +127,18 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
   }
 
+  [data-theme='professional'] ::-webkit-scrollbar-thumb,
   [data-theme='modern'] ::-webkit-scrollbar-thumb {
-     background: #cbd5e1; /* Slate-300 for subtler scrollbar */
+     background: #cbd5e1;
+     border-radius: 4px;
+     &:hover {
+       background: #94a3b8;
+     }
   }
 
+  [data-theme='professional'] ::selection,
   [data-theme='modern'] ::selection {
-    background: rgba(49, 130, 206, 0.1);
-    color: inherit;
+    background: rgba(37, 99, 235, 0.15);
+    color: #0f172a;
   }
 `;

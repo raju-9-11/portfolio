@@ -25,20 +25,38 @@ const Quote = styled.blockquote`
     content: '"';
     color: var(--neon-pink);
   }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #334155;
+    line-height: 1.6;
+
+    &::before, &::after {
+      color: #2563eb;
+    }
+  }
 `;
 
 const Author = styled.div`
   font-size: 0.9rem;
   color: var(--neon-cyan);
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #0f172a;
     font-weight: 600;
   }
 `;
 
 const Title = styled.div`
-    font-size: 0.8rem;
-    color: var(--text-dim);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #64748b;
+    font-size: 0.85rem;
+  }
 `;
 
 const NavButton = styled.button`
@@ -60,23 +78,24 @@ const NavButton = styled.button`
   ${props => props.direction === 'prev' ? 'left: 10px;' : 'right: 10px;'}
 
   /* Professional Theme Overrides */
-  [data-theme='professional'] & {
-    background: white;
-    border: 1px solid var(--border-color);
-    color: var(--text-dim); /* Was neon-yellow/red, now slate */
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 
     &:hover {
-      background: var(--neon-pink); /* Blue-500 accent */
-      color: white;
-      border-color: var(--neon-pink);
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
     }
   }
 `;

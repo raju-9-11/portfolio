@@ -18,6 +18,12 @@ const Item = styled.li`
   &:last-child {
     border-bottom: none;
   }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+  }
 `;
 
 const Title = styled.div`
@@ -27,18 +33,40 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #0f172a;
+    font-weight: 600;
+
+    svg {
+      color: #f59e0b;
+    }
+  }
 `;
 
 const Event = styled.div`
   color: var(--neon-cyan);
   font-size: 0.8rem;
-  margin: 2px 0 2px 24px; /* Indent to align with text */
+  margin: 2px 0 2px 24px;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #2563eb;
+    font-weight: 500;
+  }
 `;
 
 const Desc = styled.div`
   color: var(--text-dim);
   font-size: 0.8rem;
   margin-left: 24px;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #64748b;
+    line-height: 1.5;
+  }
 `;
 
 const Achievements = () => {

@@ -48,13 +48,15 @@ const BannerWrapper = styled.div`
   }
 
   /* Professional Theme */
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     background: #ffffff;
-    color: var(--text-main);
+    color: #0f172a;
     padding: 16px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid var(--neon-pink); /* Blue accent */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
     font-family: var(--font-main);
     font-size: 0.9rem;
   }
@@ -74,6 +76,11 @@ const Message = styled.div`
 const IconWrapper = styled.div`
   margin-top: 2px;
   font-size: 1.1rem;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #2563eb;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -88,6 +95,15 @@ const CloseButton = styled.button`
 
   &:hover {
     opacity: 1;
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #64748b;
+
+    &:hover {
+      color: #0f172a;
+    }
   }
 `;
 

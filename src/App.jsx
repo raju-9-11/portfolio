@@ -17,7 +17,7 @@ import SystemAlert from './components/SystemAlert';
 import { logSystemLogin } from './firebase';
 import BackToTop from './components/common/BackToTop';
 import CyberpunkOverlay from './components/effects/CyberpunkOverlay';
-import ThemeSwitcher from './components/common/ThemeSwitcher';
+import ThemeSwitcher, { FloatingThemeButton } from './components/common/ThemeSwitcher';
 import MobileNav from './components/common/MobileNav';
 import SkipLink from './components/common/SkipLink';
 
@@ -126,6 +126,7 @@ function App() {
       {bootComplete && (
         <MainWrapper>
           <SkipLink />
+          <FloatingThemeButton />
           <CyberpunkOverlay />
           <SystemAlert />
           <BentoGrid id="main-content">

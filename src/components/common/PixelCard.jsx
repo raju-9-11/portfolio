@@ -10,17 +10,24 @@ const StyledContainer = styled.div`
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 
-  /* Professional Theme Base */
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* Professional / Light Theme Base */
+  border-radius: var(--border-radius, 12px);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
   padding: 24px;
   border: 1px solid var(--border-color);
+
+  [data-theme='professional'] &:hover,
+  [data-theme='modern'] &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    border-color: #cbd5e1;
+  }
 
   /* Cyberpunk Theme Overrides */
   [data-theme='cyberpunk'] & {
     padding: 20px;
     border: 2px solid var(--neon-cyan);
-    box-shadow: none;
+    box-shadow: 0 0 8px rgba(0, 243, 255, 0.15);
     border-radius: 0;
 
     /* Pixel/Chamfered corners */
@@ -35,7 +42,7 @@ const StyledContainer = styled.div`
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.15);
       z-index: 10;
     }
 
@@ -50,12 +57,12 @@ const StyledContainer = styled.div`
       background: linear-gradient(
         to bottom,
         transparent 50%,
-        rgba(0, 0, 0, 0.2) 50%
+        rgba(0, 0, 0, 0.25) 50%
       );
       background-size: 100% 4px;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.3;
+      opacity: 0.35;
     }
   }
 `;
@@ -77,13 +84,18 @@ export const CardTitle = styled.h3`
       content: ">";
       margin-right: 10px;
       color: var(--neon-pink);
+      text-shadow: 0 0 8px var(--neon-pink);
     }
   }
 
   /* Professional specific */
+  [data-theme='professional'] &,
   [data-theme='modern'] & {
-    color: var(--text-main);
-    border-bottom: 1px solid var(--border-color);
+    color: #0f172a;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: -0.015em;
+    border-bottom: 1px solid #f1f5f9;
   }
 `;
 

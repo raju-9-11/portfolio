@@ -12,14 +12,30 @@ const Tag = styled.span`
   background: transparent;
   border: 1px solid var(--neon-yellow);
   color: var(--neon-yellow);
-  padding: 5px 10px;
+  padding: 6px 12px;
   font-size: 0.8rem;
   cursor: default;
+  transition: all 0.2s ease;
 
   &:hover {
     background: var(--neon-yellow);
     color: var(--bg-color);
     box-shadow: 0 0 10px var(--neon-yellow);
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    border-radius: 9999px;
+    font-weight: 500;
+
+    &:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+      box-shadow: none;
+    }
   }
 `;
 

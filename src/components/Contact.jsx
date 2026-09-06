@@ -23,6 +23,25 @@ const Input = styled.input`
     border-color: var(--neon-cyan);
     box-shadow: 0 0 5px var(--neon-cyan);
   }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    color: #0f172a;
+    font-size: 0.9rem;
+    padding: 11px 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+
+    &:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    &::placeholder {
+      color: #94a3b8;
+    }
+  }
 `;
 
 const TextArea = styled.textarea`
@@ -38,6 +57,25 @@ const TextArea = styled.textarea`
     outline: none;
     border-color: var(--neon-cyan);
     box-shadow: 0 0 5px var(--neon-cyan);
+  }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    color: #0f172a;
+    font-size: 0.9rem;
+    padding: 11px 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+
+    &:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    &::placeholder {
+      color: #94a3b8;
+    }
   }
 `;
 
@@ -66,6 +104,32 @@ const Button = styled.button`
     cursor: not-allowed;
     transform: none;
   }
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #2563eb;
+    color: #ffffff;
+    border-radius: 6px;
+    clip-path: none;
+    letter-spacing: normal;
+    text-transform: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: #1d4ed8;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      background: #94a3b8;
+      box-shadow: none;
+    }
+  }
 `;
 
 const spin = keyframes`
@@ -86,6 +150,12 @@ const Status = styled.div`
   color: ${props => props.$error ? '#ff5555' : 'var(--neon-green)'};
   font-size: 0.9rem;
   text-align: center;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: ${props => props.$error ? '#dc2626' : '#16a34a'};
+    font-weight: 500;
+  }
 `;
 
 const Contact = () => {

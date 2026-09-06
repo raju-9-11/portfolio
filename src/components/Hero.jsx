@@ -34,7 +34,8 @@ const ProfileSection = styled.div`
     padding-right: 30px;
   }
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     border-right-color: var(--border-color);
   }
 `;
@@ -61,15 +62,16 @@ const Avatar = styled.img`
     box-shadow: 15px 15px 0 var(--neon-pink);
   }
 
-  [data-theme='professional'] & {
-    border: none;
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    border: 3px solid #ffffff;
     border-radius: 50%;
     filter: none;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1), 0 0 0 1px #e2e8f0;
 
     &:hover {
-      transform: none;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px #cbd5e1;
     }
   }
 `;
@@ -85,7 +87,8 @@ const GlitchName = styled.h1`
     font-size: 2rem;
   }
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     color: var(--text-main);
     text-shadow: none;
     text-transform: none;
@@ -100,7 +103,8 @@ const Role = styled.h2`
   padding: 5px 10px;
   border-left: 3px solid var(--neon-green);
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     color: var(--text-dim);
     background: transparent;
     border-left: none;
@@ -127,7 +131,8 @@ const TerminalBox = styled.div`
     font-size: 0.9rem;
   }
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     background: transparent;
     border: none;
     font-family: var(--font-main);
@@ -187,17 +192,19 @@ const SocialBtn = styled.a`
     box-shadow: 0 0 10px var(--neon-cyan);
   }
 
-  [data-theme='professional'] & {
-    background: var(--bg-color);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
     border: 1px solid var(--border-color);
     color: var(--text-main);
-    border-radius: 6px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
     &:hover {
-      background: var(--neon-cyan); /* Accent color */
+      background: #2563eb;
       color: white;
-      border-color: var(--neon-cyan);
-      box-shadow: none;
+      border-color: #2563eb;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
     }
   }
 `;
@@ -242,9 +249,10 @@ const Spinner = styled.div`
   height: 40px;
   animation: ${spin} 1s linear infinite;
 
-  [data-theme='professional'] & {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--neon-pink);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    border: 4px solid rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #2563eb;
   }
 `;
 

@@ -7,13 +7,19 @@ export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const queryTheme = params.get('theme');
+      if (queryTheme === 'cyberpunk') return 'cyberpunk';
+      if (queryTheme === 'professional' || queryTheme === 'light' || queryTheme === 'modern') return 'professional';
+    }
     const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme === 'professional') return 'modern';
-    return savedTheme || 'modern';
+    if (savedTheme === 'modern') return 'professional';
+    return savedTheme || 'professional';
   });
 
   const toggleTheme = () => {
-    const newTheme = theme === 'cyberpunk' ? 'modern' : 'cyberpunk';
+    const newTheme = theme === 'cyberpunk' ? 'professional' : 'cyberpunk';
     setTheme(newTheme);
     localStorage.setItem('portfolio-theme', newTheme);
   };

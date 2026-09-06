@@ -26,11 +26,12 @@ const JobItem = styled.div`
     box-shadow: 0 0 5px var(--neon-pink);
   }
 
-  [data-theme='professional'] & {
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
     border-left: 2px solid var(--border-color);
     &::before {
-      background: var(--neon-cyan);
-      box-shadow: none;
+      background: #2563eb;
+      box-shadow: 0 0 0 3px #dbeafe;
       border-radius: 50%;
     }
   }
@@ -47,11 +48,25 @@ const Company = styled.h4`
   color: var(--neon-yellow);
   margin: 0;
   font-size: 1.1rem;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #0f172a;
+    font-weight: 700;
+  }
 `;
 
 const Dates = styled.span`
   font-size: 0.8rem;
   color: var(--text-dim);
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
 `;
 
 const Role = styled.div`
@@ -59,6 +74,12 @@ const Role = styled.div`
   font-size: 0.9rem;
   margin: 5px 0;
   font-weight: bold;
+
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #2563eb;
+    font-weight: 600;
+  }
 `;
 
 const Description = styled.p`

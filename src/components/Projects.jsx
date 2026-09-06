@@ -38,17 +38,18 @@ const ProjectCard = styled.div`
   overflow: hidden;
 
   /* Professional Theme Override */
-  [data-theme='professional'] & {
-    background: var(--bg-color); /* Lightest Slate */
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #ffffff;
     border: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    border-radius: 8px;
-    overflow: visible; /* Allow shadows to bleed */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    overflow: hidden;
 
     &:hover,
     &:focus-within {
-      border-color: var(--neon-pink); /* Blue-500 */
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      border-color: #3b82f6;
+      box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.08);
       transform: translateY(-2px);
     }
   }
@@ -93,15 +94,18 @@ const ProjectTitle = styled.h4`
   }
 
   /* Simplify for professional theme */
-  [data-theme='professional'] & {
-    color: var(--text-main);
-    font-weight: 600;
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #0f172a;
+    font-weight: 700;
   }
 
   [data-theme='professional'] ${ProjectCard}:hover &,
-  [data-theme='professional'] ${ProjectCard}:focus-within & {
+  [data-theme='professional'] ${ProjectCard}:focus-within &,
+  [data-theme='modern'] ${ProjectCard}:hover &,
+  [data-theme='modern'] ${ProjectCard}:focus-within & {
     animation: none;
-    color: var(--neon-pink);
+    color: #2563eb;
   }
 `;
 
@@ -121,10 +125,13 @@ const TechTag = styled.span`
   padding: 2px 5px;
   font-weight: bold;
 
-  [data-theme='professional'] & {
-    background: var(--border-color); /* Slate-200 */
-    color: var(--text-dim); /* Slate-600 */
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
     border-radius: 4px;
+    font-weight: 500;
   }
 `;
 
@@ -136,8 +143,9 @@ const Description = styled.p`
   position: relative;
   z-index: 1;
 
-  [data-theme='professional'] & {
-    color: var(--text-main);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #334155;
   }
 `;
 
@@ -149,9 +157,11 @@ const Status = styled.span`
   white-space: nowrap;
   animation: ${pulseAnim} 2s infinite;
 
-  [data-theme='professional'] & {
-    border: none;
-    background: rgba(5, 150, 105, 0.1);
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    border: 1px solid #a7f3d0;
+    background: #ecfdf5;
+    color: #059669;
     border-radius: 4px;
     animation: none;
     font-weight: 600;
@@ -179,14 +189,15 @@ const ProjectLink = styled.a`
     text-shadow: 0 0 5px var(--neon-yellow);
   }
 
-  [data-theme='professional'] & {
-    color: var(--text-dim);
-    font-weight: 500;
+  [data-theme='professional'] &,
+  [data-theme='modern'] & {
+    color: #2563eb;
+    font-weight: 600;
 
     &:hover {
-      color: var(--neon-pink); /* Blue-500 */
+      color: #1d4ed8;
       text-shadow: none;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
 `;
