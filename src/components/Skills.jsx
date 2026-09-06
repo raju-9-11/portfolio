@@ -4,11 +4,14 @@ import { skillsData } from '../data/portfolio';
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 12px;
 `;
 
 const SkillBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.05);
   padding: 10px;
   border: 1px solid var(--text-dim);
@@ -38,10 +41,13 @@ const SkillBar = styled.div`
 const SkillName = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
   font-size: 0.82rem;
   color: var(--neon-cyan);
   font-weight: 500;
+  white-space: nowrap;
 
   [data-theme='professional'] &,
   [data-theme='modern'] & {

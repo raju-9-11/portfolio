@@ -16,12 +16,14 @@ export const skillsData = [
   { name: "Swift", level: 90, category: "Mobile" },
   { name: "SwiftUI", level: 85, category: "Mobile" },
   { name: "UIKit", level: 85, category: "Mobile" },
+  { name: "Agentic Coding", level: 90, category: "AI" },
+  { name: "AI / LLMs", level: 85, category: "AI" },
   { name: "React", level: 70, category: "Frontend" },
   { name: "Firebase", level: 75, category: "Backend" },
+  { name: "Linux", level: 80, category: "OS" },
+  { name: "Kotlin", level: 60, category: "Language" },
   { name: "Android", level: 60, category: "Mobile" },
   { name: "Java", level: 65, category: "Language" },
-  { name: "Kotlin", level: 60, category: "Language" },
-  { name: "Linux", level: 80, category: "OS" },
   { name: "React Native", level: 30, category: "Mobile" },
 ];
 
