@@ -319,7 +319,7 @@ const skillCategories = [
       { name: 'Zoho Catalyst', level: 75 },
       { name: 'Firebase & Auth', level: 75 },
       { name: 'React & Web Apps', level: 70 },
-      { name: 'AWS (Beginner)', level: 50 }
+      { name: 'AWS', level: 50 }
     ],
     tags: ['Zoho Catalyst', 'Serverless', 'NoSQL Datastore', 'AWS EC2/S3']
   }
