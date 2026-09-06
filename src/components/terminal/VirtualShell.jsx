@@ -186,7 +186,7 @@ export const VirtualShell = ({ onOpenResume, onAskRook }) => {
   theme [light|cyber]- Switch portfolio visual theme
   resume            - Open official resume PDF modal
   goto <section>    - Navigate to (projects, experience, skills, contact)
-  ask <query>       - Query Rook Agent (MiniMax AI)
+  ask <query>       - Query Rook Agent
   uname -a          - Print kernel & architecture specs
   dmesg             - Show recent kernel & board bringup logs
   whoami            - Print current identity`,
@@ -345,7 +345,7 @@ Kotlin & Android [=========] 60%`,
 [    0.689201] pcie-dw-rockchip fe150000.pcie: host bridge /pcie@fe150000 ranges:
 [    0.892011] rknpu: NPU core initialized (6.0 TOPS compute cluster online)
 [    1.204192] hermes-daemon[421]: Tailscale mesh interface connected (100.121.113.13)
-[    1.503290] rook-agent[422]: Initialized MiniMax engine. Ready.`,
+[    1.503290] rook-agent[422]: Initialized agent engine. Ready.`,
           color: "var(--neon-cyan)"
         });
         break;

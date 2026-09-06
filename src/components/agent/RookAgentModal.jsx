@@ -375,7 +375,7 @@ export const RookAgentModal = ({ externalPrompt, onClearExternalPrompt, onOpenRe
                 <FaRobot color="#22c55e" size={18} />
                 <div>
                   Rook Agent
-                  <small>Model: MiniMax AI | Feed: Live GitHub</small>
+                  <small>Live GitHub Context</small>
                 </div>
               </HeaderTitle>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
